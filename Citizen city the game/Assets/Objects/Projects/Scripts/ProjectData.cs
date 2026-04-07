@@ -3,23 +3,23 @@ using UnityEngine;
 public enum ProjectType
 {
     Personal,
-    Group,
+    Provicial,
     Open
 }
 
 [CreateAssetMenu(fileName = "NewProject", menuName = "Project/New Project")]
 public class ProjectData : ScriptableObject
 {
-    public string ProjectName;
+    public string Name;
     [Tooltip("Personal: all data from the same player used in project \n Group: data from different municipalities needed for project completion \n Open: for the multiplier project")]
-    public ProjectType ProjectType;
+    public ProjectType Type;
     [Tooltip("Image not required")]
-    public Sprite ProjectImage;
-    public string ProjectDescription;
+    public Sprite Image;
+    public string Description;
     public List<DataRequired> NeededData;
     public int ScoreValue;
 
-    public bool HasRequiredColor( Color targetColor)
+    public bool HasColor( Color targetColor)
     {
         foreach (DataRequired requirement in NeededData)
         {
@@ -30,6 +30,7 @@ public class ProjectData : ScriptableObject
         }
         return false;
     }
+
 }
 
 public class DataRequired

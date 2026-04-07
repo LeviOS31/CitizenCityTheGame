@@ -312,7 +312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db162556942cf2847a38d9ccddcbcec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCard
-  player: {fileID: 11400000, guid: 2012d19d5b2abfe4781dfbc6413432ab, type: 2}
   background: {fileID: 724766992}
   icon: {fileID: 869204550}
   _name: {fileID: 1238477317}
@@ -342,7 +341,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db162556942cf2847a38d9ccddcbcec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCard
-  player: {fileID: 11400000, guid: 852f837bdc263954fa0a3edb833831cc, type: 2}
   background: {fileID: 1218839229}
   icon: {fileID: 2089886891}
   _name: {fileID: 934527427}
@@ -1167,16 +1165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de448202f5cbbe14497dea8c43e87693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameController
-  players:
-  - {fileID: 11400000, guid: 1f3e0ef5742c9e446b75f47f635edae6, type: 2}
-  - {fileID: 11400000, guid: 2012d19d5b2abfe4781dfbc6413432ab, type: 2}
-  - {fileID: 11400000, guid: 852f837bdc263954fa0a3edb833831cc, type: 2}
-  - {fileID: 11400000, guid: bbf882ac64a4cb84f9918c98677be62c, type: 2}
-  cardHolderUI: {fileID: 1648905475}
   totalPlayers: 4
   roundNumber: 0
   turnNumber: 0
-  activePlayer: {fileID: 0}
 --- !u!4 &821226500
 Transform:
   m_ObjectHideFlags: 0
@@ -1356,7 +1347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db162556942cf2847a38d9ccddcbcec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCard
-  player: {fileID: 11400000, guid: bbf882ac64a4cb84f9918c98677be62c, type: 2}
   background: {fileID: 1769975687}
   icon: {fileID: 930044224}
   _name: {fileID: 135578993}

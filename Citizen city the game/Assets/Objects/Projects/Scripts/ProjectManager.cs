@@ -38,7 +38,7 @@ public class Projects : MonoBehaviour
         }
 
         shuffle(PersonalProjects);
-        ProjectData project = PersonalProjects.First();
+        ProjectData project = Instantiate(PersonalProjects.First());
 
         foreach (DataRequired data in project.NeededData)
         {
@@ -59,9 +59,9 @@ public class Projects : MonoBehaviour
         shuffle(GroupProjects);
         foreach (ProjectData project in GroupProjects)
         {
-            if (project.HasRequiredColor(color))
+            if (project.HasColor(color))
             {
-                return project;
+                return Instantiate(project);
             }
         }
 
@@ -78,6 +78,6 @@ public class Projects : MonoBehaviour
         }
 
         shuffle(OpenProjects);
-        return OpenProjects.First();
+        return Instantiate(OpenProjects.First());
     }
 }
