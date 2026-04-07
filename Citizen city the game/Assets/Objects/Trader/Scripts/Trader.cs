@@ -19,20 +19,9 @@ public class Trader
 
     public void AcceptTrade()
     {
+        initiatingPlayer.TradeCards(cardsRequested, cardsOffered);
 
-        foreach(DataCard card in cardsOffered)
-        {
-            card.IsTradable = false;
-            receivingPlayer.cards.Add(card);
-            initiatingPlayer.cards.Remove(card);
-        }
-
-        foreach (DataCard card in cardsRequested)
-        {
-            card.IsTradable = false;
-            initiatingPlayer.cards.Add(card);
-            receivingPlayer.cards.Remove(card);
-        }
+        receivingPlayer.TradeCards(cardsOffered, cardsRequested);
 
         ClearTradeVariables();
     }
