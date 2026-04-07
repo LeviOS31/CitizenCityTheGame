@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -115,5 +116,7 @@ public class CardHolderUI : MonoBehaviour
     private void ToggleRender(bool isTradingWindowActive)
     {
         gameObject.SetActive(!isTradingWindowActive);
+
+        if (!isTradingWindowActive) CreateCards(player);
     }
 }

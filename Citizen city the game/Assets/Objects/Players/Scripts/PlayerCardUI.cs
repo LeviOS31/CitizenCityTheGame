@@ -31,7 +31,7 @@ public class PlayerCardUI : MonoBehaviour
         interactableComponent.onClick.AddListener(() => FindAnyObjectByType<TradingWindowUI>().OpenTradingMenu(player));
         gameController = FindAnyObjectByType<GameController>();
         gameController.NewTurn += NewTurn;
-        this.player.OnDrawCard += CreateCard;
+        this.player.OnDrawCard += card => CreateCard(card, true);
         this.player.OnTradeCards += TradeCards;
     }
 
@@ -49,7 +49,7 @@ public class PlayerCardUI : MonoBehaviour
         scoreMulitplier.text = player.scoreMultiplier.ToString();
     }
 
-    private void CreateCard(DataCard playerCard)
+    private void CreateCard(DataCard playerCard, bool updatePostion)
     {
         GameObject cardInstance = Instantiate(cardPrefab);
         cardInstance.transform.SetParent(splineContainer.transform, true);
@@ -57,22 +57,25 @@ public class PlayerCardUI : MonoBehaviour
         //cardInstance.GetComponent<DataCardUI>().OnHover += RedrawCardPositions;
         cardEntities.Add(playerCard, cardInstance);
         cardInstance.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        UpdateCardPositions();
+        
+        if (updatePostion) UpdateCardPositions();
     }
 
     public void TradeCards(List<DataCard> cardsReceived, List<DataCard> cardsGiven)
     {
         foreach(DataCard card in cardsReceived)
         {
-            CreateCard(card);
+            CreateCard(card, false);
         }
         
         foreach(DataCard card in cardsGiven)
         {
+            cardEntities[card].transform.DOKill();
             Destroy(cardEntities[card]);
             cardEntities.Remove(card);
-            UpdateCardPositions();
         }
+
+        UpdateCardPositions();
     }
 
     public void ToggleInteractability(Player activePlayer)
