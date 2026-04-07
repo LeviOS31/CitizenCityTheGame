@@ -18,6 +18,7 @@ public class ProjectData : ScriptableObject
     public string Description;
     public List<DataRequired> NeededData;
     public int ScoreValue;
+    public bool IsDone;
 
     public bool HasColor( Color targetColor)
     {
