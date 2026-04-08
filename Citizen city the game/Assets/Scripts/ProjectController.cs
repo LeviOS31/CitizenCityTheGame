@@ -70,7 +70,7 @@ public class ProjectController : MonoBehaviour
 
     public void swipe(bool right)
     {
-        if (currentState != State.choosing)return;
+        if (currentState != State.choosing) return;
 
         if (right)
         {
@@ -114,3 +114,18 @@ public class ProjectController : MonoBehaviour
         UpdateUI(projects.First());
     }
 }
+
+    //public void DataSpaceDone(List<DataSpaceOption> dataSpaceOption)
+    //{
+    //    foreach (DataSpaceOption option in dataSpaceOption)
+    //    {
+    //        DataRequirement? req = projects.First().DataList.Find(item => item.type == option.dataType);
+    //        if (req != null)
+    //        {
+    //            req.isMet = true;
+    //            continue;
+    //        } 
+    //    }
+
+    //    UpdateUI(projects.First());
+    //}}
