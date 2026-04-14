@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ProjectPrefac : MonoBehaviour
 {
-    ProjectData project;
+    public ProjectData project;
 
     public TextMeshProUGUI ProjectName;
     public TextMeshProUGUI ProjectDescription;
@@ -13,35 +13,70 @@ public class ProjectPrefac : MonoBehaviour
     public Image ProjectTypeColor2;
     public Image ProjectImage;
     public GameObject Datapanel;
+    bool finished;
 
     public GameObject NeededDataPrefab;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Assigninfo(project);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (finished) return;
+        bool alldone = true;
+        foreach (DataRequired data in project.NeededData)
+        {
+            if (!data.IsMet)
+            {
+                alldone = false;
+            }
+        }
+
+        if (alldone)
+        {
+            finish();
+        }
+    }
+
+    void finish()
+    {
+        finished = true;
+        GetComponent<Animator>().SetTrigger("complete");
         
     }
 
-    void Assinginfo(ProjectData _project)
+    void Assigninfo(ProjectData _project)
     {
         project = _project;
 
-        ProjectName.text = project.name;
+        ProjectName.text = project.Name;
         ProjectDescription.text = project.Description;
         ProjectTypeColor1.color = project.Type == ProjectType.Personal ? new Color(0.365f, 0.6f, 1.0f) : new Color(0.918f, 0.247f, 0.247f);
         ProjectTypeColor2.color = project.Type == ProjectType.Personal ? new Color(0.365f, 0.6f, 1.0f) : new Color(0.918f, 0.247f, 0.247f);
         Points.text = "+" + project.ScoreValue;
         ProjectImage.sprite = project.Image;
 
+        
+
+        foreach (Transform child in transform.Find("DataPanel"))
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
         foreach (DataRequired data in project.NeededData)
         {
-            GameObject instance = Instantiate(NeededDataPrefab, this.transform);
+            GameObject instance = Instantiate(NeededDataPrefab, transform.Find("DataPanel"));
             instance.GetComponent<neededdataprefab>().SetData(data);
+            instance.GetComponent<Button>().onClick.AddListener(() => ClickedNeededData(data));
         }
+    }
+
+    void ClickedNeededData(DataRequired data)
+    {
+        Debug.Log("Clicked: " + data.Color.ToString() + " " + data.CardType.name);
+        data.IsMet = true; //TODO: replace with checks and stuff to make sure player has correct cards
     }
 }

@@ -1,23 +1,36 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class neededdataprefab : MonoBehaviour
 {
     DataRequired data;
+    bool changed;
+    bool ismet = false;
 
     public Image DataColor;
     public Image DataIcon;
     public Image Checked;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (changed)
+        {
+            reload();
+            changed = false;
+        }
+
+        if (data != null && data.IsMet && !ismet)
+        {
+            GetComponent<Button>().interactable = false;
+            changed = true;
+            ismet = true;
+        }
     }
 
     public void SetData(DataRequired _data)
@@ -29,11 +42,10 @@ public class neededdataprefab : MonoBehaviour
         Checked.color = data.IsMet ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
     }
 
-    public void Clicked()
+    public void reload()
     {
-        //TODO: add some sort of event call or something to request if the player has the right card 
-        Debug.Log("clicked on data");
-
-        data.IsMet = true;
+        DataColor.color = data.Color;
+        DataIcon.sprite = data.CardType.dataIcon;
+        Checked.color = data.IsMet ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
     }
 }

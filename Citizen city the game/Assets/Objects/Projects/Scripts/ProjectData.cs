@@ -15,8 +15,9 @@ public class ProjectData : ScriptableObject
     public ProjectType Type;
     [Tooltip("Image not required")]
     public Sprite Image;
+    [TextArea(3, 10)]
     public string Description;
-    public List<DataRequired> NeededData;
+    public List<DataRequired> NeededData = new List<DataRequired>();
     public int ScoreValue;
     public bool IsDone;
 
@@ -34,6 +35,7 @@ public class ProjectData : ScriptableObject
 
 }
 
+[System.Serializable]
 public class DataRequired
 {
     public DataCardType CardType;

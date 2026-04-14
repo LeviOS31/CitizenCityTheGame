@@ -12,9 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
   m_Name: Personal_Project_1
   m_EditorClassIdentifier: Assembly-CSharp::ProjectData
-  ProjectName: 
-  ProjectType: 0
-  ProjectIcon: {fileID: 0}
-  ProjectDescription: 
-  NeededData: []
-  ScoreValue: 0
+  Name: The Lumen Spire
+  Type: 0
+  Image: {fileID: 0}
+  Description: "The Lumen Spire is set to become Eindhoven\u2019s newest architectural
+    landmark, soaring above the Strijp-S district. This 160-meter residential tower
+    blends the city\u2019s industrial Philips heritage with futuristic \"City of
+    Light\" aesthetics. Featuring integrated vertical gardens and smart-grid technology,
+    the project represents the pinnacle of Brainport innovation.\n\nConstruction
+    will utilize carbon-neutral materials to ensure a sustainable footprint for the
+    next generation of tech professionals. This spire isn't just a building; it\u2019s
+    a beacon of progress for the Netherlands. Once completed, the base will host
+    public galleries and cafes, bridging the gap between high-tech living and vibrant
+    community culture."
+  NeededData:
+  - CardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
+    Color: {r: 0.30588236, g: 0.34509805, b: 1, a: 1}
+    IsMet: 1
+  - CardType: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
+    Color: {r: 0.30588236, g: 0.34509805, b: 1, a: 1}
+    IsMet: 1
+  - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
+    Color: {r: 0.30588236, g: 0.34509805, b: 1, a: 1}
+    IsMet: 0
+  ScoreValue: 15
+  IsDone: 0
