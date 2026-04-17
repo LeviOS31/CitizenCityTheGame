@@ -1,13 +1,19 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TradingWindowUI : MonoBehaviour
 {
     [SerializeField] GameObject dataCardPrefab;
+    [SerializeField] GameObject tradingWindow;
     [SerializeField] GameObject offerContainer;
     [SerializeField] GameObject requestContainer;
+    [SerializeField] GameObject acceptButton;
+    [SerializeField] GameObject refuseButton;
+    [SerializeField] GameObject cardHolder;
 
     Trader _trader = new Trader();
 
@@ -17,13 +23,22 @@ public class TradingWindowUI : MonoBehaviour
     List<DataCardUI> offerSelection = new List<DataCardUI>();
     List<DataCardUI> requestSelection = new List<DataCardUI>();
 
+    public static event Action<bool> OpenTradingWindow;
+
     public void OpenTradingMenu(Player receivingPlayer)
     {
+        RefuseTrade();
+
+        tradingWindow.SetActive(true);
+        acceptButton.SetActive(false);
+        refuseButton.SetActive(false);
+        OpenTradingWindow.Invoke(true);
+
         if (initiatingPlayer == null) 
         {
             initiatingPlayer = FindAnyObjectByType<GameController>().activePlayer;
             this.receivingPlayer = receivingPlayer;
-        }
+        } 
 
         foreach (DataCard card in initiatingPlayer.cards)
         { 
@@ -53,24 +68,45 @@ public class TradingWindowUI : MonoBehaviour
         ClearValues();
     }
 
-    public void StartTrading()
+    public void StartTrade()
     {
+        acceptButton.SetActive(true);
+        refuseButton.SetActive(true);
+
         List<DataCard> offer = new List<DataCard>();
         List<DataCard> request = new List<DataCard>();
 
-        foreach (DataCardUI element in offerSelection)
+        foreach (DataCardUI dataCard in offerSelection)
         {
-            if (element.isSelected)
+            Destroy(dataCard.gameObject);
+        }
+
+        foreach (DataCardUI dataCard in requestSelection)
+        {
+            Destroy(dataCard.gameObject);
+        }
+
+        foreach (DataCardUI dataCard in offerSelection)
+        {
+            Debug.Log(offerSelection.Count);
+            if (dataCard.isSelected)
             {
-                offer.Add(element.dataCard);
+                offer.Add(dataCard.dataCard);
+                DataCardUI cardInstance = Instantiate(dataCardPrefab).GetComponent<DataCardUI>();
+                cardInstance.Initialize(dataCard.dataCard, false);
+                cardInstance.transform.SetParent(offerContainer.transform, false);
             }
         }
 
-        foreach (DataCardUI element in requestSelection)
+        foreach (DataCardUI dataCard in requestSelection)
         {
-            if (element.isSelected)
+            Debug.Log(requestSelection.Count);
+            if (dataCard.isSelected)
             {
-                request.Add(element.dataCard);
+                request.Add(dataCard.dataCard);
+                DataCardUI cardInstance = Instantiate(dataCardPrefab).GetComponent<DataCardUI>();
+                cardInstance.Initialize(dataCard.dataCard, false);
+                cardInstance.transform.SetParent(requestContainer.transform, false);
             }
         }
 
@@ -81,12 +117,14 @@ public class TradingWindowUI : MonoBehaviour
     {
         _trader.AcceptTrade();
         ClearValues();
+        tradingWindow.SetActive(false);
     }
 
     public void RefuseTrade()
     {
         _trader.RefuseTrade();
         ClearValues();
+        tradingWindow.SetActive(false);
     }
 
     public void CounterOffer()
@@ -103,17 +141,20 @@ public class TradingWindowUI : MonoBehaviour
         initiatingPlayer = null;
         receivingPlayer = null;
 
-        foreach (DataCardUI element in offerSelection)
+        foreach (DataCardUI dataCard in offerContainer.GetComponentsInChildren<DataCardUI>())
         {
-            Destroy(element.gameObject);
+            Destroy(dataCard.gameObject);
         }
 
-        foreach (DataCardUI element in requestSelection)
+        foreach (DataCardUI dataCard in requestContainer.GetComponentsInChildren<DataCardUI>())
         {
-            Destroy(element.gameObject);
+            Destroy(dataCard.gameObject);
         }
 
         offerSelection.Clear();
         requestSelection.Clear();
+        acceptButton.SetActive(false);
+        refuseButton.SetActive(false);
+        OpenTradingWindow.Invoke(false);
     }
 }

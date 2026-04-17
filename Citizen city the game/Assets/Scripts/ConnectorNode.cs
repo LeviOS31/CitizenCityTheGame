@@ -8,8 +8,8 @@ public class ConnectorNode : MonoBehaviour
 {
     public bool isConnected = false;
     public ConnectorNode nodePair;
-    [SerializeField] Player playerOne;
-    [SerializeField] Player playerTwo;
+    [SerializeField] public Player playerOne;
+    [SerializeField] public Player playerTwo;
 
     [SerializeField] Image playerOneColor;
     [SerializeField] Image playerTwoColor;
