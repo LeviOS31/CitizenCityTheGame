@@ -22,7 +22,7 @@ public class CardHolderUI : MonoBehaviour
         TradingWindowUI.OpenTradingWindow += ToggleRender;
     }
 
-    private void CreateCards(Player player)
+    public void CreateCards(Player player) //TODO: Make private again
     {
         if (player != null) 
         {

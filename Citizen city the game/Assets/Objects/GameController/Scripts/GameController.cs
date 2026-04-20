@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     public int roundNumber = 0;
     public int turnNumber = 0;
 
-    private DataCardType[] dataCardTypes;
+    public DataCardType[] dataCardTypes; //TODO: Make private again
     private ConnectorNode[] connectorNodes;
     private List<PlayerCardUI> playerCards;
 
