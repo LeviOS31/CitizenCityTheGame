@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -11,8 +12,12 @@ public class TrailerTrigger : MonoBehaviour
     public Animator build;
     public GameController controller;
     public CardHolderUI cardholder;
-    public Animator DataspaceUIAnim;
+    public Animator DataspaceUICompaniesAnim;
+    public Animator DataspaceUIMunicipalitiesAnim;
+    public GameObject DataspaceButton;
+    public GameObject DataspaceSetupButton;
 
+    bool setup = false;
     bool playing = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,25 +47,34 @@ public class TrailerTrigger : MonoBehaviour
         {
             BuildingAnim();
         }
+
     }
 
     async Task DataspaceModelAnim()
     {
         playing = true;
         cameraanim.SetTrigger("move1");
+
+        await Task.Delay(1000);
+        DataspaceUIMunicipalitiesAnim.SetTrigger("open");
+        await Task.Delay(1000);
+        DataspaceUIMunicipalitiesAnim.SetTrigger("complete");
+
         cardsanim.gameObject.SetActive(true);
         moneyanim.gameObject.SetActive(true);
-        await Task.Delay(500);
+        await Task.Delay(4000);
         cardsanim.SetTrigger("cards");
         await Task.Delay(3000);
         moneyanim.SetTrigger("coins");
+        controller.activePlayer.cards.Add(new DataCard(controller.dataCardTypes.FirstOrDefault(obj => obj.dataType == "Civil"), new Color(1,0,0)));
+        cardholder.CreateCards(controller.activePlayer);
         await Task.Delay(2000);
         cardsanim.gameObject.SetActive(false);
         moneyanim.gameObject.SetActive(false);
         playing = false;
     }
 
-    void PopupAnim()
+    async Task PopupAnim()
     {
         popupanim.SetTrigger("open");
     }
@@ -87,12 +101,29 @@ public class TrailerTrigger : MonoBehaviour
 
     public async void DataSpaceSetupCity()
     {
+        if (setup)
+        {
+            return;
+        }
+
         await Task.Delay(200);
         cameraanim.SetTrigger("move3");
         await Task.Delay(1000);
-        DataspaceUIAnim.SetTrigger("open");
+        DataspaceUICompaniesAnim.SetTrigger("open");
         await Task.Delay(1000);
-        DataspaceUIAnim.SetTrigger("complete");
+        DataspaceUICompaniesAnim.SetTrigger("complete");
+        await Task.Delay(2000);
+        DataspaceButton.SetActive(true);
+        DataspaceSetupButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Connect municipalities";
 
+        setup = true;
+
+        DataspaceSetupButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => ConnectMunicipalities());
+
+    }
+
+    public void ConnectMunicipalities()
+    {
+        DataspaceModelAnim();
     }
 }
