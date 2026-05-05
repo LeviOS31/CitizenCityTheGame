@@ -25,6 +25,8 @@ public class ProjectPrefab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (project == null) return;
+
         if (finished) return;
         bool alldone = true;
         foreach (DataRequired data in project.NeededData)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Disctrict project E
   m_EditorClassIdentifier: Assembly-CSharp::ProjectData
   Name: District E buildings
-  Type: 0
+  Type: 1
   Image: {fileID: 0}
   Description: "District E is a transformative three-tower development poised to
     redefine the entrance to Eindhoven. Rising up to 140 meters directly across from

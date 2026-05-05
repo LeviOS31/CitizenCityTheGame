@@ -11,12 +11,16 @@ public class ProjectController : MonoBehaviour
     private List<ProjectData> AllGroupProjects;
     private List<ProjectData> AllOpenProjects;
 
-    private void Start()
+    private void Awake()
     {
         AllPersonalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Personal"));
         AllGroupProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Group"));
         AllOpenProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Open"));
 
+    }
+
+    private void Start()
+    {
         OpenProject = GetOpenProject();
     }
 
@@ -52,6 +56,8 @@ public class ProjectController : MonoBehaviour
 
     public ProjectData GetPersonalProject(Color color)
     {
+        Debug.Log(AllGroupProjects.Count);
+
         if (AllPersonalProjects.Count == 0)
         {
             Debug.LogWarning("No personal projects available.");

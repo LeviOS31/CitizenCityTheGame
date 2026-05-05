@@ -3,7 +3,7 @@ using UnityEngine;
 public enum ProjectType
 {
     Personal,
-    Provicial,
+    Provincial,
     Open
 }
 

@@ -45,9 +45,12 @@ public class GameController : MonoBehaviour
             playerCardUI.ToggleInteractability(activePlayer);
         }
 
-        projectController.ReloadProjects(activePlayer);
-
         StartNewRound();
+
+        Debug.Log("Active Player: " + activePlayer.name);
+        Debug.Log("Active Player: " + activePlayer.color);
+
+        projectController.ReloadProjects(activePlayer);
     }
 
     private void StartNewRound()

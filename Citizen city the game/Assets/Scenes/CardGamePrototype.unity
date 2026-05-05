@@ -266,6 +266,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182d56aae170e3e4192f4502a78e2906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConnectorNode
+--- !u!224 &199313261 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2600703705508498863, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
+  m_PrefabInstance: {fileID: 1080844370}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &216277651
 GameObject:
   m_ObjectHideFlags: 0
@@ -6248,10 +6253,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1533043639639668632, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1365686719}
+    - target: {fileID: 1533043639639668632, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ProjectsUI, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2600703705508498863, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2856033024481900175, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
+      propertyPath: FolderFront
+      value: 
+      objectReference: {fileID: 199313261}
+    - target: {fileID: 3485179429589648468, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5261026252116669710, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6283,11 +6304,31 @@ PrefabInstance:
     - target: {fileID: 5858562258659656934, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6927021270903973688, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1365686719}
+    - target: {fileID: 6927021270903973688, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Close
+      objectReference: {fileID: 0}
+    - target: {fileID: 6927021270903973688, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ProjectsUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7789027243644420438, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
       propertyPath: m_Name
       value: Projects
       objectReference: {fileID: 0}
+    - target: {fileID: 8997136426124296311, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098957824194328568, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
+      propertyPath: FolderFront
+      value: 
+      objectReference: {fileID: 199313261}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6463,6 +6504,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &1172255011 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6874182546448732199, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
+  m_PrefabInstance: {fileID: 1080844370}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177d1721325a7584fa2aa13fc02435a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Projects
 --- !u!1 &1199221975
 GameObject:
   m_ObjectHideFlags: 0
@@ -6856,6 +6908,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1365686719 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9098957824194328568, guid: b99ae2f0cd3f7604e85ade2fc2c13569, type: 3}
+  m_PrefabInstance: {fileID: 1080844370}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c70719d790edda4fa41a3cbdfc770f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectsUI
 --- !u!1 &1378028702
 GameObject:
   m_ObjectHideFlags: 0
@@ -8515,6 +8578,10 @@ PrefabInstance:
       propertyPath: playerContainer
       value: 
       objectReference: {fileID: 703086846}
+    - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
+      propertyPath: projectController
+      value: 
+      objectReference: {fileID: 1172255011}
     - target: {fileID: 7217448981430755583, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
       propertyPath: m_Name
       value: GameController
