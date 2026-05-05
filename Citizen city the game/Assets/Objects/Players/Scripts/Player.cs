@@ -11,7 +11,8 @@ public class Player
     public float scoreMultiplier = 0f;
     public Color color;
     public List<DataCard> cards = new List<DataCard>();
-    public List<ProjectCard> projectCards = new List<ProjectCard>();
+    public List<ProjectData> PersonalProjects = new List<ProjectData>();
+    public List<ProjectData> ProvicialProjects = new List<ProjectData>();
 
     private DataCardType[] dataCardTypes;
 
@@ -30,10 +31,10 @@ public class Player
        score += scorePerTurn;
     }
 
-    public void DrawProjectCard()
-    {
-        projectCards.Add(new ProjectCard());
-    }
+    //public void DrawProjectCard()
+    //{
+    //    projectCards.Add(new ProjectCard());
+    //}
 
     public void DrawDataCard(DataCardType[] dataCardTypes)
     {

@@ -1127,7 +1127,7 @@ GameObject:
   - component: {fileID: 1573590112968065903}
   m_Layer: 5
   m_Name: ProjectPaper
-  m_TagString: Untagged
+  m_TagString: ProjectPaper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

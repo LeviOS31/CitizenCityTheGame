@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ProjectPrefac : MonoBehaviour
+public class ProjectPrefab : MonoBehaviour
 {
     public ProjectData project;
 
@@ -16,8 +16,8 @@ public class ProjectPrefac : MonoBehaviour
     bool finished;
 
     public GameObject NeededDataPrefab;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public void Initialize()
     {
         Assigninfo(project);
     }

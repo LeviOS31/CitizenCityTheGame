@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] List<Color> availableColors = new List<Color>();
     [SerializeField] PlayerContainerUI playerContainer;
+    [SerializeField] ProjectController projectController;
     public List<Player> players = new List<Player>();
     public Player activePlayer;
     public int totalPlayers = 4;
@@ -43,6 +44,8 @@ public class GameController : MonoBehaviour
         {
             playerCardUI.ToggleInteractability(activePlayer);
         }
+
+        projectController.ReloadProjects(activePlayer);
 
         StartNewRound();
     }
@@ -89,6 +92,8 @@ public class GameController : MonoBehaviour
             activePlayer = players[0];
             StartNewRound();
         }
+
+        projectController.ReloadProjects(activePlayer);
 
         foreach (PlayerCardUI playerCard in playerCards) 
         {

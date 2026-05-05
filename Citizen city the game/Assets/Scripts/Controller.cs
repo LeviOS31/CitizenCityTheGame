@@ -16,13 +16,13 @@ public class Controller : MonoBehaviour
     private Vector2 endPos;
 
     private bool isSwiping = false;
-    private ProjectController projectController;
+    //private ProjectController projectController;
 
     [SerializeField] private float minSwipeDistance = 1f;
 
     private void Start()
     {
-        projectController = GetComponent<ProjectController>();
+        //projectController = GetComponent<ProjectController>();
     }
 
     void Update()
@@ -91,13 +91,13 @@ public class Controller : MonoBehaviour
     void OnSwipeRight()
     {
         Debug.Log("Swipe Right");
-        projectController.swipe(true);
+        //projectController.swipe(true);
     }
 
     void OnSwipeLeft()
     {
         Debug.Log("Swipe Left");
-        projectController.swipe(false);
+        //projectController.swipe(false);
     }
 
     void OnSwipeUp()
