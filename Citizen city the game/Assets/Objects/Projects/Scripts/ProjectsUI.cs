@@ -1,7 +1,8 @@
-using NUnit.Framework;
+using Assets.Objects.Projects.Scripts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using System;
 
 public class ProjectsUI : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class ProjectsUI : MonoBehaviour
     public GameObject PrevButton;
 
     private GameObject CurProject;
+
+    public event Action<DataRequired> CheckCards;
 
     public void ReloadProjectsUI(List<ProjectData> personalProjects, List<ProjectData> provincialProjects, ProjectData OpenProject)
     {
@@ -32,6 +35,8 @@ public class ProjectsUI : MonoBehaviour
             projectPaper.GetComponent<ProjectPrefab>().Initialize();
 
             projectPaper.transform.SetAsFirstSibling();
+
+            projectPaper.GetComponent<ProjectPrefab>().onclick += OnNeededDataClick;
         }
 
         foreach (ProjectData project in provincialProjects)
@@ -46,6 +51,8 @@ public class ProjectsUI : MonoBehaviour
             projectPaper.GetComponent<ProjectPrefab>().Initialize();
 
             projectPaper.transform.SetAsFirstSibling();
+
+            projectPaper.GetComponent<ProjectPrefab>().onclick += OnNeededDataClick;
         }
 
         //TODO: load in open project
@@ -89,7 +96,7 @@ public class ProjectsUI : MonoBehaviour
         CurProject = PaperParent.GetChild(curindex + 1).gameObject;
         CurProject.GetComponent<Animator>().SetTrigger("Previous");
     }
-    public void GoToPersonalProject() 
+    public void GoToPersonalProject()
     {
         foreach (Transform child in PaperParent)
         {
@@ -97,7 +104,7 @@ public class ProjectsUI : MonoBehaviour
         }
         CurProject = PaperParent.GetChild(PaperParent.childCount - 1).gameObject;
     }
-    public void GoToGroupProject() 
+    public void GoToGroupProject()
     {
         foreach (Transform child in PaperParent)
         {
@@ -113,7 +120,7 @@ public class ProjectsUI : MonoBehaviour
             }
         }
     }
-    public void GoToOpenProject() 
+    public void GoToOpenProject()
     {
         foreach (Transform child in PaperParent)
         {
@@ -124,5 +131,11 @@ public class ProjectsUI : MonoBehaviour
 
         }
         CurProject = PaperParent.GetChild(0).gameObject;
+    }
+
+    public void OnNeededDataClick(DataRequired data)
+    {
+        Debug.Log("sending to controller " + data.CardType);
+        CheckCards?.Invoke(data);
     }
 }

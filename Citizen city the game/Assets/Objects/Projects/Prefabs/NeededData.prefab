@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 5479291067896006298}
   m_Layer: 5
   m_Name: NeededData
-  m_TagString: Untagged
+  m_TagString: NeededDataUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -315,7 +315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd75dfd625d73843aaddd7db138c01f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  customCursor: {fileID: 2800000, guid: 74d550217afcbf64e93b703f7066c1cf, type: 3}
   DataColor: {fileID: 779848030279666498}
   DataIcon: {fileID: 3122435002688280124}
   Checked: {fileID: 8882415562922249878}

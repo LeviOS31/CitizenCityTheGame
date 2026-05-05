@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,8 @@ public class ProjectPrefab : MonoBehaviour
     bool finished;
 
     public GameObject NeededDataPrefab;
+
+    public event Action<DataRequired> onclick;
 
     public void Initialize()
     {
@@ -45,6 +48,7 @@ public class ProjectPrefab : MonoBehaviour
 
     void finish()
     {
+        Debug.Log("Project " + project.Name + " is finished!");
         finished = true;
         GetComponent<Animator>().SetTrigger("complete");
         
@@ -72,13 +76,13 @@ public class ProjectPrefab : MonoBehaviour
         {
             GameObject instance = Instantiate(NeededDataPrefab, transform.Find("DataPanel"));
             instance.GetComponent<neededdataprefab>().SetData(data);
-            instance.GetComponent<Button>().onClick.AddListener(() => ClickedNeededData(data));
+            instance.GetComponent<Button>().onClick.AddListener(() => onclickbutton(data));
         }
     }
 
-    void ClickedNeededData(DataRequired data)
+    void onclickbutton(DataRequired data)
     {
-        Debug.Log("Clicked: " + data.Color.ToString() + " " + data.CardType.name);
-        data.IsMet = true; //TODO: replace with checks and stuff to make sure player has correct cards
+        Debug.Log("Clicked on " + data.CardType);
+        onclick.Invoke(data);
     }
 }

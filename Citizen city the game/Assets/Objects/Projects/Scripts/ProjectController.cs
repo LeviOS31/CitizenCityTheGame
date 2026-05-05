@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Objects.Projects.Scripts;
+using UnityEditor.PackageManager.Requests;
 
 public class ProjectController : MonoBehaviour
 {
@@ -22,9 +24,10 @@ public class ProjectController : MonoBehaviour
     private void Start()
     {
         OpenProject = GetOpenProject();
+        GetComponent<ProjectsUI>().CheckCards += CheckPlayerCards;
     }
 
-    private List<ProjectData> shuffle (List<ProjectData> list)
+    private List<ProjectData> shuffle(List<ProjectData> list)
     {
         int i = list.Count;
         while (i > 1)
@@ -38,7 +41,7 @@ public class ProjectController : MonoBehaviour
         return list;
     }
 
-    public void ReloadProjects(Player player) 
+    public void ReloadProjects(Player player)
     {
         activeplayer = player;
 
@@ -106,5 +109,30 @@ public class ProjectController : MonoBehaviour
 
         shuffle(AllOpenProjects);
         return Instantiate(AllOpenProjects.First());
+    }
+
+    public void CheckPlayerCards(DataRequired Data)
+    {
+        Debug.Log("checking " + Data.CardType + " with color " + Data.Color);
+        if (activeplayer != null)
+        {
+            List<DataCard> remove = new List<DataCard>();
+
+            foreach (DataCard card in activeplayer.cards)
+            {
+                if (card.CardType == Data.CardType && card.Color == Data.Color)
+                {
+                    Debug.Log("card found");
+                    remove.Add(card);
+                    Data.IsMet = true;
+                    break;
+                }
+            }
+
+            foreach (DataCard card in remove)
+            {
+                activeplayer.cards.Remove(card);
+            }
+        }
     }
 }
