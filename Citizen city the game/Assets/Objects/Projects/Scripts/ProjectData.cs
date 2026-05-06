@@ -21,11 +21,14 @@ public class ProjectData : ScriptableObject
     public int ScoreValue;
     public bool IsDone;
 
-    public bool HasColor( Color targetColor)
+    public bool HasColor(Color targetColor)
     {
+        Debug.Log("Project: " + Name);
+        Debug.Log("ColorToCheck: " + targetColor);
         foreach (DataRequired requirement in NeededData)
         {
-            if (requirement.Color == targetColor)
+            Debug.Log("color: " + requirement.Color);
+            if (Vector4.Distance(requirement.Color, targetColor) < 0.01)
             {
                 return true;
             }
