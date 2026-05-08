@@ -23,11 +23,8 @@ public class ProjectData : ScriptableObject
 
     public bool HasColor(Color targetColor)
     {
-        Debug.Log("Project: " + Name);
-        Debug.Log("ColorToCheck: " + targetColor);
         foreach (DataRequired requirement in NeededData)
-        {
-            Debug.Log("color: " + requirement.Color);
+        {;
             if (Vector4.Distance(requirement.Color, targetColor) < 0.01)
             {
                 return true;
