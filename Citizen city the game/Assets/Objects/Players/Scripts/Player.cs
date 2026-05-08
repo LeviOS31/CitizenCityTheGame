@@ -13,7 +13,7 @@ public class Player
     public List<DataCard> cards = new List<DataCard>();
     public List<ProjectData> PersonalProjects = new List<ProjectData>();
     public List<ProjectData> ProvicialProjects = new List<ProjectData>();
-
+    public List<DataSpaceData> DataSpaces = new List<DataSpaceData>();
     private DataCardType[] dataCardTypes;
 
     public event Action<DataCard> OnDrawCard;
