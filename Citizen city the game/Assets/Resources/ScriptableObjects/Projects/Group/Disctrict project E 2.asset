@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
+  m_Name: Disctrict project E 2
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectData
+  Name: District E buildings
+  Type: 1
+  Image: {fileID: 0}
+  Description: "District E is a transformative three-tower development poised to
+    redefine the entrance to Eindhoven. Rising up to 140 meters directly across from
+    the Central Station, this project addresses the city\u2019s urgent housing shortage
+    by adding over 700 diverse apartments to the Brainport core. By replacing a paved
+    transit square with lush \"urban forests\" and a 4,500-space bicycle hub, the
+    towers act as a sustainable gateway that prioritizes people over cars. This high-density
+    hub isn't just about height; it\u2019s a strategic effort to turn a transit \"dead
+    zone\" into a vibrant, climate-resilient neighborhood where tech professionals
+    and locals can connect in public gardens and glass-walled cafes. Once finished,
+    District E will serve as the heartbeat of a modernized, vertical Eindhoven."
+  NeededData:
+  - CardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
+    Color: {r: 0, g: 0.60784316, b: 0.07058824, a: 1}
+    IsMet: 0
+  - CardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
+    Color: {r: 1, g: 0.6784314, b: 0, a: 1}
+    IsMet: 0
+  - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
+    Color: {r: 0, g: 0.60784316, b: 0.07058824, a: 1}
+    IsMet: 0
+  ScoreValue: 15
+  IsDone: 0

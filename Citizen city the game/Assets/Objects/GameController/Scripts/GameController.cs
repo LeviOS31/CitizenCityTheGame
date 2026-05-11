@@ -10,13 +10,14 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] List<Color> availableColors = new List<Color>();
     [SerializeField] PlayerContainerUI playerContainer;
+    [SerializeField] ProjectController projectController;
     public List<Player> players = new List<Player>();
     public Player activePlayer;
     public int totalPlayers = 4;
     public int roundNumber = 0;
     public int turnNumber = 0;
 
-    private DataCardType[] dataCardTypes;
+    public DataCardType[] dataCardTypes; //TODO: Make private again
     private ConnectorNode[] connectorNodes;
     private List<PlayerCardUI> playerCards;
 
@@ -45,6 +46,11 @@ public class GameController : MonoBehaviour
         }
 
         StartNewRound();
+
+        Debug.Log("Active Player: " + activePlayer.name);
+        Debug.Log("Active Player: " + activePlayer.color);
+
+        projectController.ReloadProjects(activePlayer);
     }
 
     private void StartNewRound()
@@ -89,6 +95,8 @@ public class GameController : MonoBehaviour
             activePlayer = players[0];
             StartNewRound();
         }
+
+        projectController.ReloadProjects(activePlayer);
 
         foreach (PlayerCardUI playerCard in playerCards) 
         {
