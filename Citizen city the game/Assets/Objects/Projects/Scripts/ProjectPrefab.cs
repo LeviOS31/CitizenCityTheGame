@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class ProjectPrefab : MonoBehaviour
     public Image ProjectTypeColor1;
     public Image ProjectTypeColor2;
     public Image ProjectImage;
+    public GameObject Stamp;
     public GameObject Datapanel;
     bool finished;
 
@@ -40,18 +42,25 @@ public class ProjectPrefab : MonoBehaviour
             }
         }
 
-        if (alldone)
+        if (alldone && !project.IsDone)
         {
             finish();
         }
+        else if (project.IsDone)
+        {
+            Stamp.SetActive(true);
+        }
     }
 
-    void finish()
+    async Task finish()
     {
         Debug.Log("Project " + project.Name + " is finished!");
         finished = true;
         GetComponent<Animator>().SetTrigger("complete");
-        
+        project.IsDone = true;
+        await Task.Delay(917);
+        Stamp.SetActive(true);
+
     }
 
     void Assigninfo(ProjectData _project)

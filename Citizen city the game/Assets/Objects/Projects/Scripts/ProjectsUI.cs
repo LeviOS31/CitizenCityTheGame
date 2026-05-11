@@ -120,18 +120,6 @@ public class ProjectsUI : MonoBehaviour
             }
         }
     }
-    public void GoToOpenProject()
-    {
-        foreach (Transform child in PaperParent)
-        {
-            if (child.GetComponent<ProjectPrefab>().project.Type != ProjectType.Open)
-            {
-                child.GetComponent<Animator>().SetTrigger("Next");
-            }
-
-        }
-        CurProject = PaperParent.GetChild(0).gameObject;
-    }
 
     public void OnNeededDataClick(DataRequired data)
     {
