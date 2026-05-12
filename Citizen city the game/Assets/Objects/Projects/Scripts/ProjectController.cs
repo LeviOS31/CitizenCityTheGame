@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Objects.Projects.Scripts;
-using UnityEditor.PackageManager.Requests;
 
 public class ProjectController : MonoBehaviour
 {

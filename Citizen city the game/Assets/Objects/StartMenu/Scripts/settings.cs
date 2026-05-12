@@ -7,13 +7,21 @@ public class settings : MonoBehaviour
     public GameObject VideoButton;
     public GameObject AudioButton;
     public GameObject CreditButton;
+    public GameObject PrefabVideosettings;
+    public GameObject PrefabAudiosettings;
+    public GameObject PrefabAccesibilitysettings;
+
+    private GameObject Content;
+
     public void Video()
     {
         VideoButton.GetComponent<Button>().interactable = false;
         AudioButton.GetComponent<Button>().interactable = true;
         CreditButton.GetComponent<Button>().interactable = true;
 
-        GetComponent<Image>().color = VideoButton.GetComponent<Image>().color;   
+        Content = Instantiate(PrefabVideosettings, transform);
+
+        GetComponent<Image>().color = VideoButton.GetComponent<Image>().color;
     }
 
     public void Audio()
