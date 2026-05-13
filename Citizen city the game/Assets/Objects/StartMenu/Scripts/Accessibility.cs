@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Accessibility : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class Accessibility : MonoBehaviour
 
     private void Awake()
     {
-        PlayerPrefs.DeleteAll();
         DontDestroyOnLoad(this.gameObject);
     }
 

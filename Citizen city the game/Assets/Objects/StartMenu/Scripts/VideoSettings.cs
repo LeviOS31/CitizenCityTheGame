@@ -23,6 +23,8 @@ public class VideoSettings : MonoBehaviour
 
     void GetCurrentDisplay()
     {
+        displaychoice.ClearOptions();
+
         List<DisplayInfo> displays = new List<DisplayInfo>();
         Screen.GetDisplayLayout(displays);
 
