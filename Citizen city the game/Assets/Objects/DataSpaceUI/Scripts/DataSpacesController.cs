@@ -5,11 +5,12 @@ public class DataSpacesController : MonoBehaviour
 {
     public GameController gameController;
     [SerializeField] List<DataCardType> dataCardTypes;
+    private Player activeplayer;
     public List<DataSpaceData> dataSpaces = new List<DataSpaceData>();
     private List<DataSpaceDataRequired> dataForRegionalDataSpaces;
     private List<DataSpaceDataRequired> dataForMunicipalDataSpaces;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         int dataSpaceId = 0;
         for (int i = 0; i < gameController.totalPlayers; i++)
@@ -26,7 +27,7 @@ public class DataSpacesController : MonoBehaviour
 
                 if (j >= dataCardTypes.Count)
                 {
-                    DataSpaceDataRequired data = new DataSpaceDataRequired(dataCardTypes[cardTypeCount], gameController.players[i+1].color, false);
+                    DataSpaceDataRequired data = new DataSpaceDataRequired(dataCardTypes[cardTypeCount], gameController.players[i + 1].color, false);
                     dataForRegionalDataSpaces.Add(data);
                     cardTypeCount++;
                 }
@@ -40,7 +41,7 @@ public class DataSpacesController : MonoBehaviour
             DataSpaceData regionalDataSpace = new DataSpaceData(dataSpaceId, DataSpaceType.regional, dataForRegionalDataSpaces, 250, false);
             dataSpaces.Add(regionalDataSpace);
             dataSpaceId++;
-            for(int k =0; k<dataCardTypes.Count; k++)
+            for (int k = 0; k < dataCardTypes.Count; k++)
             {
                 if (cardTypeCount <= dataCardTypes.Count)
                 {
@@ -56,9 +57,84 @@ public class DataSpacesController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SubmitData(DataSpaceData data)
     {
+        foreach(DataSpaceData dataSpace in activeplayer.DataSpaces)
+        {
+            if(dataSpace.id == data.id)
+            {
+                foreach(DataSpaceDataRequired dataRequired in dataSpace.neededData)
+                {
+                    CheckPlayerCards(dataRequired);
+                }
+            }
+        }
+    }
 
+    public void ReloadPlayer(Player player)
+    {
+        activeplayer = player;
+
+        if (activeplayer.DataSpaces.Count == 0)
+        {
+            foreach(DataSpaceData dataSpace in dataSpaces)
+            {
+                bool theRightDataspace = false;
+                foreach(DataSpaceDataRequired data in dataSpace.neededData)
+                {
+                    if (data.color == player.color)
+                    {
+                        theRightDataspace = true;
+                    }
+                }
+
+                if (theRightDataspace)
+                {
+                    activeplayer.DataSpaces.Add(dataSpace);
+                }
+            }            
+        }
+    }
+
+    public void CheckPlayerCards(DataSpaceDataRequired Data)
+    {
+        if (activeplayer != null)
+        {
+            List<DataCard> remove = new List<DataCard>();
+
+            foreach (DataCard card in activeplayer.cards)
+            {
+                if (card.CardType == Data.cardType && card.Color == Data.color)
+                {
+                    Debug.Log("card found");
+                    remove.Add(card);
+                    Data.isMet = true;
+                    break;
+                }
+            }
+
+            foreach (DataCard card in remove)
+            {
+                activeplayer.cards.Remove(card);
+            }
+        }
+    }
+
+    public bool EnableDataSpace(DataSpaceData dataspace)
+    {
+        int check = 0;
+        foreach(DataSpaceDataRequired data in dataspace.neededData)
+        {
+            if (data.isMet)
+            {
+                check++;
+            }
+        }
+
+        if(check == dataspace.neededData.Count)
+        {
+            dataspace.enabled = true;
+        }
+        return dataspace.enabled;
     }
 }

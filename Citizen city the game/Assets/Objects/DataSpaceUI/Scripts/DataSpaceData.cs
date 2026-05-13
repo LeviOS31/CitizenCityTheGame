@@ -5,15 +5,15 @@ public class DataSpaceData : MonoBehaviour
 {
     public int id;
     public DataSpaceType type;
-    public List<DataSpaceDataRequired> NeededData = new List<DataSpaceDataRequired>();
+    public List<DataSpaceDataRequired> neededData = new List<DataSpaceDataRequired>();
     public int cost;
     public bool isEnabled;
 
-    public DataSpaceData (int id, DataSpaceType type, List<DataSpaceDataRequired> NeededData, int cost, bool isEnabled)
+    public DataSpaceData (int id, DataSpaceType type, List<DataSpaceDataRequired> neededData, int cost, bool isEnabled)
     {
         this.id = id;
         this.type = type;
-        this.NeededData = NeededData;
+        this.neededData = neededData;
         this.cost = cost;
         this.isEnabled = isEnabled;
     }

@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     [SerializeField] List<Color> availableColors = new List<Color>();
     [SerializeField] PlayerContainerUI playerContainer;
     [SerializeField] ProjectController projectController;
+    [SerializeField] DataSpacesController dataSpaceController;
     public List<Player> players = new List<Player>();
     public Player activePlayer;
     public int totalPlayers = 4;
@@ -51,6 +52,7 @@ public class GameController : MonoBehaviour
         Debug.Log("Active Player: " + activePlayer.color);
 
         projectController.ReloadProjects(activePlayer);
+        dataSpaceController.ReloadPlayer(activePlayer);
     }
 
     private void StartNewRound()
@@ -97,6 +99,7 @@ public class GameController : MonoBehaviour
         }
 
         projectController.ReloadProjects(activePlayer);
+        dataSpaceController.ReloadPlayer(activePlayer);
 
         foreach (PlayerCardUI playerCard in playerCards) 
         {
