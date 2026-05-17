@@ -162,6 +162,7 @@ public class SpelerData
 
     public void BerekenScore()
     {
+        // We gebruiken de scorewaarde van 10 punten per item uit je voorbeeld
         scoreAuto = aantalAuto * 10;
         scoreStroom = aantalStroom * 10;
         scoreBoom = aantalBoom * 10;
@@ -170,20 +171,44 @@ public class SpelerData
 
         int basisScore = scoreAuto + scoreStroom + scoreBoom + scorePoppetje + scoreHuis;
 
-        int[] alleScores = { scoreAuto, scoreStroom, scoreBoom, scorePoppetje, scoreHuis };
-        int minScore = Mathf.Min(alleScores);
-        int maxScore = Mathf.Max(alleScores);
-
-        if (maxScore == 0)
+        if (basisScore == 0)
         {
             algemeneScore = 0;
             return;
         }
 
-        // Variatie score-bonus berekening
-        float balansVerhouding = (float)minScore / maxScore;
-        float bonusMultiplier = 1.0f + (balansVerhouding * 0.5f);
+        // 1. VARIATIE-BONUS: Hoeveel unieke categorieën heeft deze speler geactiveerd (> 0)?
+        int actieveCategorieen = 0;
+        if (aantalAuto > 0) actieveCategorieen++;
+        if (aantalStroom > 0) actieveCategorieen++;
+        if (aantalBoom > 0) actieveCategorieen++;
+        if (aantalPoppetje > 0) actieveCategorieen++;
+        if (aantalHuis > 0) actieveCategorieen++;
 
-        algemeneScore = Mathf.RoundToInt(basisScore * bonusMultiplier);
+        // Bonus: +10% per extra categorie bovenop de eerste (maximaal +40% bonus bij alle 5 typen actief)
+        float variatieBonus = Mathf.Max(0, (actieveCategorieen - 1) * 0.10f);
+
+        // 2. ACTIEVE BALANS-BONUS: Hoe goed zijn de categorieën verdeeld die de speler wel heeft gebouwd?
+        float balansBonus = 0f;
+        int[] alleScores = { scoreAuto, scoreStroom, scoreBoom, scorePoppetje, scoreHuis };
+
+        // Filter alle 0-scores eruit om de balans van de actieve keuzes te bepalen
+        var actieveScores = alleScores.Where(s => s > 0).ToArray();
+
+        if (actieveScores.Length > 1)
+        {
+            float minActief = actieveScores.Min();
+            float maxActief = actieveScores.Max();
+            float balansVerhouding = minActief / maxActief;
+
+            // Maximaal +30% bonus voor een perfecte verdeling tussen de gebouwde categorieën
+            balansBonus = balansVerhouding * 0.30f;
+        }
+
+        // Totale multiplier = Basis (100%) + Variatie Bonus + Actieve Balans Bonus
+        float totaleMultiplier = 1.0f + variatieBonus + balansBonus;
+
+        // Eindscore berekenen en afronden naar een heel getal
+        algemeneScore = Mathf.RoundToInt(basisScore * totaleMultiplier);
     }
 }
