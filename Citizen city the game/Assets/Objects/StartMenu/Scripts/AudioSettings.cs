@@ -38,4 +38,14 @@ public class AudioSettings : MonoBehaviour
         Mixer.SetFloat("BackgroundVolume", backgrounddB);
         Mixer.SetFloat("EffectsVolume", effectdB);
     }
+
+    public void TestBG()
+    {
+
+    }
+
+    public void TestEffect()
+    {
+
+    }
 }

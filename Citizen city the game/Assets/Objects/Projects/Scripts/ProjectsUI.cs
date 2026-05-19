@@ -73,6 +73,9 @@ public class ProjectsUI : MonoBehaviour
     public async void Open()
     {
         GetComponent<Animator>().SetTrigger("open");
+
+        AudioSignalHandler.PlaySound.Invoke("FolderOpen");
+
         await Task.Delay(1000);
         FolderFront.SetAsFirstSibling();
         CurProject = PaperParent.GetChild(PaperParent.childCount - 1).gameObject;
@@ -82,6 +85,7 @@ public class ProjectsUI : MonoBehaviour
     {
         FolderFront.SetSiblingIndex(transform.childCount - 3);
         GetComponent<Animator>().SetTrigger("close");
+        AudioSignalHandler.PlaySound.Invoke("FolderClose");
     }
 
     public void NextProject()
