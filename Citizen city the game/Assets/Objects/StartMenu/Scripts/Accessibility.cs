@@ -5,14 +5,12 @@ public class Accessibility : MonoBehaviour
 {
     public TMP_FontAsset NormalFont;
     public TMP_FontAsset HighContrastFont;
-
     public TMP_FontAsset FontTNRoman;
     public TMP_FontAsset FontComicSans;
     public TMP_FontAsset FontOpenSans;
 
     private void Awake()
     {
-        PlayerPrefs.DeleteAll();
         DontDestroyOnLoad(this.gameObject);
     }
 

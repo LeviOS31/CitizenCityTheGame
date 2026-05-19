@@ -15,7 +15,7 @@ public class settings : MonoBehaviour
 
     public void OnEnable()
     {
-        Video();
+        Audio();
     }
 
     public void Video()

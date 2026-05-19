@@ -76,13 +76,26 @@ public class ProjectsUI : MonoBehaviour
 
         AudioSignalHandler.PlaySound.Invoke("FolderOpen");
 
+        foreach (Transform child in PaperParent)
+        {
+            child.GetComponent<Animator>().ResetTrigger("Next");
+            child.GetComponent<Animator>().ResetTrigger("Previous");
+        }
+
         await Task.Delay(1000);
         FolderFront.SetAsFirstSibling();
         CurProject = PaperParent.GetChild(PaperParent.childCount - 1).gameObject;
     }
 
-    public void Close()
+    public async void Close()
     {
+        foreach (Transform child in PaperParent)
+        {
+            child.GetComponent<Animator>().SetTrigger("Previous");
+        }
+
+        await Task.Delay(1000);
+
         FolderFront.SetSiblingIndex(transform.childCount - 3);
         GetComponent<Animator>().SetTrigger("close");
 
