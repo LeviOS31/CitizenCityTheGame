@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
     [SerializeField] List<Color> availableColors = new List<Color>();
     [SerializeField] PlayerContainerUI playerContainer;
     public List<Player> players = new List<Player>();
-    public Player activePlayer;
+    public static Player activePlayer;
     public int totalPlayers = 4;
     public int roundNumber = 0;
     public int turnNumber = 0;
@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
     private ConnectorNode[] connectorNodes;
     private List<PlayerCardUI> playerCards;
 
-    public Action<Player> NewTurn;
+    public static Action<Player> NewTurn;
 
     void Start()
     {
@@ -78,6 +78,13 @@ public class GameController : MonoBehaviour
     public void EndTurn()
     {
         turnNumber++;
+
+        foreach (PlayerCardUI playerCard in playerCards)
+        {
+            playerCard.UpdateUI();
+            playerCard.ToggleInteractability(activePlayer);
+        }
+
         if (turnNumber < players.Count)
         {
             activePlayer = players[turnNumber];
@@ -88,12 +95,7 @@ public class GameController : MonoBehaviour
             roundNumber++;
             activePlayer = players[0];
             StartNewRound();
-        }
-
-        foreach (PlayerCardUI playerCard in playerCards) 
-        {
-            playerCard.UpdateUI();
-            playerCard.ToggleInteractability(activePlayer);
+            return;
         }
 
         NewTurn.Invoke(activePlayer);

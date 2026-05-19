@@ -11,7 +11,7 @@ public class DataCard
 
     public DataCard(DataCardType cardType, Color color, bool tradable)
     {
-        ID = new Guid();
+        ID = Guid.NewGuid();
         CardType = cardType;
         Color = color;
         IsTradable = tradable;
@@ -19,6 +19,7 @@ public class DataCard
 
     public DataCard(DataCardType cardType, Color color)
     {
+        ID = Guid.NewGuid();
         CardType = cardType;
         Color = color;
     }
