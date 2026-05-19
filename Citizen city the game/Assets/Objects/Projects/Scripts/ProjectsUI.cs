@@ -85,12 +85,16 @@ public class ProjectsUI : MonoBehaviour
     {
         FolderFront.SetSiblingIndex(transform.childCount - 3);
         GetComponent<Animator>().SetTrigger("close");
+
         AudioSignalHandler.PlaySound.Invoke("FolderClose");
     }
 
     public void NextProject()
     {
         CurProject.GetComponent<Animator>().SetTrigger("Next");
+
+        AudioSignalHandler.PlaySound.Invoke("FolderOpen");
+
         int curIndex = CurProject.transform.GetSiblingIndex();
         CurProject = PaperParent.GetChild(curIndex - 1).gameObject;
     }
@@ -99,6 +103,8 @@ public class ProjectsUI : MonoBehaviour
         int curindex = CurProject.transform.GetSiblingIndex();
         CurProject = PaperParent.GetChild(curindex + 1).gameObject;
         CurProject.GetComponent<Animator>().SetTrigger("Previous");
+
+        AudioSignalHandler.PlaySound.Invoke("FolderClose");
     }
     public void GoToPersonalProject()
     {

@@ -8532,6 +8532,10 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4078187635563374965, guid: d1a4c4aafa639044b836238ca6a39479, type: 3}
+      propertyPath: playBGAudioOnStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8488696481340074194, guid: d1a4c4aafa639044b836238ca6a39479, type: 3}
       propertyPath: m_Name
       value: SoundPlayer

@@ -16,9 +16,22 @@ public class AudioController : MonoBehaviour
         BackgroundAudioClips = new List<AudioClip>(Resources.LoadAll<AudioClip>("Sound/Background"));
         EffectAudioClips = new List<AudioClip>(Resources.LoadAll<AudioClip>("Sound/Effects"));
 
-        PlayBackground();
+        if (playBGAudioOnStart)
+        {
+            PlayBackground();
+        }
 
         AudioSignalHandler.PlaySound += PlayEffect;
+    }
+
+    private void OnDisable()
+    {
+        AudioSignalHandler.PlaySound -= PlayEffect;
+    }
+
+    private void OnDestroy()
+    {
+        AudioSignalHandler.PlaySound -= PlayEffect;
     }
 
     public void PlayEffect(string audioname)
@@ -63,6 +76,16 @@ public class AudioController : MonoBehaviour
         if (this == null) return;
 
         BackgroundAudio.Stop();
+    }
+
+    public async Task PlayEffectForSecond()
+    {
+        int random = Random.Range(0, EffectAudioClips.Count - 1);
+        AudioClip clip = EffectAudioClips[random];
+
+        GameObject instance = Instantiate(EffectAudio, transform);
+        EffectAudio audio = instance.GetComponent<EffectAudio>();
+        audio.Playaudio(clip);
     }
 
 }

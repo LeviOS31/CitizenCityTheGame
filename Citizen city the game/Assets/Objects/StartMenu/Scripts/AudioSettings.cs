@@ -41,11 +41,11 @@ public class AudioSettings : MonoBehaviour
 
     public void TestBG()
     {
-
+        FindObjectsByType<AudioController>(FindObjectsSortMode.None)[0].PlayBGForSecond();
     }
 
     public void TestEffect()
     {
-
+        FindObjectsByType<AudioController>(FindObjectsSortMode.None)[0].PlayEffectForSecond();
     }
 }
