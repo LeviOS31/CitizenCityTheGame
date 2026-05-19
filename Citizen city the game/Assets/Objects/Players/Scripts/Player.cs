@@ -74,6 +74,7 @@ public class Player
 
     public void ReceiveConsultantCards(List<DataCard> receivedCards)
     {
+        Debug.Log("Received cards count " + receivedCards.Count);
         foreach (DataCard card in receivedCards)
         {
             card.IsTradable = false;

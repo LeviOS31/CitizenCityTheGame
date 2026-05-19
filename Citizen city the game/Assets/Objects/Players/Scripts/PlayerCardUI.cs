@@ -52,8 +52,6 @@ public class PlayerCardUI : MonoBehaviour
 
     private void CreateCard(DataCard playerCard, bool updatePostion)
     {
-        Debug.Log(cardEntities.Count);
-
         GameObject cardInstance = Instantiate(cardPrefab);
         cardInstance.transform.SetParent(splineContainer.transform, true);
         cardInstance.GetComponent<DataCardUI>().Initialize(playerCard, false);

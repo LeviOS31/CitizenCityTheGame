@@ -38,8 +38,6 @@ public class ConsultantManager
             }
         }
 
-        Debug.Log("Active consultants " + playerHiredConsultants[activePlayer].Count);
-
         if (playerHiredConsultants.Count == 0)
         {
             GameController.NewTurn -= UpdateInProgressConsultants;
@@ -58,7 +56,6 @@ public class ConsultantManager
         if (!playerHiredConsultants.ContainsKey(hiredConsultant.requestingPlayer)) playerHiredConsultants.Add(hiredConsultant.requestingPlayer, new List<HiredConsultant>());
 
         playerHiredConsultants[hiredConsultant.requestingPlayer].Add(hiredConsultant);
-        Debug.Log("Added");
     }
 
     public void SetConsultantOptions(Consultant[] consultants)

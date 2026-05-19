@@ -25,7 +25,7 @@ public class ConsultantUI : MonoBehaviour
         foreach(DataCardType card in consultant.Specializations) 
         {
             GameObject instance = Instantiate(specializtionIconPrefab);
-            specializtionIconPrefab.GetComponent<Image>().sprite = card.dataIcon;
+            instance.GetComponent<Image>().sprite = card.dataIcon;
             instance.transform.SetParent(specializationContainer.transform, false);
         }
 
