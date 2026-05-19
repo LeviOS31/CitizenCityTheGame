@@ -6,7 +6,7 @@ public class DataSpacesController : MonoBehaviour
     public GameController gameController;
     [SerializeField] List<DataCardType> dataCardTypes;
     private Player activeplayer;
-    public List<DataSpaceData> dataSpaces = new List<DataSpaceData>();
+    private List<DataSpaceData> dataSpaces = new List<DataSpaceData>();
     private List<DataSpaceDataRequired> dataForRegionalDataSpaces;
     private List<DataSpaceDataRequired> dataForMunicipalDataSpaces;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,16 +57,17 @@ public class DataSpacesController : MonoBehaviour
         }
     }
 
-    public void SubmitData(DataSpaceData data)
+    public void SubmitData(int id)
     {
         foreach(DataSpaceData dataSpace in activeplayer.DataSpaces)
         {
-            if(dataSpace.id == data.id)
+            if(dataSpace.id == id)
             {
                 foreach(DataSpaceDataRequired dataRequired in dataSpace.neededData)
                 {
                     CheckPlayerCards(dataRequired);
                 }
+                return;
             }
         }
     }
@@ -120,9 +121,18 @@ public class DataSpacesController : MonoBehaviour
         }
     }
 
-    public bool EnableDataSpace(DataSpaceData dataspace)
+    public bool EnableDataSpace(int id)
     {
         int check = 0;
+        DataSpaceData dataspace = null;
+        foreach(DataSpaceData space in activeplayer.DataSpaces)
+        {
+            if(space.id == id)
+            {
+                dataspace = space;
+            }
+        }
+
         foreach(DataSpaceDataRequired data in dataspace.neededData)
         {
             if (data.isMet)
@@ -131,7 +141,7 @@ public class DataSpacesController : MonoBehaviour
             }
         }
 
-        if(check == dataspace.neededData.Count)
+        if(check == dataspace.neededData.Count && activeplayer.currency == dataspace.cost)
         {
             dataspace.enabled = true;
         }

@@ -8,6 +8,7 @@ public class Player
     public string name = string.Empty;
     public int scorePerTurn = 0;
     public int score = 0;
+    public int currency;
     public float scoreMultiplier = 0f;
     public Color color;
     public List<DataCard> cards = new List<DataCard>();
