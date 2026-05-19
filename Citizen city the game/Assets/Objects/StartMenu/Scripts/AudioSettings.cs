@@ -12,17 +12,22 @@ public class AudioSettings : MonoBehaviour
 
     public AudioMixer Mixer;
 
+    bool start = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         MasterAudio.value = PlayerPrefs.GetFloat("MasterVolume", 0.5f);
         MusicAudio.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
         BackgroundAudio.value = PlayerPrefs.GetFloat("BackgroundVolume", 1f);
+        start = true;
         EffectAudio.value = PlayerPrefs.GetFloat("EffectsVolume", 1f);
     }
 
     public void change()
     {
+        if (!start) return;
+
         float masterdB = Mathf.Log10(Mathf.Max(MasterAudio.value, 0.0001f)) * 20;
         float musicdB = Mathf.Log10(Mathf.Max(MusicAudio.value, 0.0001f)) * 20;
         float backgrounddB = Mathf.Log10(Mathf.Max(BackgroundAudio.value, 0.0001f)) * 20;

@@ -4,6 +4,27 @@ using UnityEngine.SceneManagement;
 public class MenuButtons : MonoBehaviour
 {
     public GameObject SettingsMenu;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (transform.GetChild(0).gameObject.activeSelf)
+            {
+                Continue();
+            }
+            else
+            {
+                transform.GetChild(0).gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void Continue()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+    }
+
     public void ResumeGame()
     {
         Debug.Log("Resume previous game");
@@ -15,10 +36,27 @@ public class MenuButtons : MonoBehaviour
         SceneManager.LoadScene("CardGamePrototype");
     }
 
+    public void SaveGame()
+    {
+        Debug.Log("Save current game");
+        //TODO: add save feature and UI
+    }
+
+    public void LoadGame()
+    {
+        Debug.Log("Load a save game");
+        //TODO: add load feature and UI
+    }
+
     public void Settigns()
     {
         Debug.Log("Open settings");
         SettingsMenu.SetActive(true);
+    }
+
+    public void QuitToMainMenu()
+    {
+        SceneManager.LoadScene("StartMenu");
     }
 
     public void Quit()

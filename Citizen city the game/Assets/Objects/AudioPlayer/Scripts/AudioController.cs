@@ -67,6 +67,11 @@ public class AudioController : MonoBehaviour
 
     public async Task PlayBGForSecond()
     {
+        if (BackgroundAudio.isPlaying)
+        {
+            return;
+        }
+
         int random = Random.Range(0, BackgroundAudioClips.Count - 1);
         AudioClip clip = BackgroundAudioClips[random];
         BackgroundAudio.clip = clip;
@@ -75,7 +80,7 @@ public class AudioController : MonoBehaviour
 
         if (this == null) return;
 
-        BackgroundAudio.Stop();
+        BackgroundAudio.Stop();   
     }
 
     public async Task PlayEffectForSecond()
