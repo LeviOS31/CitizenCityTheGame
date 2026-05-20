@@ -1201,6 +1201,7 @@ GameObject:
   - component: {fileID: 3776284018738464844}
   - component: {fileID: 5866975770609799270}
   - component: {fileID: 1573590112968065903}
+  - component: {fileID: 7000940844577478667}
   m_Layer: 5
   m_Name: ProjectPaper
   m_TagString: ProjectPaper
@@ -1318,6 +1319,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7000940844577478667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8458355308639563103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 004c5b1db8b4bae41ad0bbe5d9649c2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationSoundBridge
 --- !u!1001 &2946178171347163370
 PrefabInstance:
   m_ObjectHideFlags: 0

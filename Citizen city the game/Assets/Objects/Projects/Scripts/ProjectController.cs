@@ -16,7 +16,6 @@ public class ProjectController : MonoBehaviour
         AllPersonalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Personal"));
         AllGroupProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Group"));
         AllOpenProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Open"));
-
     }
 
     private void Start()
@@ -133,6 +132,7 @@ public class ProjectController : MonoBehaviour
                     Debug.Log("card found");
                     remove.Add(card);
                     Data.IsMet = true;
+                    AudioSignalHandler.PlaySound.Invoke("ProjectPling");
                     break;
                 }
             }
