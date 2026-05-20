@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     private List<PlayerCardUI> playerCards;
 
     public static Action<Player> NewTurn;
+    public static Action UpdateUI;
 
     void Start()
     {

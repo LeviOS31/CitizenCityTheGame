@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
@@ -13,6 +15,9 @@ public class ConsultantManagerUI : MonoBehaviour
     [SerializeField] Button ActiveContractsButton;
     [SerializeField] Button DataSpaceButton;
     [SerializeField] GameObject ConsultantUIPrefab;
+    [SerializeField] GameObject ActiveContractUIPrefab;
+    [SerializeField] GameObject ConsultancyScreen;
+    [SerializeField] TMP_Text Funds;
 
     private void Start()
     {
@@ -37,11 +42,17 @@ public class ConsultantManagerUI : MonoBehaviour
         }
 
         consultantManager.SetConsultantOptions(consultants);
-        CreateConsultants();
+        CloseConsultDashboard();
+        GameController.UpdateUI += RefreshUI;
+        GameController.NewTurn += (Player) => CloseConsultDashboard();
     }
 
-    public void CreateConsultants()
+    private void CreateConsultants()
     {
+        ClearDashboardBody();
+
+        Debug.Log(consultantManager.consultantOptions.Length);
+
         foreach (Consultant consultant in consultantManager.consultantOptions)
         {
             ConsultantUI instance = Instantiate(ConsultantUIPrefab).GetComponent<ConsultantUI>();
@@ -50,9 +61,36 @@ public class ConsultantManagerUI : MonoBehaviour
         }
     }
 
-    private void ClearConsultants()
+    private void CreateActiveContractsUIElements()
     {
+        ClearDashboardBody();
+         
+        List<HiredConsultant> hiredConsultants;
+        if (!consultantManager.playerHiredConsultants.TryGetValue(GameController.activePlayer, out hiredConsultants)) return;
 
+        foreach (HiredConsultant consultant in hiredConsultants)
+        {
+            ActiveContractUI instance = Instantiate(ActiveContractUIPrefab).GetComponent<ActiveContractUI>();
+            instance.Initialize(consultant);
+            instance.transform.SetParent(DashboardBody.transform, false);
+        }
+    }
+
+    private void ClearDashboardBody()
+    {
+        ConsultantUI[] children = DashboardBody.GetComponentsInChildren<ConsultantUI>();
+
+        foreach (ConsultantUI child in children) 
+        { 
+            Destroy(child.gameObject);
+        }
+
+        ActiveContractUI[] activeContracts = DashboardBody.GetComponentsInChildren<ActiveContractUI>();
+
+        foreach (ActiveContractUI activeContract in activeContracts) 
+        { 
+            Destroy(activeContract.gameObject); 
+        }
     }
 
     public void OpenConsultancyScreen()
@@ -68,6 +106,7 @@ public class ConsultantManagerUI : MonoBehaviour
         ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.black;
         DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.white;
+        CreateActiveContractsUIElements();
     }
 
     public void OpenDataSpaceScreen()
@@ -75,5 +114,23 @@ public class ConsultantManagerUI : MonoBehaviour
         ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.black;
+    }
+
+    public void OpenConsultantDashboard()
+    {
+        ConsultancyScreen.SetActive(true);
+        CreateConsultants();
+        Funds.text = GameController.activePlayer.money.ToString();
+    }
+
+    public void CloseConsultDashboard()
+    {
+        ConsultancyScreen.SetActive(false);
+    }
+
+    private void RefreshUI()
+    {
+        OpenConsultancyScreen();
+        Funds.text = GameController.activePlayer.money.ToString();
     }
 }

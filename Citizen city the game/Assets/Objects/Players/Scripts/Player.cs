@@ -9,6 +9,7 @@ public class Player
     public int scorePerTurn = 0;
     public int score = 0;
     public float scoreMultiplier = 0f;
+    public int money = 1000;
     public Color color;
     public List<DataCard> cards = new List<DataCard>();
     public List<ProjectCard> projectCards = new List<ProjectCard>();

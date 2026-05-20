@@ -8,7 +8,7 @@ public class ConsultantManager
 
     private Player activePlayer;
 
-    private Dictionary<Player, List<HiredConsultant>> playerHiredConsultants = new Dictionary<Player, List<HiredConsultant>>();
+    public Dictionary<Player, List<HiredConsultant>> playerHiredConsultants = new Dictionary<Player, List<HiredConsultant>>();
 
     private GameController gameController;
     private bool subscribed = false;

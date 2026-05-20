@@ -33,8 +33,13 @@ public class Consultant
 
     public void HireConsultant(List<DataCard> selection, Player player)
     {
+        if (player.money < BasePrice) return;
+
+        player.money -= BasePrice;
+
         HiredConsultant hiredConsultant = new HiredConsultant(this, selection, player);
         OnHire.Invoke(hiredConsultant);
+        GameController.UpdateUI.Invoke();
     }
 }
 
