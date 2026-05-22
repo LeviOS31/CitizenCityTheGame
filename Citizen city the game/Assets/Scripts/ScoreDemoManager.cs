@@ -8,26 +8,40 @@ public class ScoreDemoManager : MonoBehaviour
 {
     public List<SpelerData> spelers = new List<SpelerData>();
 
-    [Header("UI Elementen (Sleep hier je TextMeshPro's in)")]
-    // Een lijst waarin we onze 4 TextMeshPro-tekstvelden uit de scene gaan slepen
+    [Header("TextMeshPro's")]
     public List<TextMeshProUGUI> positieTeksten = new List<TextMeshProUGUI>();
+
+    [Header("Radar Chart UI Elements")]
+    public List<ModularRadarChart> alleRadarCharts = new List<ModularRadarChart>();
 
     private void Update()
     {
-        // 1. Bereken continu de scores voor elke speler in de Inspector
+        // 1. Bereken continu de scores voor elke speler
         foreach (var speler in spelers)
         {
             speler.BerekenScore();
         }
 
-        // 2. tijdelijke, gesorteerde kopie van de spelerslijst (van Hoog naar Laag) voor het scorebord
+        // 2. FIND THE GLOBAL MAX VALUE FOR INFINITE DYNAMIC GROWING
+        // We look through all active players and find the highest single sub-score in the game.
+        float hoogsteGevondenScore = 100f;
+        foreach (var speler in spelers)
+        {
+            if (speler.scoreAuto > hoogsteGevondenScore) hoogsteGevondenScore = speler.scoreAuto;
+            if (speler.scoreStroom > hoogsteGevondenScore) hoogsteGevondenScore = speler.scoreStroom;
+            if (speler.scoreBoom > hoogsteGevondenScore) hoogsteGevondenScore = speler.scoreBoom;
+            if (speler.scorePoppetje > hoogsteGevondenScore) hoogsteGevondenScore = speler.scorePoppetje;
+            if (speler.scoreHuis > hoogsteGevondenScore) hoogsteGevondenScore = speler.scoreHuis;
+        }
+
+        // 3. Tijdelijke, gesorteerde kopie van de spelerslijst voor het scorebord
         var gesorteerdeSpelers = spelers.OrderByDescending(s => s.algemeneScore).ToList();
 
-        // 3. Stuur deze gesorteerde lijst live door naar de tekstvelden op het scherm
-        UpdateVisueleRanglijst(gesorteerdeSpelers);
+        // 4. Stuur deze gesorteerde lijst EN de globale max door naar de UI
+        UpdateVisueleRanglijst(gesorteerdeSpelers, hoogsteGevondenScore);
     }
 
-    private void UpdateVisueleRanglijst(List<SpelerData> gesorteerdeLijst)
+    private void UpdateVisueleRanglijst(List<SpelerData> gesorteerdeLijst, float globaleMax)
     {
         for (int i = 0; i < positieTeksten.Count; i++)
         {
@@ -39,16 +53,56 @@ public class ScoreDemoManager : MonoBehaviour
                                          $"<size=32>AUT: {speler.aantalAuto} | STR: {speler.aantalStroom} | BOM: {speler.aantalBoom} | POP: {speler.aantalPoppetje} | HUI: {speler.aantalHuis}</size>";
             }
         }
+
+        // Update INDIVIDUAL radar charts using the shared global ceiling
+        foreach (var speler in spelers)
+        {
+            if (speler.mijnRadarChart != null)
+            {
+                List<float> scoresToDisplay = new List<float>
+                {
+                    speler.scoreAuto,
+                    speler.scoreStroom,
+                    speler.scoreBoom,
+                    speler.scorePoppetje,
+                    speler.scoreHuis
+                    // If you expand categories later, add the new score property here!
+                };
+
+                // Pass the custom score list AND the dynamically scaling maximum limit
+                speler.mijnRadarChart.UpdateChartData(scoresToDisplay, globaleMax);
+            }
+        }
     }
 
     private void Start()
     {
         if (spelers.Count == 0)
         {
-            spelers.Add(new SpelerData { spelerNaam = "Speler 1" });
-            spelers.Add(new SpelerData { spelerNaam = "Speler 2" });
-            spelers.Add(new SpelerData { spelerNaam = "Speler 3" });
-            spelers.Add(new SpelerData { spelerNaam = "Speler 4" });
+            // We create the players and automatically link the chart at the matching index
+            spelers.Add(new SpelerData
+            {
+                spelerNaam = "Speler 1",
+                mijnRadarChart = alleRadarCharts.Count > 0 ? alleRadarCharts[0] : null
+            });
+
+            spelers.Add(new SpelerData
+            {
+                spelerNaam = "Speler 2",
+                mijnRadarChart = alleRadarCharts.Count > 1 ? alleRadarCharts[1] : null
+            });
+
+            spelers.Add(new SpelerData
+            {
+                spelerNaam = "Speler 3",
+                mijnRadarChart = alleRadarCharts.Count > 2 ? alleRadarCharts[2] : null
+            });
+
+            spelers.Add(new SpelerData
+            {
+                spelerNaam = "Speler 4",
+                mijnRadarChart = alleRadarCharts.Count > 3 ? alleRadarCharts[3] : null
+            });
         }
     }
 
@@ -145,6 +199,9 @@ public class SpelerData
 {
     public string spelerNaam;
 
+    [Header("UI Reference")]
+    public ModularRadarChart mijnRadarChart;
+
     [Header("Aantal Symbolen")]
     public int aantalAuto;
     public int aantalStroom;
@@ -162,7 +219,7 @@ public class SpelerData
 
     public void BerekenScore()
     {
-        // We gebruiken de scorewaarde van 10 punten per item uit je voorbeeld
+        // scorewaarde van 10 punten per item
         scoreAuto = aantalAuto * 10;
         scoreStroom = aantalStroom * 10;
         scoreBoom = aantalBoom * 10;
