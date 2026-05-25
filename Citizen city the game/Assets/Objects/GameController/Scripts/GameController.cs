@@ -1,10 +1,7 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Schema;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -12,6 +9,9 @@ public class GameController : MonoBehaviour
     [SerializeField] PlayerContainerUI playerContainer;
     [SerializeField] ProjectController projectController;
     [SerializeField] DataSpacesController dataSpaceController;
+    [SerializeField] ConsultantManagerUI consultantManagerUI;
+    [SerializeField] AIController aiController;
+    [SerializeField] Canvas GameUI;
     public List<Player> players = new List<Player>();
     public static Player activePlayer;
     public int totalPlayers = 4;
@@ -39,6 +39,8 @@ public class GameController : MonoBehaviour
         }
 
         playerCards = playerContainer.Initialize(players);
+        aiController.Initialize(this, players, projectController, dataSpaceController, consultantManagerUI.consultantManager);
+        dataSpaceController.initialize();
 
         activePlayer = players[0];
 
@@ -115,7 +117,32 @@ public class GameController : MonoBehaviour
             playerCard.ToggleInteractability(activePlayer);
         }
 
+        if (activePlayer.isAI)
+        {
+            Debug.Log("player is AI");
+            Button[] allButtons = GameUI.GetComponentsInChildren<Button>();
+
+            foreach (Button button in allButtons)
+            {
+                button.interactable = false;
+            }
+        }
+        else
+        {
+            Button[] allButtons = GameUI.GetComponentsInChildren<Button>();
+
+            foreach (Button button in allButtons)
+            {
+                button.interactable = true;
+            }
+        }
+
         NewTurn.Invoke(activePlayer);
+
+        if (activePlayer.isAI)
+        {
+            aiController.TakeTurn(activePlayer);
+        }
     }
 
     private Player CreatePlayer(string name, Color color)

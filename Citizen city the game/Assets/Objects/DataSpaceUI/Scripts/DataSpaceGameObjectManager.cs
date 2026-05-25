@@ -12,7 +12,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        activeplayer = gameController.activePlayer;
+        activeplayer = GameController.activePlayer;
     }
 
     public void ReloadPlayer(Player player)

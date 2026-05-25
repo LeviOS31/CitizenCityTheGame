@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataSpaceData : MonoBehaviour
+public class DataSpaceData
 {
     public int id;
     public DataSpaceType type;
     public List<DataSpaceDataRequired> neededData = new List<DataSpaceDataRequired>();
     public int cost;
-    public bool isEnabled;
+    public bool isEnabled = false;
 
-    public DataSpaceData (int id, DataSpaceType type, List<DataSpaceDataRequired> neededData, int cost, bool isEnabled)
+    public DataSpaceData (int id, DataSpaceType type, List<DataSpaceDataRequired> neededData, int cost, bool isEnabled = false)
     {
         this.id = id;
         this.type = type;

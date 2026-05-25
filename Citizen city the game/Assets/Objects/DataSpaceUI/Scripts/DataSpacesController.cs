@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class DataSpacesController : MonoBehaviour
 {
     public GameController gameController;
@@ -9,8 +9,7 @@ public class DataSpacesController : MonoBehaviour
     private List<DataSpaceData> dataSpaces = new List<DataSpaceData>();
     private List<DataSpaceDataRequired> dataForRegionalDataSpaces;
     private List<DataSpaceDataRequired> dataForMunicipalDataSpaces;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    public void initialize()
     {
         int dataSpaceId = 0;
         for (int i = 0; i < gameController.totalPlayers; i++)
@@ -27,7 +26,7 @@ public class DataSpacesController : MonoBehaviour
 
                 if (j >= dataCardTypes.Count)
                 {
-                    DataSpaceDataRequired data = new DataSpaceDataRequired(dataCardTypes[cardTypeCount], gameController.players[i + 1].color, false);
+                    DataSpaceDataRequired data = new DataSpaceDataRequired(dataCardTypes[cardTypeCount], gameController.players[i++ % gameController.totalPlayers].color, false);
                     dataForRegionalDataSpaces.Add(data);
                     cardTypeCount++;
                 }
@@ -123,17 +122,24 @@ public class DataSpacesController : MonoBehaviour
 
     public bool EnableDataSpace(int id)
     {
-        int check = 0;
-        DataSpaceData dataspace = null;
-        foreach(DataSpaceData space in activeplayer.DataSpaces)
+        if (activeplayer == null)
         {
-            if(space.id == id)
+            Debug.LogWarning("EnableDataSpace called but activeplayer is null.");
+            return false;
+        }
+
+        DataSpaceData dataspace = null;
+        foreach (DataSpaceData space in activeplayer.DataSpaces)
+        {
+            if (space.id == id)
             {
                 dataspace = space;
+                break;
             }
         }
 
-        foreach(DataSpaceDataRequired data in dataspace.neededData)
+        int check = 0;
+        foreach (DataSpaceDataRequired data in dataspace.neededData)
         {
             if (data.isMet)
             {
@@ -141,10 +147,14 @@ public class DataSpacesController : MonoBehaviour
             }
         }
 
-        if(check == dataspace.neededData.Count && activeplayer.currency == dataspace.cost)
+        // require player to have at least the cost (>=) rather than exact equality
+        if (check == dataspace.neededData.Count && activeplayer.currency >= dataspace.cost)
         {
-            dataspace.enabled = true;
+            dataspace.isEnabled = true;
+            return true;
         }
-        return dataspace.enabled;
+
+        return false;
     }
 }
+    

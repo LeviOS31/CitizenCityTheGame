@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class ConsultantManagerUI : MonoBehaviour
 {
-    readonly ConsultantManager consultantManager = new ConsultantManager();
+    public readonly ConsultantManager consultantManager = new ConsultantManager();
     [SerializeField] List<GameObject> consultantSlots = new List<GameObject>();
     [SerializeField] GameObject DashboardBody;
     [SerializeField] Button ConsultancyButton;

@@ -16,6 +16,8 @@ public class Player
     public List<ProjectData> PersonalProjects = new List<ProjectData>();
     public List<ProjectData> ProvicialProjects = new List<ProjectData>();
     public List<DataSpaceData> DataSpaces = new List<DataSpaceData>();
+    public bool isAI = false;
+
     private DataCardType[] dataCardTypes;
 
     public event Action<DataCard> OnDrawCard;
