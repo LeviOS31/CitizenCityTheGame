@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player 
+public class Player
 {
-    public Guid ID =  new Guid();
+    public Guid ID = new Guid();
     public string name = string.Empty;
     public int scorePerTurn = 0;
     public int score = 0;
     public float scoreMultiplier = 0f;
+    public int money = 1000;
     public Color color;
     public List<DataCard> cards = new List<DataCard>();
     public List<ProjectData> PersonalProjects = new List<ProjectData>();
@@ -20,15 +21,15 @@ public class Player
     public event Action<List<DataCard>> OnReceiveTradeCards;
     public event Action<List<DataCard>, List<DataCard>> OnTradeCards;
 
-    public Player(string name, Color color) 
-    { 
+    public Player(string name, Color color)
+    {
         this.name = name;
         this.color = color;
     }
 
     public void UpdateScore()
     {
-       score += scorePerTurn;
+        score += scorePerTurn;
     }
 
     //public void DrawProjectCard()
@@ -71,5 +72,15 @@ public class Player
         }
 
         OnTradeCards.Invoke(cardsReceived, cardsGiven);
+    }
+
+    public void ReceiveConsultantCards(List<DataCard> receivedCards)
+    {
+        Debug.Log("Received cards count " + receivedCards.Count);
+        foreach (DataCard card in receivedCards)
+        {
+            card.IsTradable = false;
+            cards.Add(card);
+        }
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.Splines;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
+using System;
 
 public class PlayerCardUI : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class PlayerCardUI : MonoBehaviour
 
     private GameController gameController;
     private Player player;
-    private Dictionary<DataCard, GameObject> cardEntities = new Dictionary<DataCard, GameObject>();
+    private Dictionary<Guid, GameObject> cardEntities = new Dictionary<Guid, GameObject>();
     private int maxHandSize = 10;
 
     public void Initialize(Player player)
@@ -30,7 +31,7 @@ public class PlayerCardUI : MonoBehaviour
         interactableComponent = gameObject.GetComponentInChildren<Button>();
         interactableComponent.onClick.AddListener(() => FindAnyObjectByType<TradingWindowUI>().OpenTradingMenu(player));
         gameController = FindAnyObjectByType<GameController>();
-        gameController.NewTurn += NewTurn;
+        GameController.NewTurn += NewTurn;
         this.player.OnDrawCard += card => CreateCard(card, true);
         this.player.OnTradeCards += TradeCards;
     }
@@ -55,7 +56,7 @@ public class PlayerCardUI : MonoBehaviour
         cardInstance.transform.SetParent(splineContainer.transform, true);
         cardInstance.GetComponent<DataCardUI>().Initialize(playerCard, false);
         //cardInstance.GetComponent<DataCardUI>().OnHover += RedrawCardPositions;
-        cardEntities.Add(playerCard, cardInstance);
+        cardEntities.Add(playerCard.ID, cardInstance);
         cardInstance.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         
         if (updatePostion) UpdateCardPositions();
@@ -70,9 +71,9 @@ public class PlayerCardUI : MonoBehaviour
         
         foreach(DataCard card in cardsGiven)
         {
-            cardEntities[card].transform.DOKill();
-            Destroy(cardEntities[card]);
-            cardEntities.Remove(card);
+            cardEntities[card.ID].transform.DOKill();
+            Destroy(cardEntities[card.ID]);
+            cardEntities.Remove(card.ID);
         }
 
         UpdateCardPositions();

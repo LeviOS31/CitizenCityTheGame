@@ -36,7 +36,7 @@ public class TradingWindowUI : MonoBehaviour
 
         if (initiatingPlayer == null) 
         {
-            initiatingPlayer = FindAnyObjectByType<GameController>().activePlayer;
+            initiatingPlayer = GameController.activePlayer;
             this.receivingPlayer = receivingPlayer;
         } 
 
@@ -130,7 +130,7 @@ public class TradingWindowUI : MonoBehaviour
     public void CounterOffer()
     {
         initiatingPlayer = receivingPlayer;
-        receivingPlayer = FindAnyObjectByType<GameController>().activePlayer;
+        receivingPlayer = GameController.activePlayer;
         offerSelection.Clear();
         requestSelection.Clear();
         OpenTradingMenu(receivingPlayer);
