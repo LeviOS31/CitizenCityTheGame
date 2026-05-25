@@ -8,13 +8,14 @@ public class Player
     public string name = string.Empty;
     public int scorePerTurn = 0;
     public int score = 0;
+    public int currency;
     public float scoreMultiplier = 0f;
     public int money = 1000;
     public Color color;
     public List<DataCard> cards = new List<DataCard>();
     public List<ProjectData> PersonalProjects = new List<ProjectData>();
     public List<ProjectData> ProvicialProjects = new List<ProjectData>();
-
+    public List<DataSpaceData> DataSpaces = new List<DataSpaceData>();
     private DataCardType[] dataCardTypes;
 
     public event Action<DataCard> OnDrawCard;
