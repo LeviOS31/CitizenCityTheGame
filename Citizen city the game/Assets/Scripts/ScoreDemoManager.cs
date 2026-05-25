@@ -16,13 +16,11 @@ public class ScoreDemoManager : MonoBehaviour
 
     private void Update()
     {
-        // 1. Bereken continu de scores voor elke speler
         foreach (var speler in spelers)
         {
             speler.BerekenScore();
         }
 
-        // 2. FIND THE GLOBAL MAX VALUE FOR INFINITE DYNAMIC GROWING
         // We look through all active players and find the highest single sub-score in the game.
         float hoogsteGevondenScore = 100f;
         foreach (var speler in spelers)
@@ -34,10 +32,8 @@ public class ScoreDemoManager : MonoBehaviour
             if (speler.scoreHuis > hoogsteGevondenScore) hoogsteGevondenScore = speler.scoreHuis;
         }
 
-        // 3. Tijdelijke, gesorteerde kopie van de spelerslijst voor het scorebord
         var gesorteerdeSpelers = spelers.OrderByDescending(s => s.algemeneScore).ToList();
 
-        // 4. Stuur deze gesorteerde lijst EN de globale max door naar de UI
         UpdateVisueleRanglijst(gesorteerdeSpelers, hoogsteGevondenScore);
     }
 
@@ -54,23 +50,22 @@ public class ScoreDemoManager : MonoBehaviour
             }
         }
 
-        // Update INDIVIDUAL radar charts using the shared global ceiling
-        foreach (var speler in spelers)
+        for (int i = 0; i < spelers.Count; i++)
         {
+            var speler = spelers[i];
+
             if (speler.mijnRadarChart != null)
             {
                 List<float> scoresToDisplay = new List<float>
-                {
-                    speler.scoreAuto,
-                    speler.scoreStroom,
-                    speler.scoreBoom,
-                    speler.scorePoppetje,
-                    speler.scoreHuis
-                    // If you expand categories later, add the new score property here!
-                };
+            {
+                speler.scoreAuto,
+                speler.scoreStroom,
+                speler.scoreBoom,
+                speler.scorePoppetje,
+                speler.scoreHuis
+            };
 
-                // Pass the custom score list AND the dynamically scaling maximum limit
-                speler.mijnRadarChart.UpdateChartData(scoresToDisplay, globaleMax);
+                speler.mijnRadarChart.UpdateChartData(i, scoresToDisplay, globaleMax);
             }
         }
     }
@@ -79,7 +74,6 @@ public class ScoreDemoManager : MonoBehaviour
     {
         if (spelers.Count == 0)
         {
-            // We create the players and automatically link the chart at the matching index
             spelers.Add(new SpelerData
             {
                 spelerNaam = "Speler 1",

@@ -5017,12 +5017,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   chartRadius: 100
-  lineWidth: 2
+  showBackgroundFill: 1
+  webBackgroundColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.15}
+  outerWebWidth: 3
+  outerWebColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
+  gridLevels: 4
+  innerWebWidth: 2
+  innerWebColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.75}
   showDots: 1
-  dotRadius: 2.5
-  dotColor: {r: 0.1, g: 0.11, b: 0.12, a: 0.65}
+  dotRadius: 3
   showScoreOutline: 1
-  outlineWidth: 2.5
+  scoreOutlineWidth: 3
+  playerIndex: 0
   normalizedScores: []
 --- !u!1 &699630555
 GameObject:
@@ -8645,12 +8651,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   chartRadius: 100
-  lineWidth: 2
+  showBackgroundFill: 1
+  webBackgroundColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.15}
+  outerWebWidth: 3
+  outerWebColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
+  gridLevels: 4
+  innerWebWidth: 2
+  innerWebColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.75}
   showDots: 1
-  dotRadius: 2.5
-  dotColor: {r: 0.1, g: 0.11, b: 0.12, a: 0.65}
+  dotRadius: 3
   showScoreOutline: 1
-  outlineWidth: 2.5
+  scoreOutlineWidth: 3
+  playerIndex: 0
   normalizedScores: []
 --- !u!1 &1203243873
 GameObject:
@@ -11912,12 +11924,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   chartRadius: 100
-  lineWidth: 2
+  showBackgroundFill: 1
+  webBackgroundColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.15}
+  outerWebWidth: 3
+  outerWebColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
+  gridLevels: 4
+  innerWebWidth: 2
+  innerWebColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.75}
   showDots: 1
-  dotRadius: 2.5
-  dotColor: {r: 0.1, g: 0.11, b: 0.12, a: 0.65}
+  dotRadius: 3
   showScoreOutline: 1
-  outlineWidth: 2.5
+  scoreOutlineWidth: 3
+  playerIndex: 0
   normalizedScores: []
 --- !u!1 &1535541770
 GameObject:
@@ -12668,12 +12686,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   chartRadius: 100
-  lineWidth: 2
+  showBackgroundFill: 1
+  webBackgroundColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.15}
+  outerWebWidth: 3
+  outerWebColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
+  gridLevels: 4
+  innerWebWidth: 2
+  innerWebColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.75}
   showDots: 1
-  dotRadius: 2.5
-  dotColor: {r: 0.1, g: 0.11, b: 0.12, a: 0.65}
+  dotRadius: 3
   showScoreOutline: 1
-  outlineWidth: 2.5
+  scoreOutlineWidth: 3
+  playerIndex: 0
   normalizedScores: []
 --- !u!1 &1616711188
 GameObject:

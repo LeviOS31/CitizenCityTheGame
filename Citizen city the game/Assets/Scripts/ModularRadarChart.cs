@@ -6,30 +6,64 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CanvasRenderer))]
 public class ModularRadarChart : MaskableGraphic
 {
-    [Header("Chart Settings")]
+    [Header("Chart Sizing")]
     public float chartRadius = 100f;
-    [Range(0.01f, 10f)] public float lineWidth = 2f;
+
+    [Header("Web Background Fill")]
+    public bool showBackgroundFill = true;
+    public Color webBackgroundColor = new Color(0.15f, 0.15f, 0.15f, 0.15f);
+
+    [Header("Outer Web Frame")]
+    [Range(0.01f, 10f)] public float outerWebWidth = 3f;
+    public Color outerWebColor = new Color(0.7f, 0.7f, 0.7f, 1f);
+
+    [Header("Inner Grid Lines")]
+    [Tooltip("How many nested inner rings to draw under the outer boundary.")]
+    [Range(1, 10)] public int gridLevels = 4;
+    [Range(0.01f, 10f)] public float innerWebWidth = 2f;
+    public Color innerWebColor = new Color(0.5f, 0.5f, 0.5f, 0.75f);
 
     [Header("Dot Settings")]
     public bool showDots = true;
-    public float dotRadius = 2.5f;
-    public Color dotColor = new Color(0.10f, 0.11f, 0.12f, 0.1f);
+    public float dotRadius = 3f;
 
     [Header("Outline Settings")]
     public bool showScoreOutline = true;
-    [Range(0.01f, 10f)] public float outlineWidth = 2.5f;
+    [Range(0.01f, 10f)] public float scoreOutlineWidth = 3f;
+
+    [Header("Player Assignment")]
+    [Range(0, 3)]
+    [SerializeField] private int playerIndex = 0;
 
     [Header("Data (Managed by Score Manager)")]
     [SerializeField] private List<float> normalizedScores = new List<float>();
 
     private const float RotationOffsetRad = -90f * Mathf.Deg2Rad;
 
+    // The UNO-style identity palette
+    private static readonly Color[] PlayerPalette = new Color[]
+    {
+        new Color(1.00f, 0.00f, 0.00f, 1f), // Player 0: Red (#FF0000)
+        new Color(0.00f, 0.49f, 1.00f, 1f), // Player 1: Blue (#007EFF)
+        new Color(0.00f, 0.61f, 0.07f, 1f), // Player 2: Green (#009B12)
+        new Color(1.00f, 0.68f, 0.00f, 1f)  // Player 3: Yellow (#FFAD00)
+    };
+
+    private Color CurrentPlayerSolidColor => PlayerPalette[Mathf.Clamp(playerIndex, 0, 3)];
+    private Color CurrentPlayerFillColor
+    {
+        get
+        {
+            Color solid = CurrentPlayerSolidColor;
+            return new Color(solid.r, solid.g, solid.b, 0.35f);
+        }
+    }
+
     public override Texture mainTexture
     {
         get
         {
             if (s_WhiteTexture != null) return s_WhiteTexture;
-
             Texture2D tex = new Texture2D(2, 2);
             Color[] colors = new Color[] { Color.white, Color.white, Color.white, Color.white };
             tex.SetPixels(colors);
@@ -38,8 +72,9 @@ public class ModularRadarChart : MaskableGraphic
         }
     }
 
-    public void UpdateChartData(List<float> rawScores, float globalMaxValue)
+    public void UpdateChartData(int assignedPlayerIndex, List<float> rawScores, float globalMaxValue)
     {
+        this.playerIndex = assignedPlayerIndex;
         normalizedScores.Clear();
         float divisor = globalMaxValue <= 0 ? 10f : globalMaxValue;
 
@@ -59,46 +94,102 @@ public class ModularRadarChart : MaskableGraphic
         int categoriesCount = normalizedScores.Count;
         float angleStep = 360f / categoriesCount;
 
-        // 1. Draw Background Outline Web
-        DrawWebOutline(vh, categoriesCount, angleStep);
+        // 1. Draw the absolute base background polygon fill first
+        if (showBackgroundFill)
+        {
+            DrawBackgroundTotalFill(vh, categoriesCount, angleStep);
+        }
 
-        // 2. Draw Center Player Shaded Shape
+        // 2. Draw Background Grid Structure
+        DrawWebGrid(vh, categoriesCount, angleStep);
+
+        // 3. Draw Translucent Player Filled Polygon
         DrawScorePolygon(vh, categoriesCount, angleStep);
 
-        // 3. Draw Outer Score Outline (Same color as the dots!)
+        // 4. Draw Solid Player Perimeter Outline
         if (showScoreOutline)
         {
             DrawScoreOutline(vh, categoriesCount, angleStep);
         }
 
-        // 4. Draw Dark Circles on Top
+        // 5. Draw Solid Player Dots
         if (showDots)
         {
             DrawScoreCircles(vh, categoriesCount, angleStep);
         }
     }
 
-    private void DrawWebOutline(VertexHelper vh, int count, float angleStep)
+    private void DrawBackgroundTotalFill(VertexHelper vh, int count, float angleStep)
     {
+        int baseIndex = vh.currentVertCount;
+
+        UIVertex centerVert = UIVertex.simpleVert;
+        centerVert.color = webBackgroundColor;
+        centerVert.position = Vector2.zero;
+        vh.AddVert(centerVert);
+
+        // Map out vertices at the absolute maximum radius limit
         for (int i = 0; i < count; i++)
         {
-            float currentAngle = (i * angleStep * Mathf.Deg2Rad) + RotationOffsetRad;
-            float nextAngle = (((i + 1) % count) * angleStep * Mathf.Deg2Rad) + RotationOffsetRad;
+            float angle = (i * angleStep * Mathf.Deg2Rad) + RotationOffsetRad;
 
-            Vector2 startPos = new Vector2(Mathf.Cos(currentAngle), Mathf.Sin(currentAngle)) * chartRadius;
-            Vector2 endPos = new Vector2(Mathf.Cos(nextAngle), Mathf.Sin(nextAngle)) * chartRadius;
+            UIVertex bgVert = UIVertex.simpleVert;
+            bgVert.color = webBackgroundColor;
+            bgVert.position = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * chartRadius;
+            vh.AddVert(bgVert);
+        }
 
-            DrawLine(vh, startPos, endPos, Color.gray, lineWidth);
-            DrawLine(vh, Vector2.zero, startPos, Color.gray * 0.6f, lineWidth);
+        // Connect the center point to the outer edge vertices
+        for (int i = 0; i < count; i++)
+        {
+            int current = i + 1;
+            int next = ((i + 1) % count) + 1;
+            vh.AddTriangle(baseIndex, baseIndex + current, baseIndex + next);
+        }
+    }
+
+    private void DrawWebGrid(VertexHelper vh, int count, float angleStep)
+    {
+        // Draw the concentric inner and outer rings
+        for (int level = 1; level <= gridLevels; level++)
+        {
+            float levelRadiusFraction = (float)level / gridLevels;
+            float currentRadius = chartRadius * levelRadiusFraction;
+
+            // Check if this level is the absolute outer edge boundary frame
+            bool isOuterFrame = (level == gridLevels);
+            float activeWidth = isOuterFrame ? outerWebWidth : innerWebWidth;
+            Color activeColor = isOuterFrame ? outerWebColor : innerWebColor;
+
+            for (int i = 0; i < count; i++)
+            {
+                float currentAngle = (i * angleStep * Mathf.Deg2Rad) + RotationOffsetRad;
+                float nextAngle = (((i + 1) % count) * angleStep * Mathf.Deg2Rad) + RotationOffsetRad;
+
+                Vector2 startPos = new Vector2(Mathf.Cos(currentAngle), Mathf.Sin(currentAngle)) * currentRadius;
+                Vector2 endPos = new Vector2(Mathf.Cos(nextAngle), Mathf.Sin(nextAngle)) * currentRadius;
+
+                DrawLine(vh, startPos, endPos, activeColor, activeWidth);
+            }
+        }
+
+        // Draw structural angular spine spokes extending outwards from center using the softer inner styling
+        for (int i = 0; i < count; i++)
+        {
+            float angle = (i * angleStep * Mathf.Deg2Rad) + RotationOffsetRad;
+            Vector2 outerEdgePoint = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * chartRadius;
+
+            DrawLine(vh, Vector2.zero, outerEdgePoint, innerWebColor * 1.2f, innerWebWidth);
         }
     }
 
     private void DrawScorePolygon(VertexHelper vh, int count, float angleStep)
     {
         int baseIndex = vh.currentVertCount;
+        Color fillColor = CurrentPlayerFillColor;
 
         UIVertex centerVert = UIVertex.simpleVert;
-        centerVert.color = color;
+        centerVert.color = fillColor;
         centerVert.position = Vector2.zero;
         vh.AddVert(centerVert);
 
@@ -108,7 +199,7 @@ public class ModularRadarChart : MaskableGraphic
             float currentRadius = normalizedScores[i] * chartRadius;
 
             UIVertex scoreVert = UIVertex.simpleVert;
-            scoreVert.color = color;
+            scoreVert.color = fillColor;
             scoreVert.position = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * currentRadius;
             vh.AddVert(scoreVert);
         }
@@ -123,17 +214,7 @@ public class ModularRadarChart : MaskableGraphic
 
     private void DrawScoreOutline(VertexHelper vh, int count, float angleStep)
     {
-        // Cancel out global graphic tint multiplication just like the circles do
-        Color calculatedOutlineColor = dotColor;
-        if (color.r > 0 && color.g > 0 && color.b > 0 && color.a > 0)
-        {
-            calculatedOutlineColor = new Color(
-                Mathf.Clamp01(dotColor.r / color.r),
-                Mathf.Clamp01(dotColor.g / color.g),
-                Mathf.Clamp01(dotColor.b / color.b),
-                Mathf.Clamp01(dotColor.a / color.a)
-            );
-        }
+        Color outlineColor = CurrentPlayerSolidColor;
 
         for (int i = 0; i < count; i++)
         {
@@ -146,8 +227,7 @@ public class ModularRadarChart : MaskableGraphic
             Vector2 startPos = new Vector2(Mathf.Cos(currentAngle), Mathf.Sin(currentAngle)) * currentRadius;
             Vector2 endPos = new Vector2(Mathf.Cos(nextAngle), Mathf.Sin(nextAngle)) * nextRadius;
 
-            // Connect score vertices with a line using the dot's matching color target
-            DrawLine(vh, startPos, endPos, calculatedOutlineColor, outlineWidth);
+            DrawLine(vh, startPos, endPos, outlineColor, scoreOutlineWidth);
         }
     }
 
@@ -155,17 +235,7 @@ public class ModularRadarChart : MaskableGraphic
     {
         const int segments = 12;
         float segmentAngleStep = 360f / segments;
-
-        Color calculatedColor = dotColor;
-        if (color.r > 0 && color.g > 0 && color.b > 0 && color.a > 0)
-        {
-            calculatedColor = new Color(
-                Mathf.Clamp01(dotColor.r / color.r),
-                Mathf.Clamp01(dotColor.g / color.g),
-                Mathf.Clamp01(dotColor.b / color.b),
-                Mathf.Clamp01(dotColor.a / color.a)
-            );
-        }
+        Color dotColor = CurrentPlayerSolidColor;
 
         for (int i = 0; i < count; i++)
         {
@@ -176,7 +246,7 @@ public class ModularRadarChart : MaskableGraphic
             int startVertIndex = vh.currentVertCount;
 
             UIVertex centerVert = UIVertex.simpleVert;
-            centerVert.color = calculatedColor;
+            centerVert.color = dotColor;
             centerVert.position = circleCenter;
             vh.AddVert(centerVert);
 
@@ -184,7 +254,7 @@ public class ModularRadarChart : MaskableGraphic
             {
                 float rad = j * segmentAngleStep * Mathf.Deg2Rad;
                 UIVertex ringVert = UIVertex.simpleVert;
-                ringVert.color = calculatedColor;
+                ringVert.color = dotColor;
                 ringVert.position = circleCenter + new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * dotRadius;
                 vh.AddVert(ringVert);
             }
@@ -199,7 +269,6 @@ public class ModularRadarChart : MaskableGraphic
         }
     }
 
-    // Updated DrawLine to take thickness dynamically
     private void DrawLine(VertexHelper vh, Vector2 start, Vector2 end, Color lineColor, float width)
     {
         Vector2 direction = (end - start).normalized;
