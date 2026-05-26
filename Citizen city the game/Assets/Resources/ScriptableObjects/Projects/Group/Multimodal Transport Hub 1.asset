@@ -10,26 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
-  m_Name: Disctrict project E
+  m_Name: Multimodal Transport Hub 1
   m_EditorClassIdentifier: Assembly-CSharp::ProjectData
-  Name: District E buildings
+  Name: Multimodal Transport Hub
   Type: 1
   Image: {fileID: 0}
-  Description: District E must deliver a group of towers across from Eindhoven Central
-    Station, which need to add about 700 apartments to the city. The project should
-    prioritize people over cars removing cars from the citycenter. It must create
-    a climate-resilient neighborhood with more greenry to make the city more sustainable.
+  Description: The Multimodal Transport Hub must deliver a massive underground transit
+    overhaul at Eindhoven Central Station to accommodate 150,000 daily commuters.
+    The project shall relocate the current above-ground bus lanes into a subterranean
+    terminal with 34 gates and five dedicated bus tunnels, removing large vehicles
+    from street level. It must integrate a two-story indoor facility to add 7,900
+    bicycle spaces, prioritizing eco-friendly travel and clear pedestrian spaces.
   NeededData:
   - CardType: {fileID: 11400000, guid: d4a97629c31953347b887b63e6e9ced5, type: 2}
     Color: {r: 0, g: 0.49411765, b: 1, a: 1}
     IsMet: 0
-  - CardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
-    Color: {r: 1, g: 0, b: 0, a: 1}
-    IsMet: 0
   - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
+    Color: {r: 0, g: 0.60784316, b: 0.07058824, a: 1}
+    IsMet: 0
+  - CardType: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
     Color: {r: 0, g: 0.49411765, b: 1, a: 1}
     IsMet: 0
-  ScoreMoney: 2000
+  ScoreMoney: 1500
   ScoreData: 
   IsDone: 0
   IsClaimed: 0

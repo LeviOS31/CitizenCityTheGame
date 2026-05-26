@@ -15,14 +15,10 @@ MonoBehaviour:
   Name: Project Flow-Pure
   Type: 0
   Image: {fileID: 0}
-  Description: "Project Flow-Pure is a pioneering subterranean overhaul designed
-    to future-proof Eindhoven\u2019s hidden infrastructure for the next century.
-    While District E transforms the skyline, Flow-Pure reclaims the city's depths
-    by replacing aging 1950s pipes with a smart, modular circulatory system capable
-    of supporting a high-density vertical city. By integrating AI-driven sensors
-    and heat-recovery technology, this project does more than manage waste; it captures
-    thermal energy from wastewater to provide sustainable heating for the very towers
-    rising above it."
+  Description: "Project Flow-Pure must future-proof Eindhoven\u2019s wastewater infrastructure
+    by replacing 1950s pipes with a smart, modular system for a high-density vertical
+    city. It must integrate smart tech and heat-recovery systems to manage waste
+    and capture thermal energy, providing sustainable heating for the upcoming towers."
   NeededData:
   - CardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
     Color: {r: 0.30588236, g: 0.34509805, b: 1, a: 1}
@@ -33,5 +29,7 @@ MonoBehaviour:
   - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
     Color: {r: 0.30588236, g: 0.34509805, b: 1, a: 1}
     IsMet: 0
-  ScoreValue: 15
+  ScoreMoney: 500
+  ScoreData: 
   IsDone: 0
+  IsClaimed: 0

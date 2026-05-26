@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class ProjectsUI : MonoBehaviour
 {
@@ -85,19 +86,35 @@ public class ProjectsUI : MonoBehaviour
         await Task.Delay(1000);
         FolderFront.SetAsFirstSibling();
         CurProject = PaperParent.GetChild(PaperParent.childCount - 1).gameObject;
+
+        Button[] buttons = transform.GetComponentsInChildren<Button>();
+
+        foreach (Button btn in buttons)
+        {
+            btn.interactable = true;
+        }
     }
 
     public async void Close()
     {
+        Button[] buttons = transform.GetComponentsInChildren<Button>();
+
+        foreach (Button btn in buttons)
+        {
+            btn.interactable = false;
+        }
+
         foreach (Transform child in PaperParent)
         {
             child.GetComponent<Animator>().SetTrigger("Previous");
         }
 
-        await Task.Delay(1000);
+
+        await Task.Delay(500);
 
         FolderFront.SetSiblingIndex(transform.childCount - 3);
         GetComponent<Animator>().SetTrigger("close");
+
 
         AudioSignalHandler.PlaySound.Invoke("FolderClose");
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player
@@ -42,7 +43,7 @@ public class Player
 
     public void DrawDataCard(DataCardType[] dataCardTypes)
     {
-        DataCardType randomType = dataCardTypes[UnityEngine.Random.Range(0, dataCardTypes.Length)];
+        DataCardType randomType = dataCardTypes.First(card => card.dataType == "Civil");
 
         DataCard dataCard = new DataCard(randomType, color);
 
@@ -86,7 +87,7 @@ public class Player
             cards.Add(card);
         }
     }
-    
+
     //jasons version
     public void DrawDataSpaceCard(DataCard card)
     {
