@@ -48,6 +48,13 @@ public class PlayerCardUI : MonoBehaviour
         playerIcon.color = player.color;
         scorePerTurn.text = player.scorePerTurn.ToString();
         scoreMulitplier.text = player.scoreMultiplier.ToString();
+        cardEntities.Values.ToList().ForEach(c => Destroy(c));
+        cardEntities.Clear();
+
+        foreach (DataCard card in player.cards)
+        {
+            CreateCard(card, true);
+        }
     }
 
     private void CreateCard(DataCard playerCard, bool updatePostion)

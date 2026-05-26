@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +26,7 @@ public class GameController : MonoBehaviour
 
     public static Action<Player> NewTurn;
     public static Action UpdateUI;
+    public static Action<Player> Completedproject;
 
     void Start()
     {
@@ -88,6 +91,8 @@ public class GameController : MonoBehaviour
 
     public void EndTurn()
     {
+        activePlayer.money += 100;  
+
         turnNumber++;
 
         foreach (PlayerCardUI playerCard in playerCards)
@@ -142,6 +147,19 @@ public class GameController : MonoBehaviour
         if (activePlayer.isAI)
         {
             aiController.TakeTurn(activePlayer);
+        }
+
+        List<ProjectData> playerprojects = new List<ProjectData>();
+        playerprojects.AddRange(activePlayer.PersonalProjects);
+        playerprojects.AddRange(activePlayer.ProvicialProjects);
+
+        foreach (ProjectData project in playerprojects)
+        {
+            if (project.IsDone && !project.IsClaimed)
+            {
+                Completedproject.Invoke(activePlayer);
+                break;
+            }
         }
     }
 

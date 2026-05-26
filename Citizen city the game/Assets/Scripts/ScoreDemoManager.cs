@@ -227,8 +227,8 @@ public class ScoreDemoManager : MonoBehaviour
     {
         switch (index)
         {
-            case 0: return "FF0000"; // Red
-            case 1: return "007EFF"; // Blue
+            case 0: return "007EFF"; // Blue
+            case 1: return "FF0000"; // Red
             case 2: return "009B12"; // Green
             case 3: return "FFAD00"; // Yellow
             default: return "FFFFFF";
@@ -239,8 +239,8 @@ public class ScoreDemoManager : MonoBehaviour
     {
         switch (index)
         {
-            case 0: return new Color(1.00f, 0.00f, 0.00f, 1f);   // Red
-            case 1: return new Color(0.00f, 0.49f, 1.00f, 1f);  // Blue
+            case 0: return new Color(0.00f, 0.49f, 1.00f, 1f);  // Blue
+            case 1: return new Color(1.00f, 0.00f, 0.00f, 1f);  // Red
             case 2: return new Color(0.00f, 0.61f, 0.07f, 1f);  // Green
             case 3: return new Color(1.00f, 0.68f, 0.00f, 1f);  // Yellow
             default: return Color.white;
@@ -345,6 +345,11 @@ public class SpelerData
     public int scoreHuis;
     public int algemeneScore;
 
+    public SpelerData() 
+    {
+        GameController.Completedproject += AddScore;
+    }
+
     public void BerekenScore()
     {
         scoreAuto = aantalAuto * 10;
@@ -386,5 +391,62 @@ public class SpelerData
 
         float totaleMultiplier = 1.0f + variatieBonus + balansBonus;
         algemeneScore = Mathf.RoundToInt(basisScore * totaleMultiplier);
+    }
+
+    public void AddScore(Player player)
+    {
+        if (player == null) return;
+
+        if (Vector4.Distance(player.color, hudColorLineImage.color) > 0.1f) return;
+
+        List<ProjectData> playerProjects = player.PersonalProjects.Concat(player.ProvicialProjects).ToList();
+
+        foreach(ProjectData project in playerProjects)
+        {
+            if (!project.IsDone || project.IsClaimed) continue;
+            foreach (var req in project.NeededData)
+            {
+                if (req == null) continue;
+
+                string typeName = req.CardType != null && req.CardType.dataType != null ? req.CardType.dataType.ToLowerInvariant() : string.Empty;
+
+                int index = -1;
+                switch (typeName)
+                {
+                    case "traffic":
+                        index = 0; // Auto
+                        break;
+                    case "utility":
+                        index = 1; // Stroom
+                        break;
+                    case "nature":
+                        index = 2; // Boom
+                        break;
+                    case "civil":
+                        index = 3; // Poppetje
+                        break;
+                    case "residential":
+                        index = 4; // Huis
+                        break;
+                    default:
+                        Debug.LogWarning($"Unrecognized CardType '{typeName}' in project '{project.name}'. No score added.");
+                        break;
+                }
+
+                switch (index)
+                {
+                    case 0: aantalAuto ++; break;
+                    case 1: aantalStroom ++; break;
+                    case 2: aantalBoom ++; break;
+                    case 3: aantalPoppetje ++; break;
+                    case 4: aantalHuis ++; break;
+                    default: break;
+                }
+            }
+            project.IsClaimed = true;
+        }
+
+        // Recalculate derived scores after updating counts
+        BerekenScore();
     }
 }

@@ -70,7 +70,7 @@ public class AIPlayer
             bool municipaldataspace = mySpace.neededData.Count == 3;
 
             // Determine the AI's "intent" for this specific dataspace this turn
-            float baseChance = municipaldataspace ? 1f : 1f;
+            float baseChance = municipaldataspace ? 0.6f : 0.3f;
 
             // TODO: add some sort of check that makes it very likely to finish a dataspace if it has all the cards it needs for it
 

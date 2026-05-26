@@ -49,8 +49,8 @@ public class ModularRadarChart : MaskableGraphic
     // The UNO-style identity palette
     private static readonly Color[] PlayerPalette = new Color[]
     {
-        new Color(1.00f, 0.00f, 0.00f, 1f), // Player 0: Red (#FF0000)
         new Color(0.00f, 0.49f, 1.00f, 1f), // Player 1: Blue (#007EFF)
+        new Color(1.00f, 0.00f, 0.00f, 1f), // Player 0: Red (#FF0000)
         new Color(0.00f, 0.61f, 0.07f, 1f), // Player 2: Green (#009B12)
         new Color(1.00f, 0.68f, 0.00f, 1f)  // Player 3: Yellow (#FFAD00)
     };

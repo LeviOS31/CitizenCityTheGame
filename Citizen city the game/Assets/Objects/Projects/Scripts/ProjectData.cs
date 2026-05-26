@@ -23,6 +23,7 @@ public class ProjectData : ScriptableObject
     [Tooltip("Score that player gets in form of the data the player used")]
     public int[] ScoreData;
     public bool IsDone;
+    public bool IsClaimed;
 
     private void OnValidate()
     {

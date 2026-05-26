@@ -60,7 +60,6 @@ public class ProjectPrefab : MonoBehaviour
         project.IsDone = true;
         await Task.Delay(917);
         Stamp.SetActive(true);
-
     }
 
     void Assigninfo(ProjectData _project)
