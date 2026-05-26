@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class DataSpacesController : MonoBehaviour
 {
-    [SerializeField] private GameController gameController;    
+    [SerializeField] private GameController gameController;
     [SerializeField] private DataSpaceGameObjectManager manager;
     [SerializeField] private List<DataCardType> dataCardTypes;
     private Player activeplayer;
@@ -11,6 +11,8 @@ public class DataSpacesController : MonoBehaviour
     private bool check = false;
     private List<DataCard> selectedDataCards = new List<DataCard>();
     public static Action<DataCard> addSelectedCards;
+    private int requiredDataSpaceSelectionCount = 0;
+    private bool hasCollectedDataSpaceCardsThisTurn = false;
     void Start()
     {
         CreateAllDataSpaces();
@@ -46,7 +48,7 @@ public class DataSpacesController : MonoBehaviour
                 }
 
                 Player dataOwner;
-    
+
                 if (j >= dataCardTypes.Count)
                 {
                     int nextPlayerIndex = GetNextPlayerIndex(i);
@@ -120,7 +122,7 @@ public class DataSpacesController : MonoBehaviour
     }
 
     public void ReloadPlayer(Player player)
-    {        
+    {
         activeplayer = player;
 
         if (activeplayer == null)
@@ -238,7 +240,7 @@ public class DataSpacesController : MonoBehaviour
             dataSpace.isEnabled = true;
         }
 
-        if(dataSpace.isEnabled)
+        if (dataSpace.isEnabled)
         {
             UpdateDataSpaceControllerList(dataSpace.id);
         }
@@ -248,32 +250,85 @@ public class DataSpacesController : MonoBehaviour
 
     private void UpdateDataSpaceControllerList(int id)
     {
-        foreach(DataSpaceData dataSpaceData in dataSpaces)
+        foreach (DataSpaceData dataSpaceData in dataSpaces)
         {
-            if(dataSpaceData.id == id)
+            if (dataSpaceData.id == id)
             {
                 dataSpaceData.isEnabled = true;
             }
         }
-    }    
+    }
 
     private void FillSelectedDataSpaceCardsList(DataCard card)
     {
+        if (hasCollectedDataSpaceCardsThisTurn)
+        {
+            Debug.Log("This player has already collected data space cards this turn.");
+            return;
+        }
+
+        DataCard existingCardFromSameRegion = null;
+
+        foreach (DataCard selectedCard in selectedDataCards)
+        {
+            if (selectedCard.Color == card.Color)
+            {
+                existingCardFromSameRegion = selectedCard;
+                break;
+            }
+        }
+
+        if (existingCardFromSameRegion != null)
+        {
+            selectedDataCards.Remove(existingCardFromSameRegion);
+        }
+
         selectedDataCards.Add(card);
+
+        Debug.Log($"Selected {card.CardType} data from region color {card.Color}");
     }
 
     public void GetSelectedDataSpaceCards()
     {
-        if(selectedDataCards.Count <= 0)
+        if (hasCollectedDataSpaceCardsThisTurn)
         {
-            Debug.Log("No cards added");
+            Debug.Log("You have already collected from the data spaces this turn.");
             return;
         }
 
-        foreach(DataCard dataCard in selectedDataCards)
+        if (selectedDataCards.Count <= 0)
+        {
+            Debug.Log("No cards selected.");
+            return;
+        }
+
+        if (selectedDataCards.Count < requiredDataSpaceSelectionCount)
+        {
+            Debug.Log($"You must select one data card from each available region before collecting. Selected {selectedDataCards.Count}/{requiredDataSpaceSelectionCount}.");
+            return;
+        }
+
+        foreach (DataCard dataCard in selectedDataCards)
         {
             activeplayer.DrawDataSpaceCard(dataCard);
         }
+
         selectedDataCards.Clear();
+        hasCollectedDataSpaceCardsThisTurn = true;
+
+        Debug.Log("Data space cards collected.");
+    }
+
+    public void SetRequiredDataSpaceSelectionCount(int count)
+    {
+        requiredDataSpaceSelectionCount = count;
+        selectedDataCards.Clear();
+    }
+
+    public void ResetDataSpaceCollectionForNewTurn()
+    {
+        hasCollectedDataSpaceCardsThisTurn = false;
+        selectedDataCards.Clear();
+        requiredDataSpaceSelectionCount = 0;
     }
 }
