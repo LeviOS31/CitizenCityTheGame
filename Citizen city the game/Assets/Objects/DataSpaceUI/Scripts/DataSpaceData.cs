@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataSpaceData : MonoBehaviour
+[System.Serializable]
+public class DataSpaceData
 {
     public int id;
     public DataSpaceType type;

@@ -1,74 +1,294 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DataSpaceGameObjectManager : MonoBehaviour
 {
     [SerializeField] private GameController gameController;
     [SerializeField] private DataSpacesController dataSpacesController;
+
+    [Header("Icons")]
+    [SerializeField] private Sprite powerIcon;
+    [SerializeField] private Sprite carIcon;
+    [SerializeField] private Sprite personIcon;
+
+    [Header("Window Prefabs")]
     [SerializeField] private GameObject municipalDSPrefab;
     [SerializeField] private GameObject regionalDSPrefab;
+    [SerializeField] private GameObject closeButton;
+
+    [Header("Window Parent")]
     [SerializeField] private Transform dataSpaceContainer;
+
     private Player activeplayer;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private bool toggle = false;
+    private void Start()
     {
         activeplayer = gameController.activePlayer;
     }
 
-    public void ReloadPlayer(Player player)
+    public void DataSpaceButton()
     {
-        activeplayer = player;
+        activeplayer = gameController.activePlayer;
+        toggle = !toggle;
+        if (toggle)
+        {
+            ClearDataSpaceWindow();
+            closeButton.SetActive(true);
+            foreach (DataSpaceData data in activeplayer.DataSpaces)
+            {
+                GenerateDataSpaceObjects(data);
+            }
+        }
+        else
+        {
+            ClearDataSpaceWindow();
+            closeButton.SetActive(false);
+        }
     }
 
-    private void GenerateDataSpaceObjects()
+    public void GenerateDataSpaceObjects(DataSpaceData dataSpace)
+    {
+        if (dataSpace == null)
+        {
+            Debug.LogWarning("GenerateDataSpaceObjects was called with a null dataSpace.");
+            return;
+        }
+
+        GameObject prefabToUse = GetPrefabForDataSpace(dataSpace);
+
+        if (prefabToUse == null)
+        {
+            Debug.LogWarning($"No prefab assigned for data space type: {dataSpace.type}");
+            return;
+        }
+
+        CreateDataSpaceWindow(prefabToUse, dataSpace);
+    }
+
+    public void ClearDataSpaceWindowWithButton()
+    {
+        toggle = false;
+        ClearDataSpaceWindow();
+    }
+    
+    public void ClearDataSpaceWindow()
     {
         foreach (Transform child in dataSpaceContainer)
         {
             Destroy(child.gameObject);
         }
+    }
 
-        foreach (DataSpaceData data in activeplayer.DataSpaces)
+    private GameObject GetPrefabForDataSpace(DataSpaceData dataSpace)
+    {
+        switch (dataSpace.type)
         {
-            switch (data.type)
+            case DataSpaceType.municipal:
+                return municipalDSPrefab;
+
+            case DataSpaceType.regional:
+                return regionalDSPrefab;
+
+            default:
+                return null;
+        }
+    }
+
+    private void CreateDataSpaceWindow(GameObject prefab, DataSpaceData dataSpace)
+    {
+        GameObject dataSpaceWindow = Instantiate(prefab, dataSpaceContainer);
+
+        Transform container = dataSpaceWindow.transform.Find("Data&CostArea");
+
+        if (container == null)
+        {
+            Debug.LogWarning("Could not find Data&CostArea in the data space prefab.");
+            return;
+        }
+
+        SetupEnableButton(container, dataSpace);
+        SetupCostText(container, dataSpace);
+        SetupCardClickAreas(container, dataSpace);
+    }
+
+    private void SetupEnableButton(Transform container, DataSpaceData dataSpace)
+    {
+        Transform buttonTransform = container.Find("Button");
+
+        if (buttonTransform == null)
+        {
+            Debug.LogWarning("Could not find Button in Data&CostArea.");
+            return;
+        }
+
+        Button button = buttonTransform.GetComponent<Button>();
+
+        if (button == null)
+        {
+            Debug.LogWarning("Button object does not have a Button component.");
+            return;
+        }
+
+        button.onClick.RemoveAllListeners();
+
+        button.onClick.AddListener(() =>
+        {
+            bool enabled = dataSpacesController.EnableDataSpace(dataSpace);
+
+            if (enabled)
             {
-                case DataSpaceType.municipal:
-                    GameObject municiaplDataSpace = Instantiate(municipalDSPrefab, dataSpaceContainer);
-                    Transform container = municiaplDataSpace.transform.Find("Data&CostArea");
-                    container.transform.Find("Button").GetComponent<UnityEngine.UI.Button>().onClick.AddListener(delegate { dataSpacesController.EnableDataSpace(data.id); });
-                    
-                    EventTrigger municipalImageTrigger = container.transform.Find("Image").GetComponent<EventTrigger>();
-
-                    EventTrigger.Entry municipalEntry = new EventTrigger.Entry
-                    {
-                        eventID = EventTriggerType.PointerClick
-                    };
-
-                    municipalEntry.callback.AddListener(delegate
-                    {
-                        dataSpacesController.SubmitData(data.id);
-                    });
-
-                    municipalImageTrigger.triggers.Add(municipalEntry);
-                    break;
-                case DataSpaceType.regional:
-                    GameObject regionalDataSpace = Instantiate(municipalDSPrefab, dataSpaceContainer);
-                    Transform container2 = regionalDataSpace.transform.Find("Data&CostArea");
-                    container2.transform.Find("Button").GetComponent<UnityEngine.UI.Button>().onClick.AddListener(delegate { dataSpacesController.EnableDataSpace(data.id); });
-                    EventTrigger municipalImageTrigger2 = container2.transform.Find("Image").GetComponent<EventTrigger>();
-
-                    EventTrigger.Entry municipalEntry2 = new EventTrigger.Entry
-                    {
-                        eventID = EventTriggerType.PointerClick
-                    };
-
-                    municipalEntry2.callback.AddListener(delegate
-                    {
-                        dataSpacesController.SubmitData(data.id);
-                    });
-
-                    municipalImageTrigger2.triggers.Add(municipalEntry2);
-                    break;
+                Debug.Log($"Data space {dataSpace.id} is now enabled.");
             }
+            else
+            {
+                Debug.Log($"Data space {dataSpace.id} could not be enabled yet.");
+            }
+        });
+    }
+
+    private void SetupCostText(Transform container, DataSpaceData dataSpace)
+    {
+        Transform costContainer = container.Find("CostText");
+
+        if (costContainer == null)
+        {
+            Debug.LogWarning("Could not find CostText in Data&CostArea.");
+            return;
+        }
+
+        Transform costTextTransform = costContainer.Find("text2");
+
+        if (costTextTransform == null)
+        {
+            Debug.LogWarning("Could not find text2 inside CostText.");
+            return;
+        }
+
+        TextMeshProUGUI costText = costTextTransform.GetComponent<TextMeshProUGUI>();
+
+        if (costText == null)
+        {
+            Debug.LogWarning("text2 does not have a TextMeshProUGUI component.");
+            return;
+        }
+
+        costText.text = $"Cost: {dataSpace.cost}";
+    }
+
+    private void SetupCardClickAreas(Transform container, DataSpaceData dataSpace)
+    {
+        Transform cardHolder = container.Find("Cards");
+
+        if (cardHolder == null)
+        {
+            Debug.LogWarning("Could not find Cards in Data&CostArea.");
+            return;
+        }
+
+        for (int i = 0; i < cardHolder.childCount; i++)
+        {
+            Transform clickableArea = cardHolder.GetChild(i);
+
+            if (i >= dataSpace.neededData.Count)
+            {
+                Debug.LogWarning($"There are more clickable card areas than neededData entries. Extra clickable area index: {i}");
+                continue;
+            }
+
+            DataSpaceDataRequired dataRequired = dataSpace.neededData[i];
+
+            SetupClickableAreaVisuals(clickableArea, dataRequired);
+            bool isCheckActive = SetupCheckMark(clickableArea, dataRequired);
+            if (!isCheckActive)
+            {
+                SetupClickableAreaEvent(clickableArea, dataSpace, dataRequired);
+            }
+        }
+    }
+
+    private void SetupClickableAreaVisuals(Transform clickableArea, DataSpaceDataRequired dataRequired)
+    {
+        Image clickableAreaImage = clickableArea.GetComponent<Image>();
+
+        if (clickableAreaImage != null)
+        {
+            clickableAreaImage.color = dataRequired.color;
+        }
+        else
+        {
+            Debug.LogWarning($"Clickable area {clickableArea.name} does not have an Image component.");
+        }
+
+        Transform iconTransform = clickableArea.Find("Icon");
+
+        if (iconTransform == null)
+        {
+            Debug.LogWarning($"Clickable area {clickableArea.name} does not have a child named Icon.");
+            return;
+        }
+
+        Image iconImage = iconTransform.GetComponent<Image>();
+
+        if (iconImage == null)
+        {
+            Debug.LogWarning($"Icon child on {clickableArea.name} does not have an Image component.");
+            return;
+        }
+
+        iconImage.sprite = GetIconForDataCardType(dataRequired.cardType);
+    }
+
+    private bool SetupCheckMark(Transform clickableArea, DataSpaceDataRequired dataRequired)
+    {
+        Transform checkMark = clickableArea.transform.Find("Check");
+        if (checkMark == null)
+        {
+            Debug.LogWarning($"Clickable area {clickableArea.name} does not have a child named Check.");
+            return false;
+        }
+        else
+        {
+            checkMark.gameObject.SetActive(dataRequired.isMet);
+            return dataRequired.isMet;
+        }
+    }
+
+    private void SetupClickableAreaEvent(Transform clickableArea, DataSpaceData dataSpace, DataSpaceDataRequired required)
+    {
+        Button button = clickableArea.GetComponent<Button>();
+        Transform checkMark = clickableArea.transform.Find("Check");
+        if (button == null)
+        {
+            button = clickableArea.gameObject.AddComponent<Button>();
+        }
+
+        button.onClick.RemoveAllListeners();
+
+        button.onClick.AddListener(() =>
+        {
+            dataSpacesController.SubmitData(dataSpace, required);
+            checkMark.gameObject.SetActive(required.isMet);
+        });
+    }
+
+    private Sprite GetIconForDataCardType(DataCardType cardType)
+    {
+        switch (cardType.dataType)
+        {
+            case "Utility":
+                return powerIcon;
+
+            case "Traffic":
+                return carIcon;
+
+            case "Civil":
+                return personIcon;
+
+            default:
+                Debug.LogWarning($"No icon assigned for DataCardType: {cardType.dataType}");
+                return null;
         }
     }
 }

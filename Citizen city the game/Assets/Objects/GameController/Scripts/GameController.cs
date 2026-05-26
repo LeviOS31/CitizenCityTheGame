@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     [SerializeField] PlayerContainerUI playerContainer;
     [SerializeField] ProjectController projectController;
     [SerializeField] DataSpacesController dataSpaceController;
+    
     public List<Player> players = new List<Player>();
     public Player activePlayer;
     public int totalPlayers = 4;
@@ -24,19 +25,22 @@ public class GameController : MonoBehaviour
 
     public Action<Player> NewTurn;
 
-    void Start()
+    void Awake()
     {
-        roundNumber = 0;
-        turnNumber = 0;
-
-        dataCardTypes = Resources.LoadAll<DataCardType>("ScriptableObjects/DataCardTypes");
-
         for (int i = 0; i < totalPlayers; i++)
         {
             Player player = CreatePlayer("Player " + (i + 1).ToString(), availableColors[i]);
             players.Add(player);
         }
+    }
 
+    void Start()
+    {
+        roundNumber = 0;
+        turnNumber = 0;
+
+        dataCardTypes = Resources.LoadAll<DataCardType>("ScriptableObjects/DataCardTypes");        
+        
         playerCards = playerContainer.Initialize(players);
 
         activePlayer = players[0];
@@ -48,8 +52,8 @@ public class GameController : MonoBehaviour
 
         StartNewRound();
 
-        Debug.Log("Active Player: " + activePlayer.name);
-        Debug.Log("Active Player: " + activePlayer.color);
+        //Debug.Log("Active Player: " + activePlayer.name);
+        //Debug.Log("Active Player: " + activePlayer.color);
 
         projectController.ReloadProjects(activePlayer);
         dataSpaceController.ReloadPlayer(activePlayer);
@@ -100,6 +104,7 @@ public class GameController : MonoBehaviour
 
         projectController.ReloadProjects(activePlayer);
         dataSpaceController.ReloadPlayer(activePlayer);
+
 
         foreach (PlayerCardUI playerCard in playerCards) 
         {
