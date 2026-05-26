@@ -30,7 +30,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
 
     public void DataSpaceButton()
     {
-        activeplayer = gameController.activePlayer;
+        activeplayer = GameController.activePlayer;
         toggle = !toggle;
         if (toggle)
         {

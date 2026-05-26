@@ -52,7 +52,7 @@ public class AIPlayer
                                 if (card != null)
                                 {
                                     dataSpacesController.CheckPlayerCards(myReq);
-                                    dataSpacesController.EnableDataSpace(mySpace.id);
+                                    dataSpacesController.EnableDataSpace(mySpace);
                                 }
                             }
                         }
@@ -70,7 +70,7 @@ public class AIPlayer
             bool municipaldataspace = mySpace.neededData.Count == 3;
 
             // Determine the AI's "intent" for this specific dataspace this turn
-            float baseChance = municipaldataspace ? 0.6f : 0.3f;
+            float baseChance = municipaldataspace ? 0.6f : 1f;
 
             // TODO: add some sort of check that makes it very likely to finish a dataspace if it has all the cards it needs for it
 
@@ -87,7 +87,7 @@ public class AIPlayer
                         }
                     }
                 }
-                dataSpacesController.EnableDataSpace(mySpace.id);
+                dataSpacesController.EnableDataSpace(mySpace);
             }
 
             // If this is a municipal dataspace and AI still misses cards for it, try hiring a consultant specifically for this dataspace

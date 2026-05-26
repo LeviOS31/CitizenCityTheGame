@@ -54,7 +54,7 @@ public class DistributeDataFromDataSpace : MonoBehaviour
     {
         List<DataSpaceData> controllersDataSpaces = dataSpacesController.dataSpaces;
 
-        Color playerColor = gameController.activePlayer.color;
+        Color playerColor = GameController.activePlayer.color;
 
         HashSet<Color> reachableColors = new HashSet<Color>();
         Queue<Color> colorsToCheck = new Queue<Color>();
