@@ -73,4 +73,12 @@ public class Player
 
         OnTradeCards.Invoke(cardsReceived, cardsGiven);
     }
+
+    //jasons version
+    public void DrawDataSpaceCard(DataCard card)
+    {
+        cards.Add(card);
+
+        OnDrawCard(card);
+    }
 }

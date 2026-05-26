@@ -15,6 +15,8 @@ public class AccessibleDataSpaceUIItem : MonoBehaviour
     [SerializeField] private GameObject utilityDataCardObject;
     [SerializeField] private Image utilityDataCardBackground;
 
+    private Color selectedColor;
+
     public void Setup(Color playerColor, bool hasPeopleData, bool hasTrafficData, bool hasUtilityData)
     {
         SetupCard(peopleDataCardObject, peopleDataCardBackground, playerColor, hasPeopleData);
@@ -35,5 +37,28 @@ public class AccessibleDataSpaceUIItem : MonoBehaviour
         {
             cardBackground.color = playerColor;
         }
+    }
+
+    public void GetSelectedColor(Image image)
+    {
+        if(image.color == null)
+        {
+            Debug.Log("No Color was given");
+            return;
+        }
+
+        selectedColor = image.color;
+    }
+
+    public void AddSelectedDataCardInList(DataCardType dataCardType)
+    {
+        if(dataCardType == null)
+        {
+            Debug.Log("No card type was given");
+            return;
+        }
+
+        DataCard dataCard = new DataCard(dataCardType, selectedColor, false);
+        DataSpacesController.addSelectedCards.Invoke(dataCard);
     }
 }

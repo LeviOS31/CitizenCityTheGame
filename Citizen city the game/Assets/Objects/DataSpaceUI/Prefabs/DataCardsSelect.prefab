@@ -407,6 +407,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2986610203301911351}
+        m_TargetAssemblyTypeName: AccessibleDataSpaceUIItem, Assembly-CSharp
+        m_MethodName: GetSelectedColor
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8320986749190957330}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2986610203301911351}
+        m_TargetAssemblyTypeName: AccessibleDataSpaceUIItem, Assembly-CSharp
+        m_MethodName: AddSelectedDataCardInList
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
+          m_ObjectArgumentAssemblyTypeName: DataCardType, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &6687049663279276167
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,6 +635,30 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2986610203301911351}
+        m_TargetAssemblyTypeName: AccessibleDataSpaceUIItem, Assembly-CSharp
+        m_MethodName: GetSelectedColor
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1509655084893061890}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2986610203301911351}
+        m_TargetAssemblyTypeName: AccessibleDataSpaceUIItem, Assembly-CSharp
+        m_MethodName: AddSelectedDataCardInList
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
+          m_ObjectArgumentAssemblyTypeName: DataCardType, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -895,6 +943,30 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2986610203301911351}
+        m_TargetAssemblyTypeName: AccessibleDataSpaceUIItem, Assembly-CSharp
+        m_MethodName: GetSelectedColor
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 923684194457871526}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2986610203301911351}
+        m_TargetAssemblyTypeName: AccessibleDataSpaceUIItem, Assembly-CSharp
+        m_MethodName: AddSelectedDataCardInList
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
+          m_ObjectArgumentAssemblyTypeName: DataCardType, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
