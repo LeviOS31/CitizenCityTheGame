@@ -4,9 +4,11 @@ using UnityEngine.SceneManagement;
 public class MenuButtons : MonoBehaviour
 {
     public GameObject SettingsMenu;
+    public bool isingamesettings = false;
 
     private void Update()
     {
+        if (!isingamesettings) return;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (transform.GetChild(0).gameObject.activeSelf)
