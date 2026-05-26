@@ -4536,6 +4536,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
+    - target: {fileID: 5872449698093152047, guid: d1bc812fc3982604686ed8d92d8a90b9, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7347924130797465637, guid: d1bc812fc3982604686ed8d92d8a90b9, type: 3}
       propertyPath: m_sharedMaterial
       value: 
