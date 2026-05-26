@@ -9,10 +9,12 @@ public class DataSpacesController : MonoBehaviour
     private Player activeplayer;
     public List<DataSpaceData> dataSpaces = new List<DataSpaceData>();
     private bool check = false;
-
+    private List<DataCard> selectedDataCards = new List<DataCard>();
+    public static Action<DataCard> addSelectedCards;
     void Start()
     {
         CreateAllDataSpaces();
+        addSelectedCards += FillSelectedDataSpaceCardsList;
         check = true;
     }
 
@@ -253,5 +255,25 @@ public class DataSpacesController : MonoBehaviour
                 dataSpaceData.isEnabled = true;
             }
         }
+    }    
+
+    private void FillSelectedDataSpaceCardsList(DataCard card)
+    {
+        selectedDataCards.Add(card);
+    }
+
+    public void GetSelectedDataSpaceCards()
+    {
+        if(selectedDataCards.Count <= 0)
+        {
+            Debug.Log("No cards added");
+            return;
+        }
+
+        foreach(DataCard dataCard in selectedDataCards)
+        {
+            activeplayer.DrawDataSpaceCard(dataCard);
+        }
+        selectedDataCards.Clear();
     }
 }

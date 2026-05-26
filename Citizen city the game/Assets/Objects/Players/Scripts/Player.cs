@@ -86,4 +86,12 @@ public class Player
             cards.Add(card);
         }
     }
+    
+    //jasons version
+    public void DrawDataSpaceCard(DataCard card)
+    {
+        cards.Add(card);
+
+        OnDrawCard(card);
+    }
 }
