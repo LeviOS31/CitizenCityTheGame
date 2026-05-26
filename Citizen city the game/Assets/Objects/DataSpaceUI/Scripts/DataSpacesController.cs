@@ -3,158 +3,255 @@ using System.Collections.Generic;
 using UnityEngine;
 public class DataSpacesController : MonoBehaviour
 {
-    public GameController gameController;
-    [SerializeField] List<DataCardType> dataCardTypes;
+    [SerializeField] private GameController gameController;    
+    [SerializeField] private DataSpaceGameObjectManager manager;
+    [SerializeField] private List<DataCardType> dataCardTypes;
     private Player activeplayer;
-    private List<DataSpaceData> dataSpaces = new List<DataSpaceData>();
-    private List<DataSpaceDataRequired> dataForRegionalDataSpaces;
-    private List<DataSpaceDataRequired> dataForMunicipalDataSpaces;
-    public void initialize()
+    public List<DataSpaceData> dataSpaces = new List<DataSpaceData>();
+    private bool check = false;
+
+    void Start()
     {
-        int dataSpaceId = 0;
-        for (int i = 0; i < gameController.totalPlayers; i++)
+        CreateAllDataSpaces();
+        check = true;
+    }
+
+    private void CreateAllDataSpaces()
+    {
+        if (check)
         {
-            dataForRegionalDataSpaces = new List<DataSpaceDataRequired>();
-            dataForMunicipalDataSpaces = new List<DataSpaceDataRequired>();
+            Debug.Log("start happened again");
+            return;
+        }
+
+        Debug.Log($"Player count: {gameController.players.Count}");
+
+        int dataSpaceId = 0;
+        for (int i = 0; i < gameController.players.Count; i++)
+        {
+            List<DataSpaceDataRequired> dataForRegionalDataSpaces = new List<DataSpaceDataRequired>();
+            List<DataSpaceDataRequired> dataForMunicipalDataSpaces = new List<DataSpaceDataRequired>();
+
             int cardTypeCount = 0;
-            for (int j = 0; j < (dataCardTypes.Count * 2); j++)
+
+            // Regional data space:
+            // Contains data from the current player and the next player.
+            for (int j = 0; j < dataCardTypes.Count * 2; j++)
             {
-                if (cardTypeCount <= dataCardTypes.Count)
+                if (cardTypeCount >= dataCardTypes.Count)
                 {
                     cardTypeCount = 0;
                 }
 
+                Player dataOwner;
+    
                 if (j >= dataCardTypes.Count)
                 {
-                    DataSpaceDataRequired data = new DataSpaceDataRequired(dataCardTypes[cardTypeCount], gameController.players[i++ % gameController.totalPlayers].color, false);
-                    dataForRegionalDataSpaces.Add(data);
-                    cardTypeCount++;
+                    int nextPlayerIndex = GetNextPlayerIndex(i);
+                    dataOwner = gameController.players[nextPlayerIndex];
                 }
                 else
                 {
-                    DataSpaceDataRequired data = new DataSpaceDataRequired(dataCardTypes[cardTypeCount], gameController.players[i].color, false);
-                    dataForRegionalDataSpaces.Add(data);
-                    cardTypeCount++;
+                    dataOwner = gameController.players[i];
                 }
+
+                DataSpaceDataRequired data = new DataSpaceDataRequired(
+                    dataCardTypes[cardTypeCount],
+                    dataOwner.color,
+                    false
+                );
+
+                dataForRegionalDataSpaces.Add(data);
+                cardTypeCount++;
             }
-            DataSpaceData regionalDataSpace = new DataSpaceData(dataSpaceId, DataSpaceType.regional, dataForRegionalDataSpaces, 250, false);
+
+            DataSpaceData regionalDataSpace = new DataSpaceData(
+                dataSpaceId,
+                DataSpaceType.regional,
+                dataForRegionalDataSpaces,
+                250,
+                false
+            );
+
             dataSpaces.Add(regionalDataSpace);
             dataSpaceId++;
+
+            // Municipal data space:
+            // Contains only data from the current player.
+            cardTypeCount = 0;
+
             for (int k = 0; k < dataCardTypes.Count; k++)
             {
-                if (cardTypeCount <= dataCardTypes.Count)
-                {
-                    cardTypeCount = 0;
-                }
-                DataSpaceDataRequired data = new DataSpaceDataRequired(dataCardTypes[cardTypeCount], gameController.players[i].color, false);
+                DataSpaceDataRequired data = new DataSpaceDataRequired(
+                    dataCardTypes[cardTypeCount],
+                    gameController.players[i].color,
+                    false
+                );
+
                 dataForMunicipalDataSpaces.Add(data);
                 cardTypeCount++;
             }
-            DataSpaceData municipalDataSpace = new DataSpaceData(dataSpaceId, DataSpaceType.regional, dataForMunicipalDataSpaces, 250, false);
+
+            DataSpaceData municipalDataSpace = new DataSpaceData(
+                dataSpaceId,
+                DataSpaceType.municipal,
+                dataForMunicipalDataSpaces,
+                250,
+                false
+            );
+
             dataSpaces.Add(municipalDataSpace);
             dataSpaceId++;
         }
     }
 
-    public void SubmitData(int id)
+    private int GetNextPlayerIndex(int currentPlayerIndex)
     {
-        foreach(DataSpaceData dataSpace in activeplayer.DataSpaces)
+        int nextPlayerIndex = currentPlayerIndex + 1;
+
+        if (nextPlayerIndex >= gameController.totalPlayers)
         {
-            if(dataSpace.id == id)
-            {
-                foreach(DataSpaceDataRequired dataRequired in dataSpace.neededData)
-                {
-                    CheckPlayerCards(dataRequired);
-                }
-                return;
-            }
+            nextPlayerIndex = 0;
         }
+
+        return nextPlayerIndex;
     }
 
     public void ReloadPlayer(Player player)
-    {
+    {        
         activeplayer = player;
 
-        if (activeplayer.DataSpaces.Count == 0)
+        if (activeplayer == null)
         {
-            foreach(DataSpaceData dataSpace in dataSpaces)
-            {
-                bool theRightDataspace = false;
-                foreach(DataSpaceDataRequired data in dataSpace.neededData)
-                {
-                    if (data.color == player.color)
-                    {
-                        theRightDataspace = true;
-                    }
-                }
-
-                if (theRightDataspace)
-                {
-                    activeplayer.DataSpaces.Add(dataSpace);
-                }
-            }            
+            Debug.LogWarning("ReloadPlayer was called with a null player.");
+            return;
         }
-    }
 
-    public void CheckPlayerCards(DataSpaceDataRequired Data)
-    {
-        if (activeplayer != null)
+        if (activeplayer.DataSpaces.Count > 0)
         {
-            List<DataCard> remove = new List<DataCard>();
+            return;
+        }
 
-            foreach (DataCard card in activeplayer.cards)
+        foreach (DataSpaceData dataSpace in dataSpaces)
+        {
+            bool theRightDataspace = false;
+
+            foreach (DataSpaceDataRequired data in dataSpace.neededData)
             {
-                if (card.CardType == Data.cardType && card.Color == Data.color)
+                if (data.color == player.color)
                 {
-                    Debug.Log("card found");
-                    remove.Add(card);
-                    Data.isMet = true;
+                    theRightDataspace = true;
                     break;
                 }
             }
 
-            foreach (DataCard card in remove)
+            if (theRightDataspace)
             {
-                activeplayer.cards.Remove(card);
+                activeplayer.DataSpaces.Add(dataSpace);
+            }
+        }
+        manager.ClearDataSpaceWindow();
+    }
+
+    public void SubmitData(DataSpaceData dataSpace, DataSpaceDataRequired requiredData)
+    {
+        if (activeplayer == null)
+        {
+            Debug.LogWarning("Cannot submit data because activeplayer is null.");
+            return;
+        }
+
+        if (dataSpace == null)
+        {
+            Debug.LogWarning("Cannot submit data because dataSpace is null.");
+            return;
+        }
+
+        foreach (DataSpaceDataRequired dataRequired in dataSpace.neededData)
+        {
+            if (!dataRequired.isMet && dataRequired == requiredData)
+            {
+                dataRequired.isMet = CheckPlayerCards(dataRequired).isMet;
             }
         }
     }
 
-    public bool EnableDataSpace(int id)
+    public DataSpaceDataRequired CheckPlayerCards(DataSpaceDataRequired dataRequired)
     {
         if (activeplayer == null)
         {
-            Debug.LogWarning("EnableDataSpace called but activeplayer is null.");
-            return false;
+            return dataRequired;
         }
 
-        DataSpaceData dataspace = null;
-        foreach (DataSpaceData space in activeplayer.DataSpaces)
+        DataCard cardToRemove = null;
+
+        foreach (DataCard card in activeplayer.cards)
         {
-            if (space.id == id)
+            if (card.CardType == dataRequired.cardType && card.Color == dataRequired.color)
             {
-                dataspace = space;
+                cardToRemove = card;
+                dataRequired.isMet = true;
                 break;
             }
         }
 
-        int check = 0;
-        foreach (DataSpaceDataRequired data in dataspace.neededData)
+        if (cardToRemove != null)
+        {
+            activeplayer.cards.Remove(cardToRemove);
+        }
+
+        return dataRequired;
+    }
+
+    public bool EnableDataSpace(DataSpaceData dataSpace)
+    {
+        if (activeplayer == null)
+        {
+            Debug.LogWarning("Cannot enable data space because activeplayer is null.");
+            return false;
+        }
+
+        if (dataSpace == null)
+        {
+            Debug.LogWarning("Cannot enable data space because dataSpace is null.");
+            return false;
+        }
+
+        int completedRequirements = 0;
+
+        foreach (DataSpaceDataRequired data in dataSpace.neededData)
         {
             if (data.isMet)
             {
-                check++;
+                completedRequirements++;
             }
         }
+        activeplayer.currency = dataSpace.cost;
+        bool allDataSubmitted = completedRequirements == dataSpace.neededData.Count;
+        bool playerCanPay = activeplayer.currency >= dataSpace.cost;
 
-        // require player to have at least the cost (>=) rather than exact equality
-        if (check == dataspace.neededData.Count && activeplayer.currency >= dataspace.cost)
+        if (allDataSubmitted && playerCanPay)
         {
-            dataspace.isEnabled = true;
-            return true;
+            activeplayer.currency -= dataSpace.cost;
+            dataSpace.isEnabled = true;
         }
 
-        return false;
+        if(dataSpace.isEnabled)
+        {
+            UpdateDataSpaceControllerList(dataSpace.id);
+        }
+
+        return dataSpace.isEnabled;
+    }
+
+    private void UpdateDataSpaceControllerList(int id)
+    {
+        foreach(DataSpaceData dataSpaceData in dataSpaces)
+        {
+            if(dataSpaceData.id == id)
+            {
+                dataSpaceData.isEnabled = true;
+            }
+        }
     }
 }
-    

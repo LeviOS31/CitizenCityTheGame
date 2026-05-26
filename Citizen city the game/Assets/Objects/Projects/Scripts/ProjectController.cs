@@ -51,15 +51,15 @@ public class ProjectController : MonoBehaviour
             activeplayer.ProvicialProjects.Add(GetGroupProject(activeplayer.color));
         }
 
-        Debug.Log(activeplayer.name + " " + activeplayer.color + " Projects:");
+        //Debug.Log(activeplayer.name + " " + activeplayer.color + " Projects:");
 
         foreach (ProjectData project in activeplayer.PersonalProjects)
         {
-            Debug.Log(project.Name);
+            //Debug.Log(project.Name);
         }
         foreach (ProjectData project in activeplayer.ProvicialProjects)
         {
-            Debug.Log(project.Name);
+            //Debug.Log(project.Name);
         }
 
         GetComponent<ProjectsUI>().ReloadProjectsUI(activeplayer.PersonalProjects, activeplayer.ProvicialProjects, OpenProject);

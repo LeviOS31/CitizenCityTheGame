@@ -28,22 +28,24 @@ public class GameController : MonoBehaviour
     public static Action UpdateUI;
     public static Action<Player> Completedproject;
 
-    void Start()
+    void Awake()
     {
-        roundNumber = 0;
-        turnNumber = 0;
-
-        dataCardTypes = Resources.LoadAll<DataCardType>("ScriptableObjects/DataCardTypes");
-
         for (int i = 0; i < totalPlayers; i++)
         {
             Player player = CreatePlayer("Player " + (i + 1).ToString(), availableColors[i]);
             players.Add(player);
         }
+    }
 
+    void Start()
+    {
+        roundNumber = 0;
+        turnNumber = 0;
+
+        dataCardTypes = Resources.LoadAll<DataCardType>("ScriptableObjects/DataCardTypes");        
+        
         playerCards = playerContainer.Initialize(players);
         aiController.Initialize(this, players, projectController, dataSpaceController, consultantManagerUI.consultantManager);
-        dataSpaceController.initialize();
 
         activePlayer = players[0];
 
@@ -54,8 +56,8 @@ public class GameController : MonoBehaviour
 
         StartNewRound();
 
-        Debug.Log("Active Player: " + activePlayer.name);
-        Debug.Log("Active Player: " + activePlayer.color);
+        //Debug.Log("Active Player: " + activePlayer.name);
+        //Debug.Log("Active Player: " + activePlayer.color);
 
         projectController.ReloadProjects(activePlayer);
         dataSpaceController.ReloadPlayer(activePlayer);
@@ -115,6 +117,7 @@ public class GameController : MonoBehaviour
 
         projectController.ReloadProjects(activePlayer);
         dataSpaceController.ReloadPlayer(activePlayer);
+
 
         foreach (PlayerCardUI playerCard in playerCards) 
         {
