@@ -6,22 +6,132 @@ using TMPro;
 
 public class ScoreDemoManager : MonoBehaviour
 {
+    [Header("Simulation Stress Tester")]
+    [Tooltip("Automatically increase random scores for everyone test")]
+    public bool simulateGameplay = true;
+
+    [Header("Data Monitoring")]
     public List<SpelerData> spelers = new List<SpelerData>();
 
-    [Header("TextMeshPro's")]
-    public List<TextMeshProUGUI> positieTeksten = new List<TextMeshProUGUI>();
+    [Header("1. Detailed Overlay Setup (Tab)")]
+    [Tooltip("The chunky prefab row containing the ModularRadarChart")]
+    public GameObject detailedRowPrefab;
+    [Tooltip("The parent container inside your Tab/Pause panel (Vertical Layout Group)")]
+    public Transform detailedRowsContainer;
 
-    [Header("Radar Chart UI Elements")]
-    public List<ModularRadarChart> alleRadarCharts = new List<ModularRadarChart>();
+    [Header("2. Gameplay HUD Setup (Always Visible)")]
+    [Tooltip("The sleek, thin prefab row for the HUD side-list")]
+    public GameObject hudRowPrefab;
+    [Tooltip("The parent container on the left of your screen (Vertical Layout Group)")]
+    public Transform hudRowsContainer;
+
+    private void Start()
+    {
+        // 1. Seed singleplayer match setup if empty
+        if (spelers.Count == 0)
+        {
+            spelers.Add(new SpelerData { spelerNaam = "Player (You)", isBot = false, assignedColorIndex = 0 });
+            spelers.Add(new SpelerData { spelerNaam = "Bot Alpha", isBot = true, assignedColorIndex = 1 });
+            spelers.Add(new SpelerData { spelerNaam = "Bot Bravo", isBot = true, assignedColorIndex = 2 });
+            spelers.Add(new SpelerData { spelerNaam = "Bot Charlie", isBot = true, assignedColorIndex = 3 });
+        }
+
+        // 2. Clear out editor placeholder layout elements
+        ClearContainer(detailedRowsContainer);
+        ClearContainer(hudRowsContainer);
+
+        // 3. Dynamically spawn both UI variants for every player
+        for (int i = 0; i < spelers.Count; i++)
+        {
+            if (detailedRowPrefab != null && detailedRowsContainer != null)
+            {
+                GameObject spawnedDetailed = Instantiate(detailedRowPrefab, detailedRowsContainer);
+                Transform rowT = spawnedDetailed.transform;
+
+                spelers[i].detailedRowTransform = rowT;
+                spelers[i].mijnRadarChart = spawnedDetailed.GetComponentInChildren<ModularRadarChart>();
+
+                // NEW: Find the left container column first
+                Transform leftColumn = rowT.Find("Left_Content_Column");
+                if (leftColumn != null)
+                {
+                    // Find Rank_And_Name inside the column
+                    Transform rankNameGroup = leftColumn.Find("Rank_And_Name");
+                    if (rankNameGroup != null)
+                    {
+                        Transform tRank = rankNameGroup.Find("Text_Rank");
+                        Transform tName = rankNameGroup.Find("Text_Name");
+                        if (tRank != null) spelers[i].textDetailedRank = tRank.GetComponent<TextMeshProUGUI>();
+                        if (tName != null) spelers[i].textDetailedName = tName.GetComponent<TextMeshProUGUI>();
+                    }
+
+                    // Find Stats_Display inside the column
+                    Transform statsGroup = leftColumn.Find("Stats_Display");
+                    if (statsGroup != null)
+                    {
+                        System.Func<string, TextMeshProUGUI> GetValueText = (holderName) => {
+                            Transform holder = statsGroup.Find(holderName);
+                            if (holder != null)
+                            {
+                                Transform val = holder.Find("Value");
+                                if (val != null) return val.GetComponent<TextMeshProUGUI>();
+                            }
+                            return null;
+                        };
+
+                        spelers[i].textDetailedAUT = GetValueText("Holder_AUT");
+                        spelers[i].textDetailedSTR = GetValueText("Holder_STR");
+                        spelers[i].textDetailedBOM = GetValueText("Holder_BOM");
+                        spelers[i].textDetailedPOP = GetValueText("Holder_POP");
+                        spelers[i].textDetailedHUI = GetValueText("Holder_HUI");
+                    }
+                }
+            }
+
+            // Spawn Compact Gameplay HUD Bar
+            if (hudRowPrefab != null && hudRowsContainer != null)
+            {
+                GameObject spawnedHUD = Instantiate(hudRowPrefab, hudRowsContainer);
+                spelers[i].hudRowTransform = spawnedHUD.transform;
+
+                // Find the Rank_And_Name group first
+                Transform rankNameGroup = spawnedHUD.transform.Find("Rank_And_Name");
+                if (rankNameGroup != null)
+                {
+                    Transform tRank = rankNameGroup.Find("Text_Rank");
+                    Transform tName = rankNameGroup.Find("Text_Name");
+
+                    if (tRank != null) spelers[i].textHudRank = tRank.GetComponent<TextMeshProUGUI>();
+                    if (tName != null) spelers[i].textHudName = tName.GetComponent<TextMeshProUGUI>();
+                }
+
+                // Find the line by name
+                foreach (Transform child in spawnedHUD.transform)
+                {
+                    if (child.name == "HUD_Color_Line")
+                    {
+                        spelers[i].hudColorLineImage = child.GetComponent<UnityEngine.UI.Image>();
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (simulateGameplay)
+        {
+            StartCoroutine(SimulateRandomScoreIncreases());
+        }
+    }
 
     private void Update()
     {
+        // Execute baseline game math updates
         foreach (var speler in spelers)
         {
             speler.BerekenScore();
         }
 
-        // We look through all active players and find the highest single sub-score in the game.
+        // Lock in the global score ceiling maximum limit for infinite dynamic chart scaling
         float hoogsteGevondenScore = 100f;
         foreach (var speler in spelers)
         {
@@ -32,169 +142,193 @@ public class ScoreDemoManager : MonoBehaviour
             if (speler.scoreHuis > hoogsteGevondenScore) hoogsteGevondenScore = speler.scoreHuis;
         }
 
+        // Sort descending based on real-time calculated general standings
         var gesorteerdeSpelers = spelers.OrderByDescending(s => s.algemeneScore).ToList();
 
-        UpdateVisueleRanglijst(gesorteerdeSpelers, hoogsteGevondenScore);
+        UpdateVisueleRanglijsten(gesorteerdeSpelers, hoogsteGevondenScore);
     }
 
-    private void UpdateVisueleRanglijst(List<SpelerData> gesorteerdeLijst, float globaleMax)
+    private void UpdateVisueleRanglijsten(List<SpelerData> gesorteerdeLijst, float globaleMax)
     {
-        for (int i = 0; i < positieTeksten.Count; i++)
+        for (int i = 0; i < gesorteerdeLijst.Count; i++)
         {
-            if (positieTeksten[i] != null && i < gesorteerdeLijst.Count)
+            var speler = gesorteerdeLijst[i];
+            string identityTag = speler.isBot ? " <size=18>[BOT]</size>" : " <size=18>[YOU]</size>";
+
+            // --- 1. UPDATE DETAILED OVERLAY (TAB / PAUSE) ---
+            if (speler.textDetailedRank != null)
             {
-                var speler = gesorteerdeLijst[i];
-
-                positieTeksten[i].text = $"<b>#{i + 1} {speler.spelerNaam}</b> - Score: <color=#00FF00>{speler.algemeneScore}</color> ptn\n" +
-                                         $"<size=32>AUT: {speler.aantalAuto} | STR: {speler.aantalStroom} | BOM: {speler.aantalBoom} | POP: {speler.aantalPoppetje} | HUI: {speler.aantalHuis}</size>";
+                string playerColorHex = GetHexForColorIndex(speler.assignedColorIndex);
+                speler.textDetailedRank.text = $"<color=#{playerColorHex}>#{i + 1}</color>";
             }
-        }
 
-        for (int i = 0; i < spelers.Count; i++)
-        {
-            var speler = spelers[i];
+            if (speler.textDetailedName != null)
+            {
+                string playerColorHex = GetHexForColorIndex(speler.assignedColorIndex);
+                speler.textDetailedName.text = $"<color=#{playerColorHex}>{speler.spelerNaam}{identityTag}\n<color=#00FF00>{speler.algemeneScore} ptn</color>";
+            }
 
+            // Push raw asset totals into their respective icon text sub-nodes
+            if (speler.textDetailedAUT != null) speler.textDetailedAUT.text = speler.aantalAuto.ToString();
+            if (speler.textDetailedSTR != null) speler.textDetailedSTR.text = speler.aantalStroom.ToString();
+            if (speler.textDetailedBOM != null) speler.textDetailedBOM.text = speler.aantalBoom.ToString();
+            if (speler.textDetailedPOP != null) speler.textDetailedPOP.text = speler.aantalPoppetje.ToString();
+            if (speler.textDetailedHUI != null) speler.textDetailedHUI.text = speler.aantalHuis.ToString();
+
+            if (speler.detailedRowTransform != null)
+            {
+                speler.detailedRowTransform.SetSiblingIndex(i);
+            }
             if (speler.mijnRadarChart != null)
             {
-                List<float> scoresToDisplay = new List<float>
-            {
-                speler.scoreAuto,
-                speler.scoreStroom,
-                speler.scoreBoom,
-                speler.scorePoppetje,
-                speler.scoreHuis
-            };
+                List<float> scoresToDisplay = new List<float> { speler.scoreAuto, speler.scoreStroom, speler.scoreBoom, speler.scorePoppetje, speler.scoreHuis };
+                speler.mijnRadarChart.UpdateChartData(speler.assignedColorIndex, scoresToDisplay, globaleMax);
+            }
 
-                speler.mijnRadarChart.UpdateChartData(i, scoresToDisplay, globaleMax);
+            // --- 2. UPDATE COMPACT GAMEPLAY HUD (LEFT SIDE LIST) ---
+            if (speler.textHudRank != null)
+            {
+                string playerColorHex = GetHexForColorIndex(speler.assignedColorIndex);
+                speler.textHudRank.text = $"<color=#{playerColorHex}><b>#{i + 1}</b></color>";
+            }
+
+            // Put the colored player name and green points into the name text box!
+            if (speler.textHudName != null)
+            {
+                string playerColorHex = GetHexForColorIndex(speler.assignedColorIndex);
+                speler.textHudName.text = $"<color=#{playerColorHex}>{speler.spelerNaam}</color> - <color=#059669>{speler.algemeneScore}pt</color>";
+            }
+
+            if (speler.hudColorLineImage != null)
+            {
+                speler.hudColorLineImage.color = GetColorForIndex(speler.assignedColorIndex);
+            }
+            if (speler.hudRowTransform != null)
+            {
+                speler.hudRowTransform.SetSiblingIndex(i);
+            }
+
+            if (detailedRowsContainer != null)
+            {
+                // Force calculations down the structural UI tree
+                Canvas.ForceUpdateCanvases();
+
+                // Re-initialize the grid layout positions instantly
+                var gridLayout = detailedRowsContainer.GetComponent<UnityEngine.UI.GridLayoutGroup>();
+                if (gridLayout != null)
+                {
+                    UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(detailedRowsContainer.GetComponent<RectTransform>());
+                }
             }
         }
     }
 
-    private void Start()
+    private string GetHexForColorIndex(int index)
     {
-        if (spelers.Count == 0)
+        switch (index)
         {
-            spelers.Add(new SpelerData
+            case 0: return "FF0000"; // Red
+            case 1: return "007EFF"; // Blue
+            case 2: return "009B12"; // Green
+            case 3: return "FFAD00"; // Yellow
+            default: return "FFFFFF";
+        }
+    }
+
+    private Color GetColorForIndex(int index)
+    {
+        switch (index)
+        {
+            case 0: return new Color(1.00f, 0.00f, 0.00f, 1f);   // Red
+            case 1: return new Color(0.00f, 0.49f, 1.00f, 1f);  // Blue
+            case 2: return new Color(0.00f, 0.61f, 0.07f, 1f);  // Green
+            case 3: return new Color(1.00f, 0.68f, 0.00f, 1f);  // Yellow
+            default: return Color.white;
+        }
+    }
+
+    private void ClearContainer(Transform container)
+    {
+        if (container == null) return;
+        foreach (Transform child in container)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    // --- Interactive Input Button / Event Modifier Triggers ---
+    public void VerhoogAuto(int spelerIndex) { if (IndexValid(spelerIndex)) spelers[spelerIndex].aantalAuto++; }
+    public void VerlaagAuto(int spelerIndex) { if (IndexValid(spelerIndex) && spelers[spelerIndex].aantalAuto > 0) spelers[spelerIndex].aantalAuto--; }
+
+    public void VerhoogStroom(int spelerIndex) { if (IndexValid(spelerIndex)) spelers[spelerIndex].aantalStroom++; }
+    public void VerlaagStroom(int spelerIndex) { if (IndexValid(spelerIndex) && spelers[spelerIndex].aantalStroom > 0) spelers[spelerIndex].aantalStroom--; }
+
+    public void VerhoogBoom(int spelerIndex) { if (IndexValid(spelerIndex)) spelers[spelerIndex].aantalBoom++; }
+    public void VerlaagBoom(int spelerIndex) { if (IndexValid(spelerIndex) && spelers[spelerIndex].aantalBoom > 0) spelers[spelerIndex].aantalBoom--; }
+
+    public void VerhoogPoppetje(int spelerIndex) { if (IndexValid(spelerIndex)) spelers[spelerIndex].aantalPoppetje++; }
+    public void VerlaagPoppetje(int spelerIndex) { if (IndexValid(spelerIndex) && spelers[spelerIndex].aantalPoppetje > 0) spelers[spelerIndex].aantalPoppetje--; }
+
+    public void VerhoogHuis(int spelerIndex) { if (IndexValid(spelerIndex)) spelers[spelerIndex].aantalHuis++; }
+    public void VerlaagHuis(int spelerIndex) { if (IndexValid(spelerIndex) && spelers[spelerIndex].aantalHuis > 0) spelers[spelerIndex].aantalHuis--; }
+
+    private bool IndexValid(int index) => index >= 0 && index < spelers.Count;
+
+    private IEnumerator SimulateRandomScoreIncreases()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        while (simulateGameplay)
+        {
+            // 1. Pick a random player from the live list
+            int randomPlayerIndex = Random.Range(0, spelers.Count);
+
+            // 2. Pick a random category modifier (0 to 4)
+            int randomCategory = Random.Range(0, 5);
+
+            // 3. Fire the appropriate increment method
+            switch (randomCategory)
             {
-                spelerNaam = "Speler 1",
-                mijnRadarChart = alleRadarCharts.Count > 0 ? alleRadarCharts[0] : null
-            });
+                case 0: VerhoogAuto(randomPlayerIndex); break;
+                case 1: VerhoogStroom(randomPlayerIndex); break;
+                case 2: VerhoogBoom(randomPlayerIndex); break;
+                case 3: VerhoogPoppetje(randomPlayerIndex); break;
+                case 4: VerhoogHuis(randomPlayerIndex); break;
+            }
 
-            spelers.Add(new SpelerData
-            {
-                spelerNaam = "Speler 2",
-                mijnRadarChart = alleRadarCharts.Count > 1 ? alleRadarCharts[1] : null
-            });
-
-            spelers.Add(new SpelerData
-            {
-                spelerNaam = "Speler 3",
-                mijnRadarChart = alleRadarCharts.Count > 2 ? alleRadarCharts[2] : null
-            });
-
-            spelers.Add(new SpelerData
-            {
-                spelerNaam = "Speler 4",
-                mijnRadarChart = alleRadarCharts.Count > 3 ? alleRadarCharts[3] : null
-            });
-        }
-    }
-
-    // 0 = Speler 1, 1 = Speler 2, 2 = Speler 3, 3 = Speler 4.
-
-    public void VerhoogAuto(int spelerIndex)
-    {
-        if (spelerIndex >= 0 && spelerIndex < spelers.Count)
-        {
-            spelers[spelerIndex].aantalAuto++;
-        }
-    }
-
-    public void VerlaagAuto(int spelerIndex)
-    {
-        if (spelerIndex >= 0 && spelerIndex < spelers.Count)
-        {
-            if (spelers[spelerIndex].aantalAuto > 0)
-                spelers[spelerIndex].aantalAuto--;
-        }
-    }
-
-    public void VerhoogStroom(int spelerIndex)
-    {
-        if (spelerIndex >= 0 && spelerIndex < spelers.Count)
-        {
-            spelers[spelerIndex].aantalStroom++;
-        }
-    }
-
-    public void VerlaagStroom(int spelerIndex)
-    {
-        if (spelerIndex >= 0 && spelerIndex < spelers.Count)
-        {
-            if (spelers[spelerIndex].aantalStroom > 0)
-                spelers[spelerIndex].aantalStroom--;
-        }
-    }
-
-    public void VerhoogBoom(int spelerIndex)
-    {
-        if (spelerIndex >= 0 && spelerIndex < spelers.Count)
-        {
-            spelers[spelerIndex].aantalBoom++;
-        }
-    }
-
-    public void VerlaagBoom(int spelerIndex)
-    {
-        if (spelerIndex >= 0 && spelerIndex < spelers.Count)
-        {
-            if (spelers[spelerIndex].aantalBoom > 0)
-                spelers[spelerIndex].aantalBoom--;
-        }
-    }
-
-    public void VerhoogPoppetje(int spelerIndex)
-    {
-        if (spelerIndex >= 0 && spelerIndex < spelers.Count)
-        {
-            spelers[spelerIndex].aantalPoppetje++;
-        }
-    }
-
-    public void VerlaagPoppetje(int spelerIndex)
-    {
-        if (spelerIndex >= 0 && spelerIndex < spelers.Count)
-        {
-            if (spelers[spelerIndex].aantalPoppetje > 0)
-                spelers[spelerIndex].aantalPoppetje--;
-        }
-    }
-
-    public void VerhoogHuis(int spelerIndex)
-    {
-        if (spelerIndex >= 0 && spelerIndex < spelers.Count)
-        {
-            spelers[spelerIndex].aantalHuis++;
-        }
-    }
-
-    public void VerlaagHuis(int spelerIndex)
-    {
-        if (spelerIndex >= 0 && spelerIndex < spelers.Count)
-        {
-            if (spelers[spelerIndex].aantalHuis > 0)
-                spelers[spelerIndex].aantalHuis--;
+            // 4. Wait between 1 to 2.5 seconds before hitting the next random score upgrade
+            float randomInterval = Random.Range(0.1f, 0.5f);
+            yield return new WaitForSeconds(randomInterval);
         }
     }
 }
+
 
 [System.Serializable]
 public class SpelerData
 {
     public string spelerNaam;
+    public bool isBot;
+    [Range(0, 3)] public int assignedColorIndex; // 0=Red, 1=Blue, 2=Green, 3=Yellow
 
-    [Header("UI Reference")]
-    public ModularRadarChart mijnRadarChart;
+    [Header("Runtime Cache Layout Links")]
+    [HideInInspector] public Transform detailedRowTransform;
+    [HideInInspector] public ModularRadarChart mijnRadarChart;
+
+    [HideInInspector] public TextMeshProUGUI textDetailedRank;
+    [HideInInspector] public TextMeshProUGUI textDetailedName;
+
+    // Decoupled tracking references for individual resource text strings
+    [HideInInspector] public TextMeshProUGUI textDetailedAUT;
+    [HideInInspector] public TextMeshProUGUI textDetailedSTR;
+    [HideInInspector] public TextMeshProUGUI textDetailedBOM;
+    [HideInInspector] public TextMeshProUGUI textDetailedPOP;
+    [HideInInspector] public TextMeshProUGUI textDetailedHUI;
+
+    [HideInInspector] public Transform hudRowTransform;
+    [HideInInspector] public TextMeshProUGUI textHudRank;
+    [HideInInspector] public TextMeshProUGUI textHudName;
+    [HideInInspector] public UnityEngine.UI.Image hudColorLineImage;
 
     [Header("Aantal Symbolen")]
     public int aantalAuto;
@@ -213,7 +347,6 @@ public class SpelerData
 
     public void BerekenScore()
     {
-        // scorewaarde van 10 punten per item
         scoreAuto = aantalAuto * 10;
         scoreStroom = aantalStroom * 10;
         scoreBoom = aantalBoom * 10;
@@ -228,7 +361,7 @@ public class SpelerData
             return;
         }
 
-        // 1. VARIATIE-BONUS: Hoeveel unieke categorieën heeft deze speler geactiveerd (> 0)?
+        // Variatie Multiplier Calculation Layers
         int actieveCategorieen = 0;
         if (aantalAuto > 0) actieveCategorieen++;
         if (aantalStroom > 0) actieveCategorieen++;
@@ -236,14 +369,11 @@ public class SpelerData
         if (aantalPoppetje > 0) actieveCategorieen++;
         if (aantalHuis > 0) actieveCategorieen++;
 
-        // Bonus: +10% per extra categorie bovenop de eerste (maximaal +40% bonus bij alle 5 typen actief)
         float variatieBonus = Mathf.Max(0, (actieveCategorieen - 1) * 0.10f);
 
-        // 2. ACTIEVE BALANS-BONUS: Hoe goed zijn de categorieën verdeeld die de speler wel heeft gebouwd?
+        // Balans Multiplier Calculation Layers
         float balansBonus = 0f;
         int[] alleScores = { scoreAuto, scoreStroom, scoreBoom, scorePoppetje, scoreHuis };
-
-        // Filter alle 0-scores eruit om de balans van de actieve keuzes te bepalen
         var actieveScores = alleScores.Where(s => s > 0).ToArray();
 
         if (actieveScores.Length > 1)
@@ -251,15 +381,10 @@ public class SpelerData
             float minActief = actieveScores.Min();
             float maxActief = actieveScores.Max();
             float balansVerhouding = minActief / maxActief;
-
-            // Maximaal +30% bonus voor een perfecte verdeling tussen de gebouwde categorieën
             balansBonus = balansVerhouding * 0.30f;
         }
 
-        // Totale multiplier = Basis (100%) + Variatie Bonus + Actieve Balans Bonus
         float totaleMultiplier = 1.0f + variatieBonus + balansBonus;
-
-        // Eindscore berekenen en afronden naar een heel getal
         algemeneScore = Mathf.RoundToInt(basisScore * totaleMultiplier);
     }
 }

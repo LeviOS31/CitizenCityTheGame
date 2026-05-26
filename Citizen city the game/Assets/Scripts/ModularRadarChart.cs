@@ -7,7 +7,13 @@ using UnityEngine.UI;
 public class ModularRadarChart : MaskableGraphic
 {
     [Header("Chart Sizing")]
-    public float chartRadius = 100f;
+    public float chartRadius = 140f;
+
+    [Header("Edge Icon Distribution")]
+    [Tooltip("Assign the 5 Icon GameObjects here in order: AUT, STR, BOM, POP, HUI")]
+    public RectTransform[] edgeIcons = new RectTransform[5];
+    [Tooltip("Extra pixel padding pushing the icons past the outer web boundary line.")]
+    public float iconPaddingMargin = 25f;
 
     [Header("Web Background Fill")]
     public bool showBackgroundFill = true;
@@ -83,7 +89,31 @@ public class ModularRadarChart : MaskableGraphic
             normalizedScores.Add(Mathf.Clamp01(score / divisor));
         }
 
+        // Dynamically shift icon layout positions to match current math parameters
+        PositionEdgeIcons();
+
         SetVerticesDirty();
+    }
+
+    private void PositionEdgeIcons()
+    {
+        if (edgeIcons == null || edgeIcons.Length == 0) return;
+
+        int categoriesCount = normalizedScores.Count > 0 ? normalizedScores.Count : 5;
+        float angleStep = 360f / categoriesCount;
+        float placementRadius = chartRadius + iconPaddingMargin;
+
+        for (int i = 0; i < edgeIcons.Length; i++)
+        {
+            if (edgeIcons[i] == null) continue;
+
+            // Compute exact trajectory angle for the edge tip vector
+            float angle = (i * angleStep * Mathf.Deg2Rad) + RotationOffsetRad;
+            Vector2 directionalVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+
+            // Set the anchored position relative to the chart center (0,0)
+            edgeIcons[i].anchoredPosition = directionalVector * placementRadius;
+        }
     }
 
     protected override void OnPopulateMesh(VertexHelper vh)
@@ -128,7 +158,6 @@ public class ModularRadarChart : MaskableGraphic
         centerVert.position = Vector2.zero;
         vh.AddVert(centerVert);
 
-        // Map out vertices at the absolute maximum radius limit
         for (int i = 0; i < count; i++)
         {
             float angle = (i * angleStep * Mathf.Deg2Rad) + RotationOffsetRad;
@@ -139,7 +168,6 @@ public class ModularRadarChart : MaskableGraphic
             vh.AddVert(bgVert);
         }
 
-        // Connect the center point to the outer edge vertices
         for (int i = 0; i < count; i++)
         {
             int current = i + 1;
@@ -150,13 +178,11 @@ public class ModularRadarChart : MaskableGraphic
 
     private void DrawWebGrid(VertexHelper vh, int count, float angleStep)
     {
-        // Draw the concentric inner and outer rings
         for (int level = 1; level <= gridLevels; level++)
         {
             float levelRadiusFraction = (float)level / gridLevels;
             float currentRadius = chartRadius * levelRadiusFraction;
 
-            // Check if this level is the absolute outer edge boundary frame
             bool isOuterFrame = (level == gridLevels);
             float activeWidth = isOuterFrame ? outerWebWidth : innerWebWidth;
             Color activeColor = isOuterFrame ? outerWebColor : innerWebColor;
@@ -173,7 +199,6 @@ public class ModularRadarChart : MaskableGraphic
             }
         }
 
-        // Draw structural angular spine spokes extending outwards from center using the softer inner styling
         for (int i = 0; i < count; i++)
         {
             float angle = (i * angleStep * Mathf.Deg2Rad) + RotationOffsetRad;
@@ -285,5 +310,12 @@ public class ModularRadarChart : MaskableGraphic
 
         vh.AddTriangle(baseIndex, baseIndex + 1, baseIndex + 2);
         vh.AddTriangle(baseIndex, baseIndex + 2, baseIndex + 3);
+    }
+
+    // Fallback alignment engine context safety routine
+    protected override void OnValidate()
+    {
+        base.OnValidate();
+        PositionEdgeIcons();
     }
 }
