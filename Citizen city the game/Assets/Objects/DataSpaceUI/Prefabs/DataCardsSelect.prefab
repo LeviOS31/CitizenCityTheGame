@@ -104,7 +104,7 @@ RectTransform:
   m_GameObject: {fileID: 3659581300171638556}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.3712, y: 1.3711998, z: 1.3711998}
+  m_LocalScale: {x: 1.50832, y: 1.3711998, z: 1.3711998}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6804899576249610174}
@@ -114,7 +114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25.473791, y: 17.684246}
+  m_AnchoredPosition: {x: -25.473816, y: 17.684235}
   m_SizeDelta: {x: -60.50306, y: -45.838646}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &563034453618157403
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &9008574075828588320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,7 +394,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8320986749190957330}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7599656226922207703}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &6687049663279276167
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,7 +603,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1509655084893061890}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8851220115697853511}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &7599656226922207703
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,7 +887,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 923684194457871526}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1337478076724871962}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &8851220115697853511
 GameObject:
   m_ObjectHideFlags: 0

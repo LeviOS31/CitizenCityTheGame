@@ -71,7 +71,10 @@ public class DistributeDataFromDataSpace : MonoBehaviour
                 if (!dataSpace.isEnabled)
                     continue;
 
-                if (dataSpace.neededData == null || dataSpace.neededData.Count < 2)
+                if (dataSpace.type != DataSpaceType.regional)
+                    continue;
+
+                if (dataSpace.neededData == null)
                     continue;
 
                 bool dataSpaceContainsCurrentColor = false;
@@ -111,16 +114,18 @@ public class DistributeDataFromDataSpace : MonoBehaviour
             if (!dataSpace.isEnabled)
                 continue;
 
+            if (dataSpace.type != DataSpaceType.municipal)
+                continue;
+
             if (dataSpace.neededData == null)
                 continue;
 
-            // [Inference] Municipal DataSpace = one required color.
-            if (dataSpace.neededData.Count != 1)
-                continue;
-
-            if (dataSpace.neededData[0].color == playerColor)
+            foreach (DataSpaceDataRequired requiredData in dataSpace.neededData)
             {
-                return true;
+                if (requiredData.color == playerColor)
+                {
+                    return true;
+                }
             }
         }
 
