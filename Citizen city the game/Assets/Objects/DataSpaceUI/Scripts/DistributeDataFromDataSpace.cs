@@ -17,6 +17,8 @@ public class DistributeDataFromDataSpace : MonoBehaviour
 
         List<Color> reachableColors = GetReachablePlayerColors();
 
+        dataSpacesController.SetRequiredDataSpaceSelectionCount(reachableColors.Count);
+
         foreach (Color reachableColor in reachableColors)
         {
             bool hasMunicipalDataSpaceEnabled = HasMunicipalDataSpaceEnabled(reachableColor);

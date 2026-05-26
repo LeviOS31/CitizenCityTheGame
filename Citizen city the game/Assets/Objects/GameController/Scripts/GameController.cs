@@ -104,7 +104,7 @@ public class GameController : MonoBehaviour
 
         projectController.ReloadProjects(activePlayer);
         dataSpaceController.ReloadPlayer(activePlayer);
-
+        dataSpaceController.ResetDataSpaceCollectionForNewTurn();
 
         foreach (PlayerCardUI playerCard in playerCards) 
         {
