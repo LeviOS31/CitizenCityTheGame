@@ -230,9 +230,8 @@ public class DataSpacesController : MonoBehaviour
                 completedRequirements++;
             }
         }
-        activeplayer.currency = dataSpace.cost;
         bool allDataSubmitted = completedRequirements == dataSpace.neededData.Count;
-        bool playerCanPay = activeplayer.currency >= dataSpace.cost;
+        bool playerCanPay = activeplayer.money >= dataSpace.cost;
 
         if (allDataSubmitted && playerCanPay)
         {

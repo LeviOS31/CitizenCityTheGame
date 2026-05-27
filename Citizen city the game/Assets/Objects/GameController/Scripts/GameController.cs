@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     [SerializeField] PlayerContainerUI playerContainer;
     [SerializeField] ProjectController projectController;
     [SerializeField] DataSpacesController dataSpaceController;
+    [SerializeField] DistributeDataFromDataSpace distribute;
     [SerializeField] ConsultantManagerUI consultantManagerUI;
     [SerializeField] AIController aiController;
     [SerializeField] Canvas GameUI;
@@ -43,7 +44,7 @@ public class GameController : MonoBehaviour
         dataCardTypes = Resources.LoadAll<DataCardType>("ScriptableObjects/DataCardTypes");        
         
         playerCards = playerContainer.Initialize(players);
-        aiController.Initialize(this, players, projectController, dataSpaceController, consultantManagerUI.consultantManager);
+        aiController.Initialize(this, players, projectController, dataSpaceController, distribute, consultantManagerUI.consultantManager);
 
         activePlayer = players[0];
 

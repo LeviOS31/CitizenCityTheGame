@@ -53,7 +53,6 @@ public class ProjectData : ScriptableObject
         }
         return false;
     }
-
 }
 
 [System.Serializable]

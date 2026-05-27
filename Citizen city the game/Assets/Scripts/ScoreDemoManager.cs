@@ -442,6 +442,8 @@ public class SpelerData
                     case 4: aantalHuis ++; break;
                     default: break;
                 }
+
+                player.money += project.ScoreMoney;
             }
             project.IsClaimed = true;
         }

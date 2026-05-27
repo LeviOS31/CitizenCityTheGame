@@ -1382,9 +1382,9 @@ RectTransform:
   - {fileID: 10290112}
   m_Father: {fileID: 65311450}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -114, y: 89}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 846, y: -450}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &544489825
@@ -2333,7 +2333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 848, y: -251}
+  m_AnchoredPosition: {x: 848, y: -340}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &837289522
@@ -4605,7 +4605,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 848, y: -332}
+  m_AnchoredPosition: {x: 848, y: -395}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1468856131
@@ -6035,6 +6035,9 @@ MonoBehaviour:
   dataSpacesController: {fileID: 18913500}
   accessibleDataParent: {fileID: 682139316}
   accessibleDataPrefab: {fileID: 2986610203301911351, guid: 23c910e34a1abd0429ffda83f6c33e0a, type: 3}
+  peopleDataCardType: {fileID: 0}
+  trafficDataCardType: {fileID: 0}
+  utilityDataCardType: {fileID: 0}
 --- !u!114 &1845508076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6879,7 +6882,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 848, y: -505.5}
+  m_AnchoredPosition: {x: 848, y: -505}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2110426344
@@ -7192,6 +7195,10 @@ PrefabInstance:
       propertyPath: GameUI
       value: 
       objectReference: {fileID: 65311449}
+    - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
+      propertyPath: distribute
+      value: 
+      objectReference: {fileID: 1845508075}
     - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
       propertyPath: aiController
       value: 

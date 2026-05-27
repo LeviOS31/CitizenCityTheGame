@@ -9,7 +9,7 @@ public class AIController : MonoBehaviour
     public int ThinkingDelay = 1000;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void Initialize(GameController gameController, List<Player> players, ProjectController projectController, DataSpacesController dataSpacesController, ConsultantManager consultantManager)
+    public void Initialize(GameController gameController, List<Player> players, ProjectController projectController, DataSpacesController dataSpacesController, DistributeDataFromDataSpace distribute, ConsultantManager consultantManager)
     {
         this.gameController = gameController;
 
@@ -19,7 +19,7 @@ public class AIController : MonoBehaviour
             Player p = players[players.Count - i];
             p.isAI = true;
             AIPlayer aiPlayer = new AIPlayer();
-            aiPlayer.Initialize(p, players, gameController, projectController, dataSpacesController, consultantManager, ThinkingDelay);
+            aiPlayer.Initialize(p, players, gameController, projectController, dataSpacesController, distribute, consultantManager, ThinkingDelay);
             AIPlayers.Add(aiPlayer);
             Debug.Log("Initialized AI Player: " + p.name);
         }

@@ -11,30 +11,26 @@ public class AIPlayer
     private GameController gameController;
     private ProjectController projectController;
     private DataSpacesController dataSpacesController;
+    private DistributeDataFromDataSpace distributeDataFromDataSpace;
     private ConsultantManager consultantManager;
     private int ThinkingDelay;
 
-    public void Initialize(Player self, List<Player> others, GameController gameController, ProjectController projectController, DataSpacesController dataSpacesController, ConsultantManager consultantManager, int ThinkingDelay)
+    public void Initialize(Player self, List<Player> others, GameController gameController, ProjectController projectController, DataSpacesController dataSpacesController, DistributeDataFromDataSpace distribute, ConsultantManager consultantManager, int ThinkingDelay)
     {
         this.self = self;
         this.others = others;
         this.gameController = gameController;
         this.projectController = projectController;
         this.dataSpacesController = dataSpacesController;
+        distributeDataFromDataSpace = distribute;
         this.consultantManager = consultantManager;
         this.ThinkingDelay = ThinkingDelay;
     }
 
     public async Task TakeTurn()
     {
-        foreach (DataSpaceData dataspace in self.DataSpaces)
-        {
-            if (dataspace.isEnabled)
-            {
-                
-            }
-        }
-
+        // get card from enabeld dataspace
+        distributeDataFromDataSpace.AISelectAndCollectRandomDataSpaceCards();
 
         Debug.Log("AIPlayer TakeTurn: " + self.name);
 
@@ -220,6 +216,6 @@ public class AIPlayer
 
     public bool TradingDecision()
     {
-        return Random.Range(0,1) < 0.3; // TODO add actual trading logic here
+        return Random.Range(0,1) < 0.2; // TODO add actual trading logic here
     } 
 }

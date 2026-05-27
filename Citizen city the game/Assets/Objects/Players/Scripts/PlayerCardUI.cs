@@ -26,6 +26,7 @@ public class PlayerCardUI : MonoBehaviour
     {
         this.player = player;
         UpdateUI();
+        this.player.UIChange += UpdateUI;
         interactableComponent = gameObject.GetComponentInChildren<Button>();
         interactableComponent.onClick.AddListener(() => FindAnyObjectByType<TradingWindowUI>().OpenTradingMenu(player));
         gameController = FindAnyObjectByType<GameController>();

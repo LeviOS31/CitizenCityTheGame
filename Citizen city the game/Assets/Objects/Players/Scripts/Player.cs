@@ -21,7 +21,9 @@ public class Player
 
     private DataCardType[] dataCardTypes;
 
+    public static event Action<Player> UIChangeplayer;
     public event Action<DataCard> OnDrawCard;
+    public event Action UIChange;
     public event Action<List<DataCard>> OnReceiveTradeCards;
     public event Action<List<DataCard>, List<DataCard>> OnTradeCards;
 
@@ -50,6 +52,7 @@ public class Player
         cards.Add(dataCard);
 
         OnDrawCard(dataCard);
+        UIChangeplayer.Invoke(this);
     }
 
     public DataCard DrawDataSpaceCard(DataCardType[] dataCardTypes)
@@ -57,6 +60,9 @@ public class Player
         DataCardType randomType = dataCardTypes[UnityEngine.Random.Range(0, dataCardTypes.Length)];
 
         DataCard dataCard = new DataCard(randomType, color, false);
+
+        UIChange.Invoke();
+        UIChangeplayer.Invoke(this);
 
         return dataCard;
     }
@@ -86,6 +92,9 @@ public class Player
             card.IsTradable = false;
             cards.Add(card);
         }
+
+        UIChange.Invoke();
+        UIChangeplayer.Invoke(this);
     }
 
     //jasons version
@@ -94,5 +103,7 @@ public class Player
         cards.Add(card);
 
         OnDrawCard(card);
+        UIChange.Invoke();
+        UIChangeplayer.Invoke(this);
     }
 }

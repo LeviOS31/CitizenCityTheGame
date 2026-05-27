@@ -19,6 +19,7 @@ public class CardHolderUI : MonoBehaviour
     {
         GameController.NewTurn += CreateCards;
         TradingWindowUI.OpenTradingWindow += ToggleRender;
+        Player.UIChangeplayer += CreateCards;
     }
 
     public void CreateCards(Player player) //TODO: Make private again
@@ -26,6 +27,11 @@ public class CardHolderUI : MonoBehaviour
         if (player != null) 
         {
             player.OnReceiveTradeCards -= TradeCards;
+        }
+
+        if (player != GameController.activePlayer)
+        {
+            return;
         }
 
         this.player = player;

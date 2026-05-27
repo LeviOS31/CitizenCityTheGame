@@ -45,7 +45,7 @@ public class DistributeDataFromDataSpace : MonoBehaviour
 
     public void AISelectAndCollectRandomDataSpaceCards()
     {
-        Player activePlayer = gameController.activePlayer;
+        Player activePlayer = GameController.activePlayer;
 
         if (activePlayer == null)
         {
