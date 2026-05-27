@@ -12,8 +12,6 @@ public class PlayerCardUI : MonoBehaviour
     [SerializeField] TMP_Text playerName;
     [SerializeField] TMP_Text playerScore;
     [SerializeField] Image playerIcon;
-    [SerializeField] TMP_Text scorePerTurn;
-    [SerializeField] TMP_Text scoreMulitplier;
     [SerializeField] Image backGround;
     [SerializeField] SplineContainer splineContainer;
     [SerializeField] GameObject cardPrefab;
@@ -44,10 +42,8 @@ public class PlayerCardUI : MonoBehaviour
     public void UpdateUI()
     {
         playerName.text = player.name;
-        playerScore.text = player.score.ToString();
+        playerScore.text = player.money.ToString();
         playerIcon.color = player.color;
-        scorePerTurn.text = player.scorePerTurn.ToString();
-        scoreMulitplier.text = player.scoreMultiplier.ToString();
         cardEntities.Values.ToList().ForEach(c => Destroy(c));
         cardEntities.Clear();
 

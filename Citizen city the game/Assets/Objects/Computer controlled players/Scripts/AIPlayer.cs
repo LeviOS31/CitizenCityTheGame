@@ -27,6 +27,15 @@ public class AIPlayer
 
     public async Task TakeTurn()
     {
+        foreach (DataSpaceData dataspace in self.DataSpaces)
+        {
+            if (dataspace.isEnabled)
+            {
+                
+            }
+        }
+
+
         Debug.Log("AIPlayer TakeTurn: " + self.name);
 
         // 1) Observe other players' dataspace progress and try to mirror actions when beneficial
