@@ -194,10 +194,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AccessibleDataSpaceUIItem
   peopleDataCardObject: {fileID: 7436348523516220189}
   peopleDataCardBackground: {fileID: 1509655084893061890}
+  peopleDataCard: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
   trafficDataCardObject: {fileID: 4821798500832516398}
   trafficDataCardBackground: {fileID: 8320986749190957330}
+  trafficDataCard: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
   utilityDataCardObject: {fileID: 8354751238697640313}
   utilityDataCardBackground: {fileID: 923684194457871526}
+  utilityDataCard: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
 --- !u!1 &4014810180236382508
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,6 +38,33 @@ public class DistributeDataFromDataSpace : MonoBehaviour
         }
     }
 
+    public void FindAvailableDataForAI()
+    {
+        ClearAccessibleDataUI();
+
+        List<Color> reachableColors = GetReachablePlayerColors();
+
+        dataSpacesController.SetRequiredDataSpaceSelectionCount(reachableColors.Count);
+
+        foreach (Color reachableColor in reachableColors)
+        {
+            bool hasMunicipalDataSpaceEnabled = HasMunicipalDataSpaceEnabled(reachableColor);
+
+            bool hasPeopleData = true;
+            bool hasTrafficData = hasMunicipalDataSpaceEnabled;
+            bool hasUtilityData = hasMunicipalDataSpaceEnabled;
+
+            AccessibleDataSpaceUIItem uiItem = Instantiate(accessibleDataPrefab, accessibleDataParent);
+
+            uiItem.AiSetup(
+                reachableColor,
+                hasPeopleData,
+                hasTrafficData,
+                hasUtilityData
+            );
+        }
+    }
+
     private void ClearAccessibleDataUI()
     {
         if (accessibleDataParent == null)
