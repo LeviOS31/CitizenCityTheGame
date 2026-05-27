@@ -11,6 +11,11 @@ public class DistributeDataFromDataSpace : MonoBehaviour
     [SerializeField] private Transform accessibleDataParent;
     [SerializeField] private AccessibleDataSpaceUIItem accessibleDataPrefab;
 
+    [Header("Data Card Types")]
+    [SerializeField] private DataCardType peopleDataCardType;
+    [SerializeField] private DataCardType trafficDataCardType;
+    [SerializeField] private DataCardType utilityDataCardType;
+
     public void DisplayAccessibleDataSpaces()
     {
         ClearAccessibleDataUI();
@@ -38,31 +43,40 @@ public class DistributeDataFromDataSpace : MonoBehaviour
         }
     }
 
-    public void FindAvailableDataForAI()
+    public void AISelectAndCollectRandomDataSpaceCards()
     {
-        ClearAccessibleDataUI();
+        Player activePlayer = gameController.activePlayer;
+
+        if (activePlayer == null)
+        {
+            Debug.LogWarning("AI cannot collect data space cards because activePlayer is null.");
+            return;
+        }
 
         List<Color> reachableColors = GetReachablePlayerColors();
+
+        if (reachableColors == null || reachableColors.Count <= 0)
+        {
+            Debug.Log("AI has no available data spaces to collect from.");
+            return;
+        }
 
         dataSpacesController.SetRequiredDataSpaceSelectionCount(reachableColors.Count);
 
         foreach (Color reachableColor in reachableColors)
         {
-            bool hasMunicipalDataSpaceEnabled = HasMunicipalDataSpaceEnabled(reachableColor);
+            DataCard randomCard = CreateRandomAvailableDataSpaceCard(reachableColor);
 
-            bool hasPeopleData = true;
-            bool hasTrafficData = hasMunicipalDataSpaceEnabled;
-            bool hasUtilityData = hasMunicipalDataSpaceEnabled;
+            if (randomCard == null)
+            {
+                Debug.LogWarning($"AI could not create a random data card for region color {reachableColor}.");
+                continue;
+            }
 
-            AccessibleDataSpaceUIItem uiItem = Instantiate(accessibleDataPrefab, accessibleDataParent);
-
-            uiItem.AiSetup(
-                reachableColor,
-                hasPeopleData,
-                hasTrafficData,
-                hasUtilityData
-            );
+            DataSpacesController.addSelectedCards?.Invoke(randomCard);
         }
+
+        dataSpacesController.GetSelectedDataSpaceCards();
     }
 
     private void ClearAccessibleDataUI()
@@ -159,5 +173,39 @@ public class DistributeDataFromDataSpace : MonoBehaviour
         }
 
         return false;
+    }
+
+    private DataCard CreateRandomAvailableDataSpaceCard(Color regionColor)
+    {
+        List<DataCardType> availableCardTypes = new List<DataCardType>();
+
+        if (peopleDataCardType != null)
+        {
+            availableCardTypes.Add(peopleDataCardType);
+        }
+
+        bool hasMunicipalDataSpaceEnabled = HasMunicipalDataSpaceEnabled(regionColor);
+
+        if (hasMunicipalDataSpaceEnabled)
+        {
+            if (trafficDataCardType != null)
+            {
+                availableCardTypes.Add(trafficDataCardType);
+            }
+
+            if (utilityDataCardType != null)
+            {
+                availableCardTypes.Add(utilityDataCardType);
+            }
+        }
+
+        if (availableCardTypes.Count <= 0)
+        {
+            return null;
+        }
+
+        DataCardType randomCardType = availableCardTypes[Random.Range(0, availableCardTypes.Count)];
+
+        return new DataCard(randomCardType, regionColor, false);
     }
 }
