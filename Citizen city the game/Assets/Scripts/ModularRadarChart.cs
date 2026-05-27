@@ -313,9 +313,8 @@ public class ModularRadarChart : MaskableGraphic
     }
 
     // Fallback alignment engine context safety routine
-    protected override void OnValidate()
+    protected void OnValidate()
     {
-        base.OnValidate();
         PositionEdgeIcons();
     }
 }
