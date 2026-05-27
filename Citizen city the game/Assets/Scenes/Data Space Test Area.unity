@@ -8042,6 +8042,9 @@ MonoBehaviour:
   dataSpacesController: {fileID: 398745316}
   accessibleDataParent: {fileID: 751047085}
   accessibleDataPrefab: {fileID: 2986610203301911351, guid: 23c910e34a1abd0429ffda83f6c33e0a, type: 3}
+  peopleDataCardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
+  trafficDataCardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
+  utilityDataCardType: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
 --- !u!1 &1465008380
 GameObject:
   m_ObjectHideFlags: 0
