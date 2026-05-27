@@ -1141,9 +1141,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DataSpaceGameObjectManager
   gameController: {fileID: 821226499}
   dataSpacesController: {fileID: 398745316}
-  powerIcon: {fileID: 21300000, guid: cae84f3713b6c1548bc31706611ed97e, type: 3}
-  carIcon: {fileID: 21300000, guid: 3009f1a3147007a45b19fc4753dce99c, type: 3}
-  personIcon: {fileID: 21300000, guid: 1c9fa4e19bf1eff4283edda015304f01, type: 3}
+  powerIcon: {fileID: 21300000, guid: 355db27238756544fb142a91df01fd57, type: 3}
+  carIcon: {fileID: 21300000, guid: 5c706ac20cda4bc49a1754132a2386e2, type: 3}
+  personIcon: {fileID: 21300000, guid: 4466e4801e24e3a4590979d60cce218a, type: 3}
   municipalDSPrefab: {fileID: 5868982145277586516, guid: 1f1c22976d7001640917bc941aca33c6, type: 3}
   regionalDSPrefab: {fileID: 2814002036392424292, guid: 454f29abe01f22c489920240fdf9bf54, type: 3}
   closeButton: {fileID: 134176747}
