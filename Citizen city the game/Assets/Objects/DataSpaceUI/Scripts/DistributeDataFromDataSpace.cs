@@ -31,6 +31,8 @@ public class DistributeDataFromDataSpace : MonoBehaviour
             bool hasPeopleData = true;
             bool hasTrafficData = hasMunicipalDataSpaceEnabled;
             bool hasUtilityData = hasMunicipalDataSpaceEnabled;
+            bool hasResidentData = hasMunicipalDataSpaceEnabled;
+            bool hasEcologicalData = hasMunicipalDataSpaceEnabled;
 
             AccessibleDataSpaceUIItem uiItem = Instantiate(accessibleDataPrefab, accessibleDataParent);
 
@@ -38,7 +40,9 @@ public class DistributeDataFromDataSpace : MonoBehaviour
                 reachableColor,
                 hasPeopleData,
                 hasTrafficData,
-                hasUtilityData
+                hasUtilityData,
+                hasResidentData,
+                hasEcologicalData
             );
         }
     }
