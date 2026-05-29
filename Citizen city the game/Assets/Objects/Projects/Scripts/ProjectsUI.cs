@@ -14,8 +14,14 @@ public class ProjectsUI : MonoBehaviour
     public GameObject PrevButton;
 
     private GameObject CurProject;
+    private bool open;
 
     public event Action<DataRequired> CheckCards;
+
+    private void Start()
+    {
+        GameController.NewTurn += (Player) => Close();
+    }
 
     public void ReloadProjectsUI(List<ProjectData> personalProjects, List<ProjectData> provincialProjects, ProjectData OpenProject)
     {
@@ -73,6 +79,8 @@ public class ProjectsUI : MonoBehaviour
 
     public async void Open()
     {
+        if (open) return;
+        open = true;
         GetComponent<Animator>().SetTrigger("open");
 
         AudioSignalHandler.PlaySound.Invoke("FolderOpen");
@@ -93,10 +101,13 @@ public class ProjectsUI : MonoBehaviour
         {
             btn.interactable = true;
         }
+
     }
 
     public async void Close()
     {
+        if (!open) return;
+        open = false;
         Button[] buttons = transform.GetComponentsInChildren<Button>();
 
         foreach (Button btn in buttons)
