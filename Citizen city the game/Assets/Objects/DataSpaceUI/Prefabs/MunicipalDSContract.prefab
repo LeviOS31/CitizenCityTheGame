@@ -1141,7 +1141,7 @@ GameObject:
   - component: {fileID: 6538411627477965091}
   - component: {fileID: 4478164428732254473}
   m_Layer: 5
-  m_Name: DataSpaceUIBetweenCompanies
+  m_Name: MunicipalDSContract
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1646,7 +1646,7 @@ MonoBehaviour:
   m_text: Municipal Data Space Contract
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
-  m_sharedMaterial: {fileID: 7976861995118457578, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
+  m_sharedMaterial: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1975,7 +1975,7 @@ MonoBehaviour:
     for profit. \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
-  m_sharedMaterial: {fileID: 7976861995118457578, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
+  m_sharedMaterial: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

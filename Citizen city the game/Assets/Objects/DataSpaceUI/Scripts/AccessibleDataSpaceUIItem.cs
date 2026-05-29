@@ -15,15 +15,27 @@ public class AccessibleDataSpaceUIItem : MonoBehaviour
     [SerializeField] private GameObject utilityDataCardObject;
     [SerializeField] private Image utilityDataCardBackground;
 
+    [Header("Residential Data Card")]
+    [SerializeField] private GameObject residentDataCardObject;
+    [SerializeField] private Image residentDataCardBackground;
+
+    [Header("Ecological Data Card")]
+    [SerializeField] private GameObject ecologyDataCardObject;
+    [SerializeField] private Image ecologyDataCardBackground;
+
     private Color selectedColor;
 
-    public void Setup(Color playerColor, bool hasPeopleData, bool hasTrafficData, bool hasUtilityData)
+    public void Setup(Color playerColor, bool hasPeopleData, bool hasTrafficData, bool hasUtilityData, bool hasResidentData, bool hasEcologicalData)
     {
         SetupCard(peopleDataCardObject, peopleDataCardBackground, playerColor, hasPeopleData);
 
         SetupCard(trafficDataCardObject, trafficDataCardBackground, playerColor, hasTrafficData);
 
         SetupCard(utilityDataCardObject, utilityDataCardBackground, playerColor, hasUtilityData);
+
+        SetupCard(residentDataCardObject, residentDataCardBackground, playerColor, hasResidentData);
+
+        SetupCard(ecologyDataCardObject, ecologyDataCardBackground, playerColor, hasEcologicalData);
     }
 
     private void SetupCard(GameObject cardObject, Image cardBackground, Color playerColor, bool isAvailable)
