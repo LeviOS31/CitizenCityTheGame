@@ -10,13 +10,13 @@ public class DataSpacesController : MonoBehaviour
     public List<DataSpaceData> dataSpaces = new List<DataSpaceData>();
     private bool check = false;
     private List<DataCard> selectedDataCards = new List<DataCard>();
-    public static Action<DataCard> addSelectedCards;
+    public static Action<DataCard> addSelectedCards;    
     private int requiredDataSpaceSelectionCount = 0;
     private bool hasCollectedDataSpaceCardsThisTurn = false;
     void Start()
     {
         CreateAllDataSpaces();
-        addSelectedCards += FillSelectedDataSpaceCardsList;
+        addSelectedCards += FillSelectedDataSpaceCardsList;        
         check = true;
     }
 
@@ -242,6 +242,7 @@ public class DataSpacesController : MonoBehaviour
 
         if (dataSpace.isEnabled)
         {
+            EnableStampForContracts.enableStamp?.Invoke(dataSpace);
             UpdateDataSpaceControllerList(dataSpace.id);
         }
 

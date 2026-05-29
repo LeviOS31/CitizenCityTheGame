@@ -15,6 +15,8 @@ public class DistributeDataFromDataSpace : MonoBehaviour
     [SerializeField] private DataCardType peopleDataCardType;
     [SerializeField] private DataCardType trafficDataCardType;
     [SerializeField] private DataCardType utilityDataCardType;
+    [SerializeField] private DataCardType residentDataCardType;
+    [SerializeField] private DataCardType ecologyDataCardType;
 
     public void DisplayAccessibleDataSpaces()
     {
@@ -200,6 +202,16 @@ public class DistributeDataFromDataSpace : MonoBehaviour
             if (utilityDataCardType != null)
             {
                 availableCardTypes.Add(utilityDataCardType);
+            }
+
+            if (residentDataCardType != null)
+            {
+                availableCardTypes.Add(residentDataCardType);
+            }
+
+            if (ecologyDataCardType != null)
+            {
+                availableCardTypes.Add(ecologyDataCardType);
             }
         }
 

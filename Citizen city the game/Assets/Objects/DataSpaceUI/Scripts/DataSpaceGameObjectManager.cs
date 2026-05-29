@@ -111,6 +111,16 @@ public class DataSpaceGameObjectManager : MonoBehaviour
         SetupEnableButton(container, dataSpace);
         SetupCostText(container, dataSpace);
         SetupCardClickAreas(container, dataSpace);
+        SetupIdText(container, dataSpace);
+    }
+
+    private void SetupIdText(Transform container, DataSpaceData data)
+    {
+        Transform idText = container.Find("idText");
+
+        TextMeshProUGUI costText = idText.GetComponent<TextMeshProUGUI>();
+
+        costText.text = data.id.ToString();
     }
 
     private void SetupEnableButton(Transform container, DataSpaceData dataSpace)
