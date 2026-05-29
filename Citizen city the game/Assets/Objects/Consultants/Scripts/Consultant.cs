@@ -72,6 +72,7 @@ public class HiredConsultant : Consultant
         turnsLeft--;
         if (turnsLeft <= 0)
         {
+            TurnHistory.AddTurnAction?.Invoke($"{requestingPlayer.name}'s consultant {Name} has completed their work.");
             return selection;
         }
         else

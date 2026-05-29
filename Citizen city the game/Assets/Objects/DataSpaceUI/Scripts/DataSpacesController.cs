@@ -202,6 +202,7 @@ public class DataSpacesController : MonoBehaviour
         if (cardToRemove != null)
         {
             activeplayer.cards.Remove(cardToRemove);
+            TurnHistory.AddTurnAction?.Invoke($"{activeplayer.name} submitted a <color=#{ColorUtility.ToHtmlStringRGB(dataRequired.color)}> {dataRequired.cardType} data card </color> to a data space.");
         }
 
         return dataRequired;
@@ -316,6 +317,7 @@ public class DataSpacesController : MonoBehaviour
         hasCollectedDataSpaceCardsThisTurn = true;
 
         Debug.Log("Data space cards collected.");
+        TurnHistory.AddTurnAction?.Invoke($"{activeplayer.name} collected {selectedDataCards.Count} data card(s) from the data spaces.");
     }
 
     public void SetRequiredDataSpaceSelectionCount(int count)

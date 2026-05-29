@@ -60,6 +60,8 @@ public class GameController : MonoBehaviour
 
         projectController.ReloadProjects(activePlayer);
         dataSpaceController.ReloadPlayer(activePlayer);
+
+        TurnHistory.AddTurnAction.Invoke("Started the game");
     }
 
     private void StartNewRound()
@@ -105,14 +107,18 @@ public class GameController : MonoBehaviour
         if (turnNumber < players.Count)
         {
             activePlayer = players[turnNumber];
+            
         }
         else
         {
             turnNumber = 0;
             roundNumber++;
             activePlayer = players[0];
+            TurnHistory.AddTurnAction.Invoke("Round " + roundNumber + " started");
             StartNewRound();
         }
+
+        TurnHistory.AddTurnAction.Invoke("<color=#" + ColorUtility.ToHtmlStringRGB(activePlayer.color) + ">" + activePlayer.name + "'s turn</color>");
 
         projectController.ReloadProjects(activePlayer);
         dataSpaceController.ReloadPlayer(activePlayer);

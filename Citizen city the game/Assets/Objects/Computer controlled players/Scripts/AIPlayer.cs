@@ -147,7 +147,7 @@ public class AIPlayer
         }
 
         await Task.Delay(ThinkingDelay);
-        Debug.Log("AIPlayer " + self.name + " is considering hiring consultants for missing data.");
+        TurnHistory.AddTurnAction?.Invoke( self.name + " is considering hiring consultants for missing data.");
 
         // 4) Consider hiring consultants for general missing data (projects / non-municipal dataspaces)
         // collect missing data card types (that AI doesn't already have)
@@ -212,6 +212,7 @@ public class AIPlayer
         }
 
         chosen.HireConsultant(selection, self);
+        Debug.Log("AIPlayer " + self.name + " hired consultant " + chosen.Name + " for needed types: " + string.Join(", ", neededTypes.Select(t => t.dataType)));
     }
 
     public bool TradingDecision()

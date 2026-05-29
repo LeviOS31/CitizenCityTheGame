@@ -56,6 +56,7 @@ public class ConsultantManager
         if (!playerHiredConsultants.ContainsKey(hiredConsultant.requestingPlayer)) playerHiredConsultants.Add(hiredConsultant.requestingPlayer, new List<HiredConsultant>());
 
         playerHiredConsultants[hiredConsultant.requestingPlayer].Add(hiredConsultant);
+        TurnHistory.AddTurnAction?.Invoke($"{hiredConsultant.requestingPlayer.name} hired {hiredConsultant.Name}");
     }
 
     public void SetConsultantOptions(Consultant[] consultants)
