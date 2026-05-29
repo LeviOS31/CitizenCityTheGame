@@ -64,7 +64,10 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             return;
         }
 
-        CreateDataSpaceWindow(prefabToUse, dataSpace);
+        if (!dataSpace.isEnabled)
+        {
+            CreateDataSpaceWindow(prefabToUse, dataSpace);
+        }        
     }
 
     public void ClearDataSpaceWindowWithButton()

@@ -20,10 +20,19 @@ public class EnableStampForContracts : MonoBehaviour
 
     public void EnableStamp(DataSpaceData data)
     {
+        if(text == null)
+        {
+            Debug.Log("text isnt there");
+            return;
+        }
+        
         string id = text.GetComponent<TextMeshProUGUI>().text;
         if(data.id.ToString() == id)
         {
-            stamp.SetActive(true);
+            if (data.isEnabled)
+            {
+                stamp.SetActive(true);
+            }            
         }        
     }
 }
