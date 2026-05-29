@@ -45,6 +45,7 @@ public class PlayerCardUI : MonoBehaviour
         playerName.text = player.name;
         playerScore.text = player.money.ToString();
         playerIcon.color = player.color;
+        cardEntities.Values.ToList().ForEach(card => card.transform.DOKill());
         cardEntities.Values.ToList().ForEach(c => Destroy(c));
         cardEntities.Clear();
 

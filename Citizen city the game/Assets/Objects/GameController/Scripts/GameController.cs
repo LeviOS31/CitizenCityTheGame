@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,7 +37,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void Start()
+    async void Start()
     {
         roundNumber = 0;
         turnNumber = 0;
@@ -53,6 +54,7 @@ public class GameController : MonoBehaviour
             playerCardUI.ToggleInteractability(activePlayer);
         }
 
+        await Task.Delay(500);
         StartNewRound();
 
         //Debug.Log("Active Player: " + activePlayer.name);

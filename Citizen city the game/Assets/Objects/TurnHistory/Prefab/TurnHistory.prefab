@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8981997790532291547}
         m_TargetAssemblyTypeName: TurnHistory, Assembly-CSharp
         m_MethodName: Open
         m_Mode: 1

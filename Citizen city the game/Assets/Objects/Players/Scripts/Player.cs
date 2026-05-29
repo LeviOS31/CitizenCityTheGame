@@ -51,8 +51,8 @@ public class Player
 
         cards.Add(dataCard);
 
-        OnDrawCard(dataCard);
-        UIChangeplayer.Invoke(this);
+        OnDrawCard?.Invoke(dataCard);
+        UIChangeplayer?.Invoke(this);
     }
 
     public DataCard DrawDataSpaceCard(DataCardType[] dataCardTypes)
