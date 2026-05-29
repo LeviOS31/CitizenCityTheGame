@@ -1969,10 +1969,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "<b><size=110%>Project description:</size></b>\n<size=50%> </size>\LData
-    between both paries will be openly shared with each other. Data Spaces must be
-    available 24/7. Shared data can only be used in specific Project context. Shared
-    data must be available in the agreed form. Other parties data can not be sold
-    for profit. \n"
+    between both will be openly shared with each other. Data Spaces must be available
+    24/7. Shared data can only be used in specific Project context. Shared data must
+    be available in the agreed form. Other parties data can not be sold for profit.
+    \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
   m_sharedMaterial: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
