@@ -65,23 +65,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse 
-    tortor diam, dapibus ut fermentum in, dapibus eu urna. Fusce at sagittis nisi.
-    Suspendisse nec enim laoreet, tristique orci nec, bibendum nulla. Nulla feugiat
-    nec leo id tempor. Proin et nisl ex. Quisque eu nulla nec quam scelerisque gravida.
-    Morbi id lorem vestibulum nunc pulvinar  dignissim. Sed sit amet hendrerit lacus,
-    non posuere magna. Sed erat  elit, rutrum quis lorem vitae, cursus ultricies
-    arcu.
-
-
-    Praesent facilisis, turpis eget pharetra fringilla, elit nulla vulputate
-    turpis, vel tincidunt urna nunc ac justo. Suspendisse tincidunt  fermentum ligula,
-    eu ornare neque gravida ac. Ut ut venenatis mauris.  Quisque eu nisl ut neque
-    vestibulum molestie. Curabitur in metus nisl.  Nunc facilisis at lectus sed facilisis.
-    Morbi auctor mollis erat, a  posuere nisl viverra in. Sed vel massa eget augue.'
+  m_text: "Project Flow-Pure must future-proof Eindhoven\u2019s wastewater infrastructure
+    by replacing 1950s pipes with a smart, modular system for a high-density vertical
+    city. It must integrate smart tech and heat-recovery systems to manage waste
+    and capture thermal energy, providing sustainable heating for the upcoming towers."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
-  m_sharedMaterial: {fileID: 7976861995118457578, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
+  m_sharedMaterial: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -105,8 +95,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11
-  m_fontSizeBase: 11
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -467,7 +457,7 @@ MonoBehaviour:
   m_text: Project Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
-  m_sharedMaterial: {fileID: 7976861995118457578, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
+  m_sharedMaterial: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -722,8 +712,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -130.77943, y: 31.3}
-  m_SizeDelta: {x: 119.8097, y: 14.5543}
+  m_AnchoredPosition: {x: -84.249405, y: 36.38087}
+  m_SizeDelta: {x: 212.8698, y: 24.7161}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4398422737477416281
 CanvasRenderer:
@@ -756,7 +746,7 @@ MonoBehaviour:
   m_text: 'Project description:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
-  m_sharedMaterial: {fileID: 7976861995118457578, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
+  m_sharedMaterial: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -780,8 +770,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -968,7 +958,7 @@ MonoBehaviour:
   m_text: +10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
-  m_sharedMaterial: {fileID: 7976861995118457578, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
+  m_sharedMaterial: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
