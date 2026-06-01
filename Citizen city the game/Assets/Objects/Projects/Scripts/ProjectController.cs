@@ -44,11 +44,11 @@ public class ProjectController : MonoBehaviour
 
         if (activeplayer.PersonalProjects.Count == 0 || activeplayer.PersonalProjects.Count(x => !x.IsDone) == 0)
         {
-            activeplayer.PersonalProjects.Add(GetPersonalProject(activeplayer.color));
+            activeplayer.PersonalProjects.Insert(0,GetPersonalProject(activeplayer.color));
         }
         if (activeplayer.ProvicialProjects.Count == 0 || activeplayer.ProvicialProjects.Count(x => !x.IsDone) == 0)
         {
-            activeplayer.ProvicialProjects.Add(GetGroupProject(activeplayer.color));
+            activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
         }
 
         //Debug.Log(activeplayer.name + " " + activeplayer.color + " Projects:");
