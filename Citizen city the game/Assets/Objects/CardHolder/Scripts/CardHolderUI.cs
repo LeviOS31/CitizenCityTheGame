@@ -11,15 +11,15 @@ public class CardHolderUI : MonoBehaviour
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private SplineContainer splineContainer;
     [SerializeField] private Transform cardSpawnPoint;
-    [SerializeField] private GameController gameController;
 
     private List<GameObject> cards = new List<GameObject>();
     private Player player;
 
     private void Start()
     {
-        gameController.NewTurn += CreateCards;
+        GameController.NewTurn += CreateCards;
         TradingWindowUI.OpenTradingWindow += ToggleRender;
+        Player.UIChangeplayer += CreateCards;
     }
 
     public void CreateCards(Player player) //TODO: Make private again
@@ -27,6 +27,11 @@ public class CardHolderUI : MonoBehaviour
         if (player != null) 
         {
             player.OnReceiveTradeCards -= TradeCards;
+        }
+
+        if (player != GameController.activePlayer)
+        {
+            return;
         }
 
         this.player = player;

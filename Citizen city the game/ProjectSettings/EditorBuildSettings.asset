@@ -5,8 +5,14 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Trailer.unity
     guid: b5a0f1cb8923aad4cb3b29ea39a283ec
+  - enabled: 1
+    path: Assets/Scenes/StartMenu.unity
+    guid: ef016ccb569d14244b88b1ae1d5ed87b
+  - enabled: 1
+    path: Assets/Scenes/CardGamePrototype.unity
+    guid: 03dd7df1f30053445927f127175ec7e6
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

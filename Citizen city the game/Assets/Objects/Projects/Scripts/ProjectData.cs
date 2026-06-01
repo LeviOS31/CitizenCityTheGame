@@ -18,16 +18,34 @@ public class ProjectData : ScriptableObject
     [TextArea(3, 10)]
     public string Description;
     public List<DataRequired> NeededData = new List<DataRequired>();
-    public int ScoreValue;
+    [Tooltip("money the player gets when the player completes the project")]
+    public int ScoreMoney;
+    [Tooltip("Score that player gets in form of the data the player used")]
+    public int[] ScoreData;
     public bool IsDone;
+    public bool IsClaimed;
+
+    private void OnValidate()
+    {
+        // Set your maximum limit here
+        int maxLimit = 5;
+
+        if (ScoreData != null && ScoreData.Length > maxLimit)
+        {
+            Debug.LogWarning($"Array limited to {maxLimit} items!");
+
+            // Resize the array back to the maximum allowed limit
+            System.Array.Resize(ref ScoreData, maxLimit);
+        }
+    }
 
     public bool HasColor(Color targetColor)
     {
-        Debug.Log("Project: " + Name);
-        Debug.Log("ColorToCheck: " + targetColor);
+        //Debug.Log("Project: " + Name);
+        //Debug.Log("ColorToCheck: " + targetColor);
         foreach (DataRequired requirement in NeededData)
         {
-            Debug.Log("color: " + requirement.Color);
+            //Debug.Log("color: " + requirement.Color);
             if (Vector4.Distance(requirement.Color, targetColor) < 0.01)
             {
                 return true;
@@ -35,7 +53,6 @@ public class ProjectData : ScriptableObject
         }
         return false;
     }
-
 }
 
 [System.Serializable]

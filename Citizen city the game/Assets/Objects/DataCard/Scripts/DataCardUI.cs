@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DataCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class DataCardUI : MonoBehaviour
 {
     [SerializeField] public Image border;
     [SerializeField] public Image background;
@@ -39,13 +39,13 @@ public class DataCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        OnHover?.Invoke(gameObject, true);
-    }
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{
+    //    OnHover?.Invoke(gameObject, true);
+    //}
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        OnHover?.Invoke(gameObject, false);
-    }
+    //public void OnPointerExit(PointerEventData eventData)
+    //{
+    //    OnHover?.Invoke(gameObject, false);
+    //}
 }

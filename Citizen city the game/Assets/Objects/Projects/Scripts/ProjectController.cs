@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Objects.Projects.Scripts;
-using UnityEditor.PackageManager.Requests;
 
 public class ProjectController : MonoBehaviour
 {
@@ -18,7 +16,6 @@ public class ProjectController : MonoBehaviour
         AllPersonalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Personal"));
         AllGroupProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Group"));
         AllOpenProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Open"));
-
     }
 
     private void Start()
@@ -47,22 +44,22 @@ public class ProjectController : MonoBehaviour
 
         if (activeplayer.PersonalProjects.Count == 0 || activeplayer.PersonalProjects.Count(x => !x.IsDone) == 0)
         {
-            activeplayer.PersonalProjects.Add(GetPersonalProject(activeplayer.color));
+            activeplayer.PersonalProjects.Insert(0,GetPersonalProject(activeplayer.color));
         }
         if (activeplayer.ProvicialProjects.Count == 0 || activeplayer.ProvicialProjects.Count(x => !x.IsDone) == 0)
         {
-            activeplayer.ProvicialProjects.Add(GetGroupProject(activeplayer.color));
+            activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
         }
 
-        Debug.Log(activeplayer.name + " " + activeplayer.color + " Projects:");
+        //Debug.Log(activeplayer.name + " " + activeplayer.color + " Projects:");
 
         foreach (ProjectData project in activeplayer.PersonalProjects)
         {
-            Debug.Log(project.Name);
+            //Debug.Log(project.Name);
         }
         foreach (ProjectData project in activeplayer.ProvicialProjects)
         {
-            Debug.Log(project.Name);
+            //Debug.Log(project.Name);
         }
 
         GetComponent<ProjectsUI>().ReloadProjectsUI(activeplayer.PersonalProjects, activeplayer.ProvicialProjects, OpenProject);
@@ -135,6 +132,7 @@ public class ProjectController : MonoBehaviour
                     Debug.Log("card found");
                     remove.Add(card);
                     Data.IsMet = true;
+                    AudioSignalHandler.PlaySound.Invoke("ProjectPling");
                     break;
                 }
             }
@@ -142,6 +140,7 @@ public class ProjectController : MonoBehaviour
             foreach (DataCard card in remove)
             {
                 activeplayer.cards.Remove(card);
+                TurnHistory.AddTurnAction?.Invoke(activeplayer.name + " used a <color=#" + ColorUtility.ToHtmlStringRGB(card.Color) + ">" + card.CardType + " card</color> for a project");
             }
         }
     }

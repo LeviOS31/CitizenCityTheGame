@@ -66,8 +66,8 @@ public class TrailerTrigger : MonoBehaviour
         cardsanim.SetTrigger("cards");
         await Task.Delay(3000);
         moneyanim.SetTrigger("coins");
-        controller.activePlayer.cards.Add(new DataCard(controller.dataCardTypes.FirstOrDefault(obj => obj.dataType == "Civil"), new Color(1,0,0)));
-        cardholder.CreateCards(controller.activePlayer);
+        //controller.activePlayer.cards.Add(new DataCard(controller.dataCardTypes.FirstOrDefault(obj => obj.dataType == "Civil"), new Color(1,0,0)));
+        //cardholder.CreateCards(controller.activePlayer);
         await Task.Delay(2000);
         cardsanim.gameObject.SetActive(false);
         moneyanim.gameObject.SetActive(false);
@@ -92,11 +92,11 @@ public class TrailerTrigger : MonoBehaviour
     public async void ConsultantsCards()
     {
         await Task.Delay(500);
-        controller.activePlayer.cards.Clear();
-        controller.activePlayer.cards.Add(new DataCard(controller.dataCardTypes.FirstOrDefault(obj => obj.dataType == "Civil"), controller.activePlayer.color));
-        controller.activePlayer.cards.Add(new DataCard(controller.dataCardTypes.FirstOrDefault(obj => obj.dataType == "Traffic"), controller.activePlayer.color));
-        controller.activePlayer.cards.Add(new DataCard(controller.dataCardTypes.FirstOrDefault(obj => obj.dataType == "Utility"), controller.activePlayer.color));
-        cardholder.CreateCards(controller.activePlayer);
+        //controller.activePlayer.cards.Clear();
+        //controller.activePlayer.cards.Add(new DataCard(controller.dataCardTypes.FirstOrDefault(obj => obj.dataType == "Civil"), controller.activePlayer.color));
+        //controller.activePlayer.cards.Add(new DataCard(controller.dataCardTypes.FirstOrDefault(obj => obj.dataType == "Traffic"), controller.activePlayer.color));
+        //controller.activePlayer.cards.Add(new DataCard(controller.dataCardTypes.FirstOrDefault(obj => obj.dataType == "Utility"), controller.activePlayer.color));
+        //cardholder.CreateCards(controller.activePlayer);
     }
 
     public async void DataSpaceSetupCity()

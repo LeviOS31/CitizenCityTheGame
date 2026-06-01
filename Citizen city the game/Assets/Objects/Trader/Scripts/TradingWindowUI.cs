@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class TradingWindowUI : MonoBehaviour
 {
+    [SerializeField] AIController aiController;
     [SerializeField] GameObject dataCardPrefab;
     [SerializeField] GameObject tradingWindow;
     [SerializeField] GameObject offerContainer;
@@ -25,6 +26,13 @@ public class TradingWindowUI : MonoBehaviour
 
     public static event Action<bool> OpenTradingWindow;
 
+    private void Start()
+    {
+        _trader.aiController = aiController;
+
+        _trader.TradeComplete += ClearValues;
+    }
+
     public void OpenTradingMenu(Player receivingPlayer)
     {
         RefuseTrade();
@@ -36,7 +44,7 @@ public class TradingWindowUI : MonoBehaviour
 
         if (initiatingPlayer == null) 
         {
-            initiatingPlayer = FindAnyObjectByType<GameController>().activePlayer;
+            initiatingPlayer = GameController.activePlayer;
             this.receivingPlayer = receivingPlayer;
         } 
 
@@ -70,8 +78,11 @@ public class TradingWindowUI : MonoBehaviour
 
     public void StartTrade()
     {
-        acceptButton.SetActive(true);
-        refuseButton.SetActive(true);
+        if (!receivingPlayer.isAI)
+        {
+            acceptButton.SetActive(true);
+            refuseButton.SetActive(true);
+        }
 
         List<DataCard> offer = new List<DataCard>();
         List<DataCard> request = new List<DataCard>();
@@ -117,20 +128,18 @@ public class TradingWindowUI : MonoBehaviour
     {
         _trader.AcceptTrade();
         ClearValues();
-        tradingWindow.SetActive(false);
     }
 
     public void RefuseTrade()
     {
         _trader.RefuseTrade();
         ClearValues();
-        tradingWindow.SetActive(false);
     }
 
     public void CounterOffer()
     {
         initiatingPlayer = receivingPlayer;
-        receivingPlayer = FindAnyObjectByType<GameController>().activePlayer;
+        receivingPlayer = GameController.activePlayer;
         offerSelection.Clear();
         requestSelection.Clear();
         OpenTradingMenu(receivingPlayer);
@@ -156,5 +165,6 @@ public class TradingWindowUI : MonoBehaviour
         acceptButton.SetActive(false);
         refuseButton.SetActive(false);
         OpenTradingWindow.Invoke(false);
+        tradingWindow.SetActive(false);
     }
 }

@@ -15,18 +15,12 @@ MonoBehaviour:
   Name: District E buildings
   Type: 1
   Image: {fileID: 0}
-  Description: "District E is a transformative three-tower development poised to
-    redefine the entrance to Eindhoven. Rising up to 140 meters directly across from
-    the Central Station, this project addresses the city\u2019s urgent housing shortage
-    by adding over 700 diverse apartments to the Brainport core. By replacing a paved
-    transit square with lush \"urban forests\" and a 4,500-space bicycle hub, the
-    towers act as a sustainable gateway that prioritizes people over cars. This high-density
-    hub isn't just about height; it\u2019s a strategic effort to turn a transit \"dead
-    zone\" into a vibrant, climate-resilient neighborhood where tech professionals
-    and locals can connect in public gardens and glass-walled cafes. Once finished,
-    District E will serve as the heartbeat of a modernized, vertical Eindhoven."
+  Description: District E must deliver a group of towers across from Eindhoven Central
+    Station, which need to add about 700 apartments to the city. The project should
+    prioritize people over cars removing cars from the citycenter. It must create
+    a climate-resilient neighborhood with more greenry to make the city more sustainable.
   NeededData:
-  - CardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
+  - CardType: {fileID: 11400000, guid: d4a97629c31953347b887b63e6e9ced5, type: 2}
     Color: {r: 1, g: 0, b: 0, a: 1}
     IsMet: 0
   - CardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
@@ -35,5 +29,7 @@ MonoBehaviour:
   - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
     Color: {r: 1, g: 0, b: 0, a: 1}
     IsMet: 0
-  ScoreValue: 15
+  ScoreMoney: 2000
+  ScoreData: 
   IsDone: 0
+  IsClaimed: 0

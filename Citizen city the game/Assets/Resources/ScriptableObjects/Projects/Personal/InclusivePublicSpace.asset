@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
+  m_Name: InclusivePublicSpace
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectData
+  Name: Inclusive public spaces
+  Type: 0
+  Image: {fileID: 0}
+  Description: Public spaces around this municipality must be redeveloped into dynamic,
+    responsive environments. Driven by smart technology and data, these changes must
+    ensure the space is safe and accessible for everyone, regardless of abilities
+    or disabilities.
+  NeededData:
+  - CardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
+    Color: {r: 0, g: 0, b: 0, a: 0}
+    IsMet: 0
+  - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
+    Color: {r: 0, g: 0, b: 0, a: 0}
+    IsMet: 0
+  ScoreMoney: 750
+  ScoreData: 
+  IsDone: 0
+  IsClaimed: 0

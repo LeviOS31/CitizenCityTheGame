@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
+  m_Name: WaterStorage
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectData
+  Name: 'Water Storage '
+  Type: 0
+  Image: {fileID: 0}
+  Description: Due to  poor soil infiltration of rainwater, District E requires an
+    innovative water system. This system must ensure that rainwater is utilized to
+    the benefit of residents during hot periods, prevents flooding, and can be reused
+    within the buildings.
+  NeededData:
+  - CardType: {fileID: 11400000, guid: d4a97629c31953347b887b63e6e9ced5, type: 2}
+    Color: {r: 0, g: 0, b: 0, a: 0}
+    IsMet: 0
+  - CardType: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
+    Color: {r: 0, g: 0, b: 0, a: 0}
+    IsMet: 0
+  - CardType: {fileID: 11400000, guid: 70c6ee5ec7116a64eb6f39ac40ca8b58, type: 2}
+    Color: {r: 0, g: 0, b: 0, a: 0}
+    IsMet: 0
+  ScoreMoney: 1000
+  ScoreData: 
+  IsDone: 0
+  IsClaimed: 0

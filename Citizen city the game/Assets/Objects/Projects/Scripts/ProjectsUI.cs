@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class ProjectsUI : MonoBehaviour
 {
@@ -13,8 +14,14 @@ public class ProjectsUI : MonoBehaviour
     public GameObject PrevButton;
 
     private GameObject CurProject;
+    private bool open;
 
     public event Action<DataRequired> CheckCards;
+
+    private void Start()
+    {
+        GameController.NewTurn += (Player) => Close();
+    }
 
     public void ReloadProjectsUI(List<ProjectData> personalProjects, List<ProjectData> provincialProjects, ProjectData OpenProject)
     {
@@ -72,21 +79,63 @@ public class ProjectsUI : MonoBehaviour
 
     public async void Open()
     {
+        if (open) return;
+        open = true;
         GetComponent<Animator>().SetTrigger("open");
+
+        AudioSignalHandler.PlaySound.Invoke("FolderOpen");
+
+        foreach (Transform child in PaperParent)
+        {
+            child.GetComponent<Animator>().ResetTrigger("Next");
+            child.GetComponent<Animator>().ResetTrigger("Previous");
+        }
+
         await Task.Delay(1000);
         FolderFront.SetAsFirstSibling();
         CurProject = PaperParent.GetChild(PaperParent.childCount - 1).gameObject;
+
+        Button[] buttons = transform.GetComponentsInChildren<Button>();
+
+        foreach (Button btn in buttons)
+        {
+            btn.interactable = true;
+        }
+
     }
 
-    public void Close()
+    public async void Close()
     {
+        if (!open) return;
+        open = false;
+        Button[] buttons = transform.GetComponentsInChildren<Button>();
+
+        foreach (Button btn in buttons)
+        {
+            btn.interactable = false;
+        }
+
+        foreach (Transform child in PaperParent)
+        {
+            child.GetComponent<Animator>().SetTrigger("Previous");
+        }
+
+
+        await Task.Delay(500);
+
         FolderFront.SetSiblingIndex(transform.childCount - 3);
         GetComponent<Animator>().SetTrigger("close");
+
+
+        AudioSignalHandler.PlaySound.Invoke("FolderClose");
     }
 
     public void NextProject()
     {
         CurProject.GetComponent<Animator>().SetTrigger("Next");
+
+        AudioSignalHandler.PlaySound.Invoke("FolderOpen");
+
         int curIndex = CurProject.transform.GetSiblingIndex();
         CurProject = PaperParent.GetChild(curIndex - 1).gameObject;
     }
@@ -95,6 +144,8 @@ public class ProjectsUI : MonoBehaviour
         int curindex = CurProject.transform.GetSiblingIndex();
         CurProject = PaperParent.GetChild(curindex + 1).gameObject;
         CurProject.GetComponent<Animator>().SetTrigger("Previous");
+
+        AudioSignalHandler.PlaySound.Invoke("FolderClose");
     }
     public void GoToPersonalProject()
     {

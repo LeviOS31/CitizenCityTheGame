@@ -45,13 +45,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameController
   availableColors:
-  - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0.4943204, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0.6075471, b: 0.07076672, a: 1}
   - {r: 1, g: 0.67814285, b: 0, a: 1}
   - {r: 0.81386757, g: 0, b: 1, a: 1}
   - {r: 1, g: 0.421786, b: 0, a: 1}
   playerContainer: {fileID: 0}
+  projectController: {fileID: 0}
+  dataSpaceController: {fileID: 0}
+  consultantManagerUI: {fileID: 0}
+  aiController: {fileID: 0}
+  GameUI: {fileID: 0}
   totalPlayers: 4
   roundNumber: 0
   turnNumber: 0
+  dataCardTypes: []

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed949f9f05a184244bb58973bd87c855, type: 3}
+  m_Name: Zwarteveen+Meer
+  m_EditorClassIdentifier: Assembly-CSharp::ConsultantOption
+  Name: Zwarteveen+meer
+  Icon: {fileID: 21300000, guid: d89e8e8bfc1788c4a812fd5fbd9b3f09, type: 3}
+  Specializations:
+  - {fileID: 11400000, guid: 70c6ee5ec7116a64eb6f39ac40ca8b58, type: 2}
+  BasePrice: 350
+  PricePerData: 0
+  Duration: 3
