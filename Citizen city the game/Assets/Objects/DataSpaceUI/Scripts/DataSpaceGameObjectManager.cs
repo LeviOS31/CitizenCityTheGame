@@ -28,7 +28,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
         activeplayer = GameController.activePlayer;
     }
 
-    public void DataSpaceButton()
+    public void DataSpaceContractsButton()
     {
         activeplayer = GameController.activePlayer;
         toggle = !toggle;
