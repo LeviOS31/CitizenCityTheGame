@@ -64,6 +64,11 @@ public class GameController : MonoBehaviour
         dataSpaceController.ReloadPlayer(activePlayer);
 
         TurnHistory.AddTurnAction.Invoke("Started the game");
+
+        if (PlayerPrefs.GetInt("TutorialPos", 0) != 999)
+        {
+            Tutorial.AdvanceTutorial();
+        }
     }
 
     private void StartNewRound()
