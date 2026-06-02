@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,13 +17,13 @@ public class DataSpaceGameObjectManager : MonoBehaviour
     [Header("Window Prefabs")]
     [SerializeField] private GameObject municipalDSPrefab;
     [SerializeField] private GameObject regionalDSPrefab;
-    [SerializeField] private GameObject closeButton;
 
     [Header("Window Parent")]
     [SerializeField] private Transform dataSpaceContainer;
 
     private Player activeplayer;
-    private bool toggle = false;
+    private int currenntContractIndex;
+    private List<DataSpaceData> activePlayerContracts = new List<DataSpaceData>();
     private void Start()
     {
         activeplayer = GameController.activePlayer;
@@ -31,21 +32,48 @@ public class DataSpaceGameObjectManager : MonoBehaviour
     public void DataSpaceContractsButton()
     {
         activeplayer = GameController.activePlayer;
-        toggle = !toggle;
-        if (toggle)
+        ClearDataSpaceWindow();
+        RefreshList();
+        currenntContractIndex = 0;
+        GenerateDataSpaceObjects(activePlayerContracts[currenntContractIndex]);
+    }
+
+    private void RefreshList()
+    {
+        activePlayerContracts.Clear();
+        foreach(DataSpaceData data in activeplayer.DataSpaces)
         {
-            ClearDataSpaceWindow();
-            closeButton.SetActive(true);
-            foreach (DataSpaceData data in activeplayer.DataSpaces)
+            if (!data.isEnabled)
             {
-                GenerateDataSpaceObjects(data);
+                activePlayerContracts.Add(data);
             }
+        }
+    }
+
+    public void SwitchDataSpaceContract(int i)
+    {
+        RefreshList();
+        ClearDataSpaceWindow();
+        if(i == 2)
+        {            
+            currenntContractIndex -= 1;
         }
         else
         {
-            ClearDataSpaceWindow();
-            closeButton.SetActive(false);
+            currenntContractIndex += i;
         }
+
+        int lastIndex = activePlayerContracts.Count - 1;
+        
+        if (currenntContractIndex < 0)
+        {
+            currenntContractIndex = lastIndex;
+        }
+        if (currenntContractIndex > lastIndex)
+        {
+            currenntContractIndex = 0;
+        }
+        GenerateDataSpaceObjects(activePlayerContracts[currenntContractIndex]);
     }
 
     public void GenerateDataSpaceObjects(DataSpaceData dataSpace)
@@ -67,15 +95,9 @@ public class DataSpaceGameObjectManager : MonoBehaviour
         if (!dataSpace.isEnabled)
         {
             CreateDataSpaceWindow(prefabToUse, dataSpace);
-        }        
+        }
     }
 
-    public void ClearDataSpaceWindowWithButton()
-    {
-        toggle = false;
-        ClearDataSpaceWindow();
-    }
-    
     public void ClearDataSpaceWindow()
     {
         foreach (Transform child in dataSpaceContainer)
