@@ -83,10 +83,6 @@ public class TradingWindowUI : MonoBehaviour
 
     public void StartTrade()
     {
-        if (Tutorial.Tutorialposition == 16)
-        {
-            Tutorial.AdvanceTutorial?.Invoke();
-        }
 
         if (!receivingPlayer.isAI)
         {
@@ -157,6 +153,11 @@ public class TradingWindowUI : MonoBehaviour
 
     private void ClearValues()
     {
+        if (Tutorial.Tutorialposition == 16)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
+
         initiatingPlayer = null;
         receivingPlayer = null;
 
