@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
   m_Name: InclusivePublicSpace
   m_EditorClassIdentifier: Assembly-CSharp::ProjectData
-  Name: Inclusive public spaces
+  Name: Inclusieve Openbare omgevingen
   Type: 0
   Image: {fileID: 0}
-  Description: Public spaces around this municipality must be redeveloped into dynamic,
-    responsive environments. Driven by smart technology and data, these changes must
-    ensure the space is safe and accessible for everyone, regardless of abilities
-    or disabilities.
+  Description: Openbare omgevingen rondom de gemeente moeten veranderd worden in
+    dynamische plekken die gestuurd worden door smart technology en data. Deze  veranderingen
+    moeten ervoor zorgen dat deze plekken veilig en toegankelijk zijn voor iedereen,
+    ongeacht fysieke beperkingen zoals een handicap.
   NeededData:
   - CardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
     Color: {r: 0, g: 0, b: 0, a: 0}

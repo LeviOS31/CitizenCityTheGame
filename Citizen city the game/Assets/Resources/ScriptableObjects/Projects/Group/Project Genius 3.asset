@@ -15,12 +15,14 @@ MonoBehaviour:
   Name: Project Genius
   Type: 1
   Image: {fileID: 0}
-  Description: Project GENIUS must deliver a campus-wide intelligence upgrade across
-    over 40 major university and business buildings to solve local power grid congestion.
-    The project shall integrate a central 3.4 Megawatt-hour battery storage system
-    to act as a buffer for the electrical grid. It must implement a predictive energy
-    management platform that uses real-time data to automatically balance power between
-    solar arrays and facilities, preventing blackouts during peak hours.
+  Description: Project Genius moet een campus-brede oplossing bieden voor meer dan
+    40 grote universiteits- en bedrijfsgebouwen voor de overbelasting van het lokale
+    stroomnetwerk. Het project zal een centrale 3.4 megawattuur batterij opslagsysteem
+    opzetten als een buffer voor het stroomverbruik. Deze centrale batterij moet
+    gebruik maken van een voorspellend energie management platform dat gebruikmaakt
+    van real-time data om de balans tussen zonnepanelen en andere stroomvoorzieningen
+    te behouden. Dit om te voorkomen dat er periodes zijn waarin er geen stroom is
+    op drukste momenten van de dag.
   NeededData:
   - CardType: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
     Color: {r: 1, g: 0.6784314, b: 0, a: 1}

@@ -15,12 +15,13 @@ MonoBehaviour:
   Name: Multimodal Transport Hub
   Type: 1
   Image: {fileID: 0}
-  Description: The Multimodal Transport Hub must deliver a massive underground transit
-    overhaul at Eindhoven Central Station to accommodate 150,000 daily commuters.
-    The project shall relocate the current above-ground bus lanes into a subterranean
-    terminal with 34 gates and five dedicated bus tunnels, removing large vehicles
-    from street level. It must integrate a two-story indoor facility to add 7,900
-    bicycle spaces, prioritizing eco-friendly travel and clear pedestrian spaces.
+  Description: De multimodale transport hub moet het transportnetwerk bij het centrale
+    station verbeteren om 150,000 dagelijkse reizigers te accommoderen. Het project
+    zal de huidige bushaltes boven de grond verplaatsen naar een ondergrondse terminal
+    met 34 gates en 5 bus tunnels. Dit haalt grote voertuigen weg van het straatniveau.
+    Samen met deze ontwikkeling moet er ook een 2 verdieping binnenstalling komen
+    voor 7.900 fietsen om natuurvriendelijke vormen van transport voorop te stellen
+    en duidelijke voetgangerszones te hebben.
   NeededData:
   - CardType: {fileID: 11400000, guid: d4a97629c31953347b887b63e6e9ced5, type: 2}
     Color: {r: 0, g: 0.49411765, b: 1, a: 1}
