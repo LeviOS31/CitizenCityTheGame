@@ -96,7 +96,7 @@ public class GameController : MonoBehaviour
 
     public void EndTurn()
     {
-        activePlayer.money += 100;  
+        activePlayer.money += 300;  
 
         turnNumber++;
 

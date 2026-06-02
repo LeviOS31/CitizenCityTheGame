@@ -11,7 +11,7 @@ public class Player
     public int score = 0;
     public int currency;
     public float scoreMultiplier = 0f;
-    public int money = 1000;
+    public int money = 1500;
     public Color color;
     public List<DataCard> cards = new List<DataCard>();
     public List<ProjectData> PersonalProjects = new List<ProjectData>();
