@@ -95,6 +95,7 @@ public class ConsultantManagerUI : MonoBehaviour
 
     public void OpenConsultancyScreen()
     {
+
         ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.black;
         ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.white;
@@ -107,10 +108,19 @@ public class ConsultantManagerUI : MonoBehaviour
         ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.black;
         DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         CreateActiveContractsUIElements();
+
+        if (Tutorial.Tutorialposition == 8) 
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
     }
 
     public void OpenDataSpaceScreen()
     {
+        if (Tutorial.Tutorialposition == 22)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
         ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.black;
@@ -118,13 +128,27 @@ public class ConsultantManagerUI : MonoBehaviour
 
     public void OpenConsultantDashboard()
     {
+        if (Tutorial.Tutorialposition == 6 || Tutorial.Tutorialposition == 21)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
+
         ConsultancyScreen.SetActive(true);
+        foreach (Button button in GetComponentsInChildren<Button>())
+        {
+            button.interactable = true;
+        }
         CreateConsultants();
         Funds.text = GameController.activePlayer.money.ToString();
     }
 
     public void CloseConsultDashboard()
     {
+        if (Tutorial.Tutorialposition == 24)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
+
         ConsultancyScreen.SetActive(false);
     }
 

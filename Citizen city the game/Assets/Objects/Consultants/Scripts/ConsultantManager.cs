@@ -57,6 +57,11 @@ public class ConsultantManager
 
         playerHiredConsultants[hiredConsultant.requestingPlayer].Add(hiredConsultant);
         TurnHistory.AddTurnAction?.Invoke($"{hiredConsultant.requestingPlayer.name} hired {hiredConsultant.Name}");
+
+        if (Tutorial.Tutorialposition == 7 && playerHiredConsultants[hiredConsultant.requestingPlayer].Count == 2)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
     }
 
     public void SetConsultantOptions(Consultant[] consultants)

@@ -73,6 +73,11 @@ public class GameController : MonoBehaviour
 
     private void StartNewRound()
     {
+        if (Tutorial.Tutorialposition == 11 || Tutorial.Tutorialposition == 18)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
+
         foreach (Player player in players)
         {
             player.DrawDataCard(dataCardTypes);
@@ -101,6 +106,11 @@ public class GameController : MonoBehaviour
 
     public void EndTurn()
     {
+        if (Tutorial.Tutorialposition == 10 || Tutorial.Tutorialposition == 17)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
+
         activePlayer.money += 100;  
 
         turnNumber++;

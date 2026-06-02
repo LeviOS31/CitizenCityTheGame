@@ -21,5 +21,10 @@ public class Tutorial : MonoBehaviour
         }
 
         transform.GetChild(Tutorialposition).gameObject.SetActive(true);
+
+        if (Tutorialposition >= 29)
+        {
+            PlayerPrefs.SetInt("TutorialCompleted", 1);
+        }
     }
 }
