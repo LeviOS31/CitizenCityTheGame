@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour
 
     public static Action<Player> NewTurn;
     public static Action UpdateUI;
-    public static Action<Player> Completedproject;
+    public static Action<Player, ProjectData> Completedproject;
 
     void Awake()
     {
@@ -167,7 +167,11 @@ public class GameController : MonoBehaviour
         {
             if (project.IsDone && !project.IsClaimed)
             {
-                Completedproject.Invoke(activePlayer);
+                activePlayer.money += project.ScoreMoney;
+                Debug.Log($"[REWARD] {activePlayer.name} ontvangt €{project.ScoreMoney} voor project {project.Name}");
+                Completedproject?.Invoke(activePlayer, project);
+
+                project.IsClaimed = true;
                 break;
             }
         }
