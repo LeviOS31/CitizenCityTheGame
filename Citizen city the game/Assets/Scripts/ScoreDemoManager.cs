@@ -393,62 +393,49 @@ public class SpelerData
         algemeneScore = Mathf.RoundToInt(basisScore * totaleMultiplier);
     }
 
-    public void AddScore(Player player)
+    public void AddScore(Player player, ProjectData completedProject)
     {
-        if (player == null) return;
+        if (player == null || completedProject == null) return;
 
-        if (Vector4.Distance(player.color, hudColorLineImage.color) > 0.1f) return;
+        // Controleer of deze SpelerData-rij wel hoort bij de speler die het project afrondde
+        // We checken dit op basis van naam-overeenkomst om Vector4/Color-gedoe te voorkomen
+        if (this.spelerNaam != player.name && !this.spelerNaam.Contains(player.name)) return;
 
-        List<ProjectData> playerProjects = player.PersonalProjects.Concat(player.ProvicialProjects).ToList();
+        Debug.Log($"[SCORE LINK] Koppel project data van {completedProject.Name} aan UI van {this.spelerNaam}");
 
-        foreach(ProjectData project in playerProjects)
+        // Loop direct door de benodigde data van het zojuist ingeleverde project!
+        foreach (var req in completedProject.NeededData)
         {
-            if (!project.IsDone || project.IsClaimed) continue;
-            foreach (var req in project.NeededData)
+            if (req == null) continue;
+
+            string typeName = req.CardType != null && req.CardType.dataType != null
+                ? req.CardType.dataType.ToLowerInvariant()
+                : string.Empty;
+
+            switch (typeName)
             {
-                if (req == null) continue;
-
-                string typeName = req.CardType != null && req.CardType.dataType != null ? req.CardType.dataType.ToLowerInvariant() : string.Empty;
-
-                int index = -1;
-                switch (typeName)
-                {
-                    case "traffic":
-                        index = 0; // Auto
-                        break;
-                    case "utility":
-                        index = 1; // Stroom
-                        break;
-                    case "nature":
-                        index = 2; // Boom
-                        break;
-                    case "civil":
-                        index = 3; // Poppetje
-                        break;
-                    case "residential":
-                        index = 4; // Huis
-                        break;
-                    default:
-                        Debug.LogWarning($"Unrecognized CardType '{typeName}' in project '{project.name}'. No score added.");
-                        break;
-                }
-
-                switch (index)
-                {
-                    case 0: aantalAuto ++; break;
-                    case 1: aantalStroom ++; break;
-                    case 2: aantalBoom ++; break;
-                    case 3: aantalPoppetje ++; break;
-                    case 4: aantalHuis ++; break;
-                    default: break;
-                }
-
-                player.money += project.ScoreMoney;
+                case "traffic":
+                    aantalAuto++;
+                    break;
+                case "utility":
+                    aantalStroom++;
+                    break;
+                case "nature":
+                    aantalBoom++;
+                    break;
+                case "civil":
+                    aantalPoppetje++;
+                    break;
+                case "residential":
+                    aantalHuis++;
+                    break;
+                default:
+                    Debug.LogWarning($"Unrecognized CardType '{typeName}' in completed project. No symbol added.");
+                    break;
             }
-            project.IsClaimed = true;
         }
 
-        // Recalculate derived scores after updating counts
+        // Bereken direct de nieuwe algemeneScore en multipliers
         BerekenScore();
     }
 }
