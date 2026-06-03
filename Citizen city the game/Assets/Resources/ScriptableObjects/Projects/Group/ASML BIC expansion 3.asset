@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
   m_Name: ASML BIC expansion 3
   m_EditorClassIdentifier: Assembly-CSharp::ProjectData
-  Name: ASML BIC expansion
+  Name: ASML BIC uitbreiding
   Type: 1
   Image: {fileID: 0}
-  Description: The BIC Expansion must deliver a massive high-tech industrial campus
-    on the city's northwest edge to support up to 20,000 new engineering jobs. The
-    project shall construct specialized, vibration-isolated facilities and cleanrooms
-    tailored for next-generation semiconductor technology. It must minimize environmental
-    disruption to the surrounding green zones while upgrading local highway infrastructure
-    to handle heavy industrial logistics safely.
+  Description: "De BIC uitbreiding moet een nieuwe high-tech industri\xEBle campus
+    bouwen aan de noordwestelijke rand van de stad. Deze uitbreiding zal 20000 nieuwe
+    ingenieur banen cre\xEBren. Op de campus worden nieuwe vibratie bestendige gebouwen
+    geplaatst, speciaal gemaakt voor de volgende generatie van semiconductor technology.
+    Ook moet het project een minimale invloed hebben op omliggende groengebieden
+    en moet de lokale snelweg verbeterd worden om zware logistiek toe te laten.  "
   NeededData:
   - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
     Color: {r: 1, g: 0.6784314, b: 0, a: 1}

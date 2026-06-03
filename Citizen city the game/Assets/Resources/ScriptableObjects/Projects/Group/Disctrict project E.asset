@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
   m_Name: Disctrict project E
   m_EditorClassIdentifier: Assembly-CSharp::ProjectData
-  Name: District E buildings
+  Name: District E gebouwen
   Type: 1
   Image: {fileID: 0}
-  Description: District E must deliver a group of towers across from Eindhoven Central
-    Station, which need to add about 700 apartments to the city. The project should
-    prioritize people over cars removing cars from the citycenter. It must create
-    a climate-resilient neighborhood with more greenry to make the city more sustainable.
+  Description: District E moet een drietal torens bouwen pal naast het centraal station
+    met als doel een totaal van 700 appartementen beschikbaar te maken voor nieuwe
+    inwoners. Het project moet centreren rondom de burger en auto's in de binnenstad
+    te verminderen. Verder moet het klimaatbestendige woonwijk maken met meer groen
+    en daarbij ook een steentje bijdragen aan de duurzaamheid van de stad.
   NeededData:
   - CardType: {fileID: 11400000, guid: d4a97629c31953347b887b63e6e9ced5, type: 2}
     Color: {r: 0, g: 0.49411765, b: 1, a: 1}
