@@ -74,7 +74,6 @@ public class ProjectController : MonoBehaviour
             return null;
         }
 
-
         shuffle(AllPersonalProjects);
         ProjectData project = Instantiate(AllPersonalProjects.First());
         

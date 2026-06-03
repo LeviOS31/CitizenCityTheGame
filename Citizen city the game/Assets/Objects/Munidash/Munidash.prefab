@@ -1749,6 +1749,7 @@ MonoBehaviour:
   ConsultancyButton: {fileID: 4690423475731855782}
   ActiveContractsButton: {fileID: 6334927699465506708}
   DataSpaceButton: {fileID: 5772876183135883202}
+  DataSpaceContractButton: {fileID: 616707090596573607}
   ConsultantUIPrefab: {fileID: 7680789697549027708, guid: 8e3dc4de7efcc25439eef53a039dfc1c, type: 3}
   ActiveContractUIPrefab: {fileID: 7680789697549027708, guid: 6b9b97cdb7d64c2479bb572c10ff78a4, type: 3}
   ConsultancyScreen: {fileID: 1487391449042700734}
