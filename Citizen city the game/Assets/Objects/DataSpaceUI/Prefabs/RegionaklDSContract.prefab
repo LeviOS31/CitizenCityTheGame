@@ -409,8 +409,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -125.241974, y: 72.86954}
-  m_SizeDelta: {x: 129.5161, y: 24.7549}
+  m_AnchoredPosition: {x: -114.24, y: 72.86954}
+  m_SizeDelta: {x: 151.52, y: 24.7549}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3404952626730427333
 CanvasRenderer:
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Data & cost:'
+  m_text: 'Data & kosten:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1637,7 +1637,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Regional Data Space Contract
+  m_text: Regionaal Data Space Contract
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
   m_sharedMaterial: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
@@ -2569,11 +2569,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<b><size=110%>Project description:</size></b>\n<size=50%> </size>\LData
-    between M will be openly shared with each other. Data Spaces must be available
-    24/7. Shared data can only be used in specific Project context. Shared data must
-    be available in the agreed form. Other parties data can not be sold for profit.
-    \n"
+  m_text: "<b><size=110%>Project beschrijving:</size></b>\n<size=50%> </size>\LData
+    wordt openlijk tussen gemeenten gedeeld en Data Spaces moeten 24/7 beschikbaar
+    zijn. Gedeelde data mag alleen binnen de specifieke projectcontext worden gebruikt
+    en moet in de overeengekomen vorm beschikbaar zijn. Data van andere partijen
+    mag niet met winstoogmerk worden verkocht.. \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
   m_sharedMaterial: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
@@ -2600,8 +2600,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19
-  m_fontSizeBase: 19
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2670,8 +2670,8 @@ RectTransform:
   m_GameObject: {fileID: 8078327959348152589}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1061001, y: 1.1061001, z: 1.1061001}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7772701834892794360}
   - {fileID: 203485796974111335}

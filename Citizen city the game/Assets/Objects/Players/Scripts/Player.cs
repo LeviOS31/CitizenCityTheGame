@@ -9,7 +9,6 @@ public class Player
     public string name = string.Empty;
     public int scorePerTurn = 0;
     public int score = 0;
-    public int currency;
     public float scoreMultiplier = 0f;
     public int money = 1500;
     public Color color;
@@ -59,7 +58,7 @@ public class Player
     {
         DataCardType randomType = dataCardTypes[UnityEngine.Random.Range(0, dataCardTypes.Length)];
 
-        DataCard dataCard = new DataCard(randomType, color, false);
+        DataCard dataCard = new DataCard(randomType, color, true);
 
         UIChange.Invoke();
         UIChangeplayer.Invoke(this);
@@ -89,7 +88,7 @@ public class Player
         Debug.Log("Received cards count " + receivedCards.Count);
         foreach (DataCard card in receivedCards)
         {
-            card.IsTradable = false;
+            card.IsTradable = true;
             cards.Add(card);
         }
 

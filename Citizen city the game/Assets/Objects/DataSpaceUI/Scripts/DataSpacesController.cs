@@ -228,7 +228,7 @@ public class DataSpacesController : MonoBehaviour
 
         if (allDataSubmitted && playerCanPay)
         {
-            activeplayer.currency -= dataSpace.cost;
+            activeplayer.money -= dataSpace.cost;
             dataSpace.isEnabled = true;
         }
 

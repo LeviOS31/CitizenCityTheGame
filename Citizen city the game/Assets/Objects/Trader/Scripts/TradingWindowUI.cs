@@ -35,12 +35,12 @@ public class TradingWindowUI : MonoBehaviour
 
     public void OpenTradingMenu(Player receivingPlayer)
     {
+        RefuseTrade();
+
         if (Tutorial.Tutorialposition == 15)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
-
-        RefuseTrade();
 
         tradingWindow.SetActive(true);
         acceptButton.SetActive(false);

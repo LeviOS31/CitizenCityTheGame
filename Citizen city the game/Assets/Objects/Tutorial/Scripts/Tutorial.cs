@@ -13,6 +13,11 @@ public class Tutorial : MonoBehaviour
 
     public void advanceTutorial()
     {
+        if (Tutorialposition == 16)
+        {
+            Tutorialposition = 16;
+        }
+
         Tutorialposition++;
 
         foreach (Transform child in gameObject.transform)

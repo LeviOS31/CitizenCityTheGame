@@ -14,6 +14,7 @@ public class ConsultantManagerUI : MonoBehaviour
     [SerializeField] Button ConsultancyButton;
     [SerializeField] Button ActiveContractsButton;
     [SerializeField] Button DataSpaceButton;
+    [SerializeField] Button DataSpaceContractButton;
     [SerializeField] GameObject ConsultantUIPrefab;
     [SerializeField] GameObject ActiveContractUIPrefab;
     [SerializeField] GameObject ConsultancyScreen;
@@ -99,6 +100,8 @@ public class ConsultantManagerUI : MonoBehaviour
         ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.black;
         ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.white;
+        DataSpaceContractButton.GetComponentInChildren<TMP_Text>().color = Color.white;
+
         CreateConsultants();
     }
 
@@ -107,6 +110,8 @@ public class ConsultantManagerUI : MonoBehaviour
         ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.black;
         DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.white;
+        DataSpaceContractButton.GetComponentInChildren<TMP_Text>().color = Color.white;
+
         CreateActiveContractsUIElements();
 
         if (Tutorial.Tutorialposition == 8) 
@@ -124,6 +129,20 @@ public class ConsultantManagerUI : MonoBehaviour
         ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.black;
+        DataSpaceContractButton.GetComponentInChildren<TMP_Text>().color = Color.white;
+    }
+
+    public void OpenDataContractSpaceScreen()
+    {
+        if (Tutorial.Tutorialposition == 22)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
+        ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
+        ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.white;
+        DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.white;
+        DataSpaceContractButton.GetComponentInChildren<TMP_Text>().color = Color.black;
+
     }
 
     public void OpenConsultantDashboard()

@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour
 
         if (PlayerPrefs.GetInt("TutorialPos", 0) != 999)
         {
-            Tutorial.AdvanceTutorial();
+            //Tutorial.AdvanceTutorial();
         }
     }
 
