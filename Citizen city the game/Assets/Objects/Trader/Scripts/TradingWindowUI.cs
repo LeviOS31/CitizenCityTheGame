@@ -37,7 +37,7 @@ public class TradingWindowUI : MonoBehaviour
     {
         RefuseTrade();
 
-        if (Tutorial.Tutorialposition == 15)
+        if (Tutorial.Tutorialposition == 16)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
@@ -153,7 +153,7 @@ public class TradingWindowUI : MonoBehaviour
 
     private void ClearValues()
     {
-        if (Tutorial.Tutorialposition == 16)
+        if (Tutorial.Tutorialposition == 17)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }

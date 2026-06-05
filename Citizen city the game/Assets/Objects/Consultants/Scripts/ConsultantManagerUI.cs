@@ -114,7 +114,7 @@ public class ConsultantManagerUI : MonoBehaviour
 
         CreateActiveContractsUIElements();
 
-        if (Tutorial.Tutorialposition == 8) 
+        if (Tutorial.Tutorialposition == 9) 
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
@@ -122,10 +122,6 @@ public class ConsultantManagerUI : MonoBehaviour
 
     public void OpenDataSpaceScreen()
     {
-        if (Tutorial.Tutorialposition == 22)
-        {
-            Tutorial.AdvanceTutorial?.Invoke();
-        }
         ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.black;
@@ -134,7 +130,7 @@ public class ConsultantManagerUI : MonoBehaviour
 
     public void OpenDataContractSpaceScreen()
     {
-        if (Tutorial.Tutorialposition == 22)
+        if (Tutorial.Tutorialposition == 23)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
@@ -147,7 +143,7 @@ public class ConsultantManagerUI : MonoBehaviour
 
     public void OpenConsultantDashboard()
     {
-        if (Tutorial.Tutorialposition == 6 || Tutorial.Tutorialposition == 21)
+        if (Tutorial.Tutorialposition == 7 || Tutorial.Tutorialposition == 22)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
@@ -163,7 +159,7 @@ public class ConsultantManagerUI : MonoBehaviour
 
     public void CloseConsultDashboard()
     {
-        if (Tutorial.Tutorialposition == 24)
+        if (Tutorial.Tutorialposition == 25)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }

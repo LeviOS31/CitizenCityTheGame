@@ -1,23 +1,37 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AlphaCutout : MonoBehaviour
+public class AlphaCutout : MonoBehaviour, ICanvasRaycastFilter
 {
-    [Range(0f, 1f)]
-    [Tooltip("Any pixel with an alpha below this value will be clickable-through.")]
-    public float alphaThreshold = 0.1f;
+    public Material highlightMaterial;
 
-    void Start()
+    public bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera)
     {
-        Image image = GetComponent<Image>();
-        if (image != null)
+        // If we don't have the material, block everything by default
+        if (highlightMaterial == null) return true;
+
+        // 1. Get the cutout center and size from the shader
+        Vector4 cutoutPos = highlightMaterial.GetVector("_CutoutPos");
+        Vector4 cutoutSize = highlightMaterial.GetVector("_Size");
+
+        // 2. Convert the incoming click position (pixels) to normalized screen coordinates (0 to 1)
+        float clickX = sp.x / Screen.width;
+        float clickY = sp.y / Screen.height;
+
+        // 3. Calculate the boundaries of the rectangular cutout
+        float minX = cutoutPos.x - (cutoutSize.x * 0.5f);
+        float maxX = cutoutPos.x + (cutoutSize.x * 0.5f);
+        float minY = cutoutPos.y - (cutoutSize.y * 0.5f);
+        float maxY = cutoutPos.y + (cutoutSize.y * 0.5f);
+
+        // 4. Check if the click happened INSIDE the cutout area
+        if (clickX >= minX && clickX <= maxX && clickY >= minY && clickY <= maxY)
         {
-            image.alphaHitTestMinimumThreshold = alphaThreshold;
+            // The click is inside the hole! Return false so the raycast passes through
+            return false;
         }
-    }
 
-    public void click()
-    {
-        Debug.Log("clicked " + name);
+        // The click is on the dark overlay, block it
+        return true;
     }
 }

@@ -45,7 +45,7 @@ public class ProjectPrefab : MonoBehaviour
         if (alldone && !project.IsDone)
         {
             finish();
-            if (Tutorial.Tutorialposition == 26)
+            if (Tutorial.Tutorialposition == 27)
             {
                 Tutorial.AdvanceTutorial?.Invoke();
             }

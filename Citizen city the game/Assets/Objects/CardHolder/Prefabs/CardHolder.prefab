@@ -150,7 +150,6 @@ MonoBehaviour:
   cardPrefab: {fileID: 7096528169351871474, guid: ccfad6b35488d1540b9366372d2dd084, type: 3}
   splineContainer: {fileID: 8670499615363948399}
   cardSpawnPoint: {fileID: 6695569296564152586}
-  gameController: {fileID: 0}
 --- !u!1 &8460574603632136355
 GameObject:
   m_ObjectHideFlags: 0
