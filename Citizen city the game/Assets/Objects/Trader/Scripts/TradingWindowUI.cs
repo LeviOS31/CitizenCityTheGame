@@ -37,6 +37,11 @@ public class TradingWindowUI : MonoBehaviour
     {
         RefuseTrade();
 
+        if (Tutorial.Tutorialposition == 15)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
+
         tradingWindow.SetActive(true);
         acceptButton.SetActive(false);
         refuseButton.SetActive(false);
@@ -78,6 +83,7 @@ public class TradingWindowUI : MonoBehaviour
 
     public void StartTrade()
     {
+
         if (!receivingPlayer.isAI)
         {
             acceptButton.SetActive(true);
@@ -147,6 +153,11 @@ public class TradingWindowUI : MonoBehaviour
 
     private void ClearValues()
     {
+        if (Tutorial.Tutorialposition == 16)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
+
         initiatingPlayer = null;
         receivingPlayer = null;
 

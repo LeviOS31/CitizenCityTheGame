@@ -3,8 +3,14 @@
     "",
     "\\Citizen city the game",
     "\\Citizen city the game\\Assets",
+    "\\Citizen city the game\\Assets\\Objects",
+    "\\Citizen city the game\\Assets\\Objects\\GameController",
+    "\\Citizen city the game\\Assets\\Objects\\GameController\\Scripts",
+    "\\Citizen city the game\\Assets\\Objects\\Players",
+    "\\Citizen city the game\\Assets\\Objects\\Players\\Scripts",
+    "\\Citizen city the game\\Assets\\Objects\\ScoreElement",
     "\\Citizen city the game\\Assets\\Scripts"
   ],
-  "SelectedNode": "\\Citizen city the game\\Assets\\Scripts\\ScoreDemoManager.cs",
+  "SelectedNode": "\\Citizen city the game\\Assets\\Objects\\GameController\\Scripts\\GameController.cs",
   "PreviewInSolutionExplorer": false
 }

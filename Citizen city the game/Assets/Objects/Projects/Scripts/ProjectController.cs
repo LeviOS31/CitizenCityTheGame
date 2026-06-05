@@ -76,6 +76,11 @@ public class ProjectController : MonoBehaviour
 
         shuffle(AllPersonalProjects);
         ProjectData project = Instantiate(AllPersonalProjects.First());
+        
+        if (GameController.activePlayer.PersonalProjects.Count == 0 && PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
+        {
+            project = Instantiate(AllPersonalProjects.First(x => x.Name == "Project Flow-Pure"));
+        }
 
         foreach (DataRequired data in project.NeededData)
         {

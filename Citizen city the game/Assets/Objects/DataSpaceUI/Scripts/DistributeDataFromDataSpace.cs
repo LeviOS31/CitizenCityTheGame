@@ -30,7 +30,7 @@ public class DistributeDataFromDataSpace : MonoBehaviour
         {
             bool hasMunicipalDataSpaceEnabled = HasMunicipalDataSpaceEnabled(reachableColor);
 
-            bool hasPeopleData = true;
+            bool hasPeopleData = false;
             bool hasTrafficData = hasMunicipalDataSpaceEnabled;
             bool hasUtilityData = hasMunicipalDataSpaceEnabled;
             bool hasResidentData = hasMunicipalDataSpaceEnabled;
@@ -185,10 +185,10 @@ public class DistributeDataFromDataSpace : MonoBehaviour
     {
         List<DataCardType> availableCardTypes = new List<DataCardType>();
 
-        if (peopleDataCardType != null)
-        {
-            availableCardTypes.Add(peopleDataCardType);
-        }
+        //if (peopleDataCardType != null)
+        //{
+        //    availableCardTypes.Add(peopleDataCardType);
+        //}
 
         bool hasMunicipalDataSpaceEnabled = HasMunicipalDataSpaceEnabled(regionColor);
 

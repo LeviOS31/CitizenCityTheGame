@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
   m_Name: Biodiversity
   m_EditorClassIdentifier: Assembly-CSharp::ProjectData
-  Name: biodiversity district E
+  Name: biodiversiteit district E
   Type: 0
   Image: {fileID: 0}
-  Description: The greenery around District E must be carefully selected in terms
-    of plant and tree species and their placement. This is to ensure improved air
-    quality and to provide residents with a beautiful environment rather than concrete
-    landscapes.
+  Description: De flora rondom District E moet zorgvuldig gekozen worden wanneer
+    het gaat om de plant- en boomsoorten en de plaatsing hiervan.  Dit zorgt ervoor
+    dat luchtkwaliteit verbetert in de binnenstad en geeft inwoners een mooie omgeving
+    om in te leven in plaats van kille betonnen structuren.
   NeededData:
   - CardType: {fileID: 11400000, guid: 70c6ee5ec7116a64eb6f39ac40ca8b58, type: 2}
     Color: {r: 0, g: 0, b: 0, a: 0}

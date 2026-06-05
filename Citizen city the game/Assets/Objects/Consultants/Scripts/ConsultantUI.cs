@@ -62,6 +62,7 @@ public class ConsultantUI : MonoBehaviour
         //    }
         //}
 
+
         List<DataCard> selection = new List<DataCard>();
 
         foreach(DataCardType card in consultant.Specializations)
@@ -71,5 +72,6 @@ public class ConsultantUI : MonoBehaviour
         }
 
         consultant.HireConsultant(selection, GameController.activePlayer);
+
     }
 }

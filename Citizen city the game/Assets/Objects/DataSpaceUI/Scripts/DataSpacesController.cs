@@ -8,26 +8,18 @@ public class DataSpacesController : MonoBehaviour
     [SerializeField] private List<DataCardType> dataCardTypes;
     private Player activeplayer;
     public List<DataSpaceData> dataSpaces = new List<DataSpaceData>();
-    private bool check = false;
     private List<DataCard> selectedDataCards = new List<DataCard>();
-    public static Action<DataCard> addSelectedCards;    
+    public static Action<DataCard> addSelectedCards;
     private int requiredDataSpaceSelectionCount = 0;
     private bool hasCollectedDataSpaceCardsThisTurn = false;
     void Start()
     {
         CreateAllDataSpaces();
-        addSelectedCards += FillSelectedDataSpaceCardsList;        
-        check = true;
+        addSelectedCards += FillSelectedDataSpaceCardsList;
     }
 
     private void CreateAllDataSpaces()
     {
-        if (check)
-        {
-            Debug.Log("start happened again");
-            return;
-        }
-
         Debug.Log($"Player count: {gameController.players.Count}");
 
         int dataSpaceId = 0;
@@ -132,7 +124,7 @@ public class DataSpacesController : MonoBehaviour
         }
 
         if (activeplayer.DataSpaces.Count > 0)
-        {
+        {            
             return;
         }
 
@@ -236,7 +228,7 @@ public class DataSpacesController : MonoBehaviour
 
         if (allDataSubmitted && playerCanPay)
         {
-            activeplayer.currency -= dataSpace.cost;
+            activeplayer.money -= dataSpace.cost;
             dataSpace.isEnabled = true;
         }
 

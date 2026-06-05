@@ -79,6 +79,11 @@ public class ProjectsUI : MonoBehaviour
 
     public async void Open()
     {
+        if (Tutorial.Tutorialposition == 4 || Tutorial.Tutorialposition == 13 || Tutorial.Tutorialposition == 25)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
+
         if (open) return;
         open = true;
         GetComponent<Animator>().SetTrigger("open");

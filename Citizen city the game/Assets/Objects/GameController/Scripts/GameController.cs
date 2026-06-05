@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour
 
     public static Action<Player> NewTurn;
     public static Action UpdateUI;
-    public static Action<Player> Completedproject;
+    public static Action<Player, ProjectData> Completedproject;
 
     void Awake()
     {
@@ -64,10 +64,22 @@ public class GameController : MonoBehaviour
         dataSpaceController.ReloadPlayer(activePlayer);
 
         TurnHistory.AddTurnAction.Invoke("Started the game");
+
+        PlayerPrefs.SetInt("TutorialCompleted", 0);
+
+        if (PlayerPrefs.GetInt("TutorialCompleted", 0) != 1)
+        {
+            Tutorial.AdvanceTutorial();
+        }
     }
 
     private void StartNewRound()
     {
+        if (Tutorial.Tutorialposition == 11 || Tutorial.Tutorialposition == 18)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
+
         foreach (Player player in players)
         {
             player.DrawDataCard(dataCardTypes);
@@ -96,7 +108,12 @@ public class GameController : MonoBehaviour
 
     public void EndTurn()
     {
-        activePlayer.money += 100;  
+        if (Tutorial.Tutorialposition == 10 || Tutorial.Tutorialposition == 17)
+        {
+            Tutorial.AdvanceTutorial?.Invoke();
+        }
+
+        activePlayer.money += 300;  
 
         turnNumber++;
 
@@ -167,7 +184,11 @@ public class GameController : MonoBehaviour
         {
             if (project.IsDone && !project.IsClaimed)
             {
-                Completedproject.Invoke(activePlayer);
+                activePlayer.money += project.ScoreMoney;
+                Debug.Log($"[REWARD] {activePlayer.name} ontvangt €{project.ScoreMoney} voor project {project.Name}");
+                Completedproject?.Invoke(activePlayer, project);
+
+                project.IsClaimed = true;
                 break;
             }
         }
