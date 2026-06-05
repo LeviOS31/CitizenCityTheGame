@@ -8,15 +8,18 @@ public class DataSpaceData
     public DataSpaceType type;
     public List<DataSpaceDataRequired> neededData = new List<DataSpaceDataRequired>();
     public int cost;
-    public bool isEnabled = false;
-
-    public DataSpaceData (int id, DataSpaceType type, List<DataSpaceDataRequired> neededData, int cost, bool isEnabled = false)
+    public bool isEnabled;    
+    public bool player1HasInvested;
+    public bool player2HasInvested;
+    public DataSpaceData (int id, DataSpaceType type, List<DataSpaceDataRequired> neededData, int cost, bool isEnabled, bool player1HasInvested, bool player2HasInvested)
     {
         this.id = id;
         this.type = type;
         this.neededData = neededData;
         this.cost = cost;
         this.isEnabled = isEnabled;
+        this.player1HasInvested = player1HasInvested;
+        this.player2HasInvested = player2HasInvested;
     }
 }
 

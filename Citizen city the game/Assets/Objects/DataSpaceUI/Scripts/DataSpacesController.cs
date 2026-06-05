@@ -66,6 +66,8 @@ public class DataSpacesController : MonoBehaviour
                 DataSpaceType.regional,
                 dataForRegionalDataSpaces,
                 250,
+                false,
+                false,
                 false
             );
 
@@ -93,6 +95,8 @@ public class DataSpacesController : MonoBehaviour
                 DataSpaceType.municipal,
                 dataForMunicipalDataSpaces,
                 250,
+                false,
+                false,
                 false
             );
 
@@ -124,7 +128,7 @@ public class DataSpacesController : MonoBehaviour
         }
 
         if (activeplayer.DataSpaces.Count > 0)
-        {            
+        {
             return;
         }
 
@@ -167,7 +171,23 @@ public class DataSpacesController : MonoBehaviour
         {
             if (!dataRequired.isMet && dataRequired == requiredData)
             {
-                dataRequired.isMet = CheckPlayerCards(dataRequired).isMet;
+                if (dataSpace.type == DataSpaceType.regional)
+                {
+                    if(dataRequired.color != activeplayer.color)
+                    {
+                        dataRequired.isMet = CheckPlayerCards(dataRequired).isMet;
+                        Debug.Log("Data was sumbited");
+                    }
+                    else
+                    {
+                        Debug.Log("You cant submit this type of data");                        
+                    }                 
+                }
+                else
+                {
+                    dataRequired.isMet = CheckPlayerCards(dataRequired).isMet;
+                    Debug.Log("Data was sumbited");
+                }                
             }
         }
     }
@@ -198,6 +218,74 @@ public class DataSpacesController : MonoBehaviour
         }
 
         return dataRequired;
+    }
+
+    public void InvestInRegionalDataSpace(DataSpaceData dataSpace)
+    {
+        if (activeplayer == null)
+        {
+            Debug.LogWarning("Cannot enable data space because activeplayer is null.");
+            return;
+        }
+
+        if (dataSpace == null)
+        {
+            Debug.LogWarning("Cannot enable data space because dataSpace is null.");
+            return;
+        }
+
+        if (dataSpace.player1HasInvested && dataSpace.player2HasInvested)
+        {
+            Debug.LogWarning("Players already invested in this DataSpace");
+            return;
+        }
+
+        int completedRequirements = 0;
+        int dataCardToInvest = 0;
+        foreach (DataSpaceDataRequired data in dataSpace.neededData)
+        {
+            if (data.isMet && activeplayer.color != data.color)
+            {
+                completedRequirements++;
+            }
+
+            if (activeplayer.color != data.color)
+            {
+                dataCardToInvest++;
+            }
+        }
+
+        int dataSpaceCostToInvest = dataSpace.cost / 2;
+        bool allDataSubmitted = completedRequirements == dataCardToInvest;
+        bool playerCanPay = activeplayer.money >= dataSpaceCostToInvest;
+
+        if (allDataSubmitted && playerCanPay)
+        {
+            activeplayer.money -= dataSpaceCostToInvest;
+            if (!dataSpace.player1HasInvested)
+            {
+                dataSpace.player1HasInvested = true;
+                Debug.Log("You invested in the data space");
+            }
+
+            if (dataSpace.player1HasInvested && !dataSpace.player2HasInvested)
+            {
+                dataSpace.player2HasInvested = true;
+                Debug.Log("You invested in the data space");
+            }
+        }
+
+        if (dataSpace.player1HasInvested && dataSpace.player2HasInvested)
+        {
+            dataSpace.isEnabled = true;
+            Debug.Log("Data space is enabled");
+        }
+
+        if (dataSpace.isEnabled)
+        {
+            EnableStampForContracts.enableStamp?.Invoke(dataSpace);
+            UpdateDataSpaceControllerList(dataSpace.id);
+        }
     }
 
     public bool EnableDataSpace(DataSpaceData dataSpace)
