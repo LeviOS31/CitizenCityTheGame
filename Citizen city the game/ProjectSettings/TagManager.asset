@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ProjectPaper
   - NeededDataUI
+  - Tutorial
   layers:
   - Default
   - TransparentFX

@@ -79,7 +79,7 @@ public class ProjectsUI : MonoBehaviour
 
     public async void Open()
     {
-        if (Tutorial.Tutorialposition == 4 || Tutorial.Tutorialposition == 13 || Tutorial.Tutorialposition == 25)
+        if (Tutorial.Tutorialposition == 4 || Tutorial.Tutorialposition == 14 || Tutorial.Tutorialposition == 26)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
@@ -128,7 +128,7 @@ public class ProjectsUI : MonoBehaviour
 
         await Task.Delay(500);
 
-        FolderFront.SetSiblingIndex(transform.childCount - 3);
+        FolderFront.SetSiblingIndex(transform.childCount - 6);
         GetComponent<Animator>().SetTrigger("close");
 
 
