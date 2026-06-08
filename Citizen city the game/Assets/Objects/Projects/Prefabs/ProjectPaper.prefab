@@ -65,10 +65,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Project Flow-Pure must future-proof Eindhoven\u2019s wastewater infrastructure
-    by replacing 1950s pipes with a smart, modular system for a high-density vertical
-    city. It must integrate smart tech and heat-recovery systems to manage waste
-    and capture thermal energy, providing sustainable heating for the upcoming towers."
+  m_text: Openbare omgevingen rondom de gemeente moeten veranderd worden in dynamische
+    plekken die gestuurd worden door smart technology en data. Deze  veranderingen
+    moeten ervoor zorgen dat deze plekken veilig en toegankelijk zijn voor iedereen,
+    ongeacht fysieke beperkingen zoals een handicap.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
   m_sharedMaterial: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
