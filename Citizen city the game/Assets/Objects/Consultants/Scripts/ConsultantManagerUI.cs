@@ -59,6 +59,14 @@ public class ConsultantManagerUI : MonoBehaviour
             ConsultantUI instance = Instantiate(ConsultantUIPrefab).GetComponent<ConsultantUI>();
             instance.Initialize(consultant);
             instance.transform.SetParent(DashboardBody.transform, false);
+
+            if (Tutorial.Tutorialposition == 8 
+                && !consultant.Specializations.Contains(GameController.dataCardTypes.First(c => c.dataType == "Utility"))
+                && !consultant.Specializations.Contains(GameController.dataCardTypes.First(c => c.dataType == "Traffic"))
+               ) 
+            {
+                instance.GetComponentInChildren<Button>().interactable = false;
+            }
         }
     }
 

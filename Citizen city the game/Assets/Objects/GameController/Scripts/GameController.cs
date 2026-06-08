@@ -20,10 +20,10 @@ public class GameController : MonoBehaviour
     public int roundNumber = 0;
     public int turnNumber = 0;
 
-    public DataCardType[] dataCardTypes; //TODO: Make private again
     private ConnectorNode[] connectorNodes;
     private List<PlayerCardUI> playerCards;
 
+    public static DataCardType[] dataCardTypes; //TODO: Make private again
     public static Action<Player> NewTurn;
     public static Action UpdateUI;
     public static Action<Player, ProjectData> Completedproject;

@@ -128,7 +128,7 @@ public class ProjectsUI : MonoBehaviour
 
         await Task.Delay(500);
 
-        FolderFront.SetSiblingIndex(transform.childCount - 3);
+        FolderFront.SetSiblingIndex(transform.childCount - 6);
         GetComponent<Animator>().SetTrigger("close");
 
 

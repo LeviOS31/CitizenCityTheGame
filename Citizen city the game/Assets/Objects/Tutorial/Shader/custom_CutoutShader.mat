@@ -33,7 +33,7 @@ Material:
     - _Radius: 0.21
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0.75}
-    - _CutoutPos: {r: 0.07611173, g: 0.88462615, b: 0, a: 0}
-    - _Size: {r: 0.18631826, g: 0.24926622, b: 0, a: 0}
+    - _CutoutPos: {r: 1.2109375, g: 0.5, b: 0, a: 0}
+    - _Size: {r: 0.17104441, g: 0.0858145, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

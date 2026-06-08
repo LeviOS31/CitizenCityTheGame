@@ -45,6 +45,11 @@ public class Tutorial : MonoBehaviour
             MainPanel.transform.GetChild(Tutorialposition).gameObject.SetActive(true);
             HighlightElement(targetUIElement);
         }
+
+        if (Tutorialposition == 30)
+        {
+            MainPanel.SetActive(false);
+        }
     }
 
     public void HighlightElement(RectTransform target)
