@@ -8,6 +8,7 @@ public class DataCardUI : MonoBehaviour
     [SerializeField] public Image border;
     [SerializeField] public Image background;
     [SerializeField] public Image icon;
+    [SerializeField] public Image Interoperability;
 
     public DataCard dataCard;
     public bool isSelected = false;
@@ -21,6 +22,11 @@ public class DataCardUI : MonoBehaviour
         icon.sprite = dataCard.CardType.dataIcon;
         background.color = dataCard.Color;
         this.isInteractable = isInteractable;
+
+        if (dataCard.IsCorrectType)
+        {
+            Interoperability.gameObject.SetActive(false);
+        }
     }
 
     public void Click()
@@ -38,14 +44,4 @@ public class DataCardUI : MonoBehaviour
             border.color = new Color(0.0f, 1, 0.5f, 1);
         }
     }
-
-    //public void OnPointerEnter(PointerEventData eventData)
-    //{
-    //    OnHover?.Invoke(gameObject, true);
-    //}
-
-    //public void OnPointerExit(PointerEventData eventData)
-    //{
-    //    OnHover?.Invoke(gameObject, false);
-    //}
 }

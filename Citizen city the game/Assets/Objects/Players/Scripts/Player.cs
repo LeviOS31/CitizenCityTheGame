@@ -71,12 +71,14 @@ public class Player
         foreach (DataCard card in cardsReceived)
         {
             card.IsTradable = false;
+            card.IsCorrectType = false;
             cards.Add(card);
         }
 
         foreach (DataCard card in cardsGiven)
         {
             card.IsTradable = false;
+            card.IsCorrectType = false;
             cards.Remove(card);
         }
 

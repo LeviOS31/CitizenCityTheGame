@@ -8,6 +8,7 @@ public class DataCard
     public DataCardType CardType;
     public Color Color;
     public bool IsTradable = true;
+    public bool IsCorrectType = true;
 
     public DataCard(DataCardType cardType, Color color, bool tradable)
     {
