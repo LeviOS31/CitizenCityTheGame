@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 public class DataSpacesController : MonoBehaviour
 {
     [SerializeField] private GameController gameController;
@@ -242,6 +243,7 @@ public class DataSpacesController : MonoBehaviour
 
         int completedRequirements = 0;
         int dataCardToInvest = 0;
+
         foreach (DataSpaceDataRequired data in dataSpace.neededData)
         {
             if (data.isMet && activeplayer.color != data.color)
@@ -258,6 +260,7 @@ public class DataSpacesController : MonoBehaviour
         int dataSpaceCostToInvest = dataSpace.cost / 2;
         bool allDataSubmitted = completedRequirements == dataCardToInvest;
         bool playerCanPay = activeplayer.money >= dataSpaceCostToInvest;
+        bool justchanged = false;
 
         if (allDataSubmitted && playerCanPay)
         {
@@ -265,14 +268,31 @@ public class DataSpacesController : MonoBehaviour
             if (!dataSpace.player1HasInvested)
             {
                 dataSpace.player1HasInvested = true;
-                Debug.Log("You invested in the data space");
+                justchanged = true;
+                EnableStampForContracts.enableSignedStamp?.Invoke(dataSpace);
+                Debug.Log("You invested in the data space");                
             }
 
-            if (dataSpace.player1HasInvested && !dataSpace.player2HasInvested)
+            if (dataSpace.player1HasInvested && !dataSpace.player2HasInvested && !justchanged)
             {
                 dataSpace.player2HasInvested = true;
+                EnableStampForContracts.enableSignedStamp?.Invoke(dataSpace);
                 Debug.Log("You invested in the data space");
             }
+        }
+        else
+        {
+            if (!allDataSubmitted)
+            {
+                Debug.Log("There are still data to submit");
+            }
+
+            if (!playerCanPay)
+            {
+                Debug.Log("You don't have enough money to fully invest");
+            }
+
+            return;
         }
 
         if (dataSpace.player1HasInvested && dataSpace.player2HasInvested)

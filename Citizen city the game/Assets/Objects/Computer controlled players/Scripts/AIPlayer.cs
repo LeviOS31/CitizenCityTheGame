@@ -57,7 +57,7 @@ public class AIPlayer
                                 if (card != null)
                                 {
                                     dataSpacesController.CheckPlayerCards(myReq);
-                                    dataSpacesController.EnableDataSpace(mySpace);
+                                    dataSpacesController.InvestInRegionalDataSpace(mySpace);
                                 }
                             }
                         }

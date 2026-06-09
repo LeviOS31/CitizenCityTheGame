@@ -396,5 +396,5 @@ public class DataSpaceGameObjectManager : MonoBehaviour
                 Debug.LogWarning($"No icon assigned for DataCardType: {cardType.dataType}");
                 return null;
         }
-    }
+    }    
 }
