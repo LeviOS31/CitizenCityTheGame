@@ -15,13 +15,11 @@ MonoBehaviour:
   Name: Project Flow-Pure
   Type: 0
   Image: {fileID: 0}
-  Description: "Project Flow-Pure moet ervoor zorgen dat Eindhoven\u2019s afvalwater
-    infrastructuur toekomstbestendig wordt gemaakt door de pijpen uit 1950 te vervangen
-    met slimme, modulaire systemen die geschikt zijn voor een dichtbevolkte verticale
-    stad. De nieuwe infrastructuur moet gebruik maken van smart technologies en warmteterugwinningssystemen
-    om de stroom van afvalwater te beheren en het opvangen van warmte energie. Door
-    het opvangen van warmte energie kan een vorm van duurzame verwarming aangeboden
-    worden voor toekomstige bouwprojecten."
+  Description: Omdat de Eindhovense afvalwaterbuizen uit 1950 verouderd zijn en niet
+    passen bij een dichtbevolkte verticale stad, moet Project Flow-Pure een innovatief
+    systeem gaan gebruiken. Dit systeem moet ervoor zorgen dat de afvalwaterstroom
+    slim en modulair wordt beheerd en er ook voor zorgen dat warmte-energie wordt
+    teruggewonnen als duurzame verwarming voor toekomstige bouwprojecten.
   NeededData:
   - CardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
     Color: {r: 0.30588236, g: 0.34509805, b: 1, a: 1}

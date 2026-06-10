@@ -15,13 +15,11 @@ MonoBehaviour:
   Name: Multimodal Transport Hub
   Type: 1
   Image: {fileID: 0}
-  Description: De multimodale transport hub moet het transportnetwerk bij het centrale
-    station verbeteren om 150,000 dagelijkse reizigers te accommoderen. Het project
-    zal de huidige bushaltes boven de grond verplaatsen naar een ondergrondse terminal
-    met 34 gates en 5 bus tunnels. Dit haalt grote voertuigen weg van het straatniveau.
-    Samen met deze ontwikkeling moet er ook een 2 verdieping binnenstalling komen
-    voor 7.900 fietsen om natuurvriendelijke vormen van transport voorop te stellen
-    en duidelijke voetgangerszones te hebben.
+  Description: "Omdat het centrale station de 150.000 dagelijkse reizigers niet kan
+    dragen, moet de transporthub een effici\xEBntere indeling gaan gebruiken. Dit
+    systeem moet ervoor zorgen dat bussen en fietsen ondergronds verdwijnen ter bevordering
+    van natuurvriendelijk transport en er ook voor zorgen dat er bovengronds geen
+    overlast ontstaat door grote voertuigen."
   NeededData:
   - CardType: {fileID: 11400000, guid: d4a97629c31953347b887b63e6e9ced5, type: 2}
     Color: {r: 0, g: 0.49411765, b: 1, a: 1}
