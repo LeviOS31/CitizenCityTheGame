@@ -105,4 +105,14 @@ public class Player
         UIChange.Invoke();
         UIChangeplayer.Invoke(this);
     }
+
+    public static void FireUIChangePlayer(Player player)
+    {
+        UIChangeplayer?.Invoke(player);
+    }
+
+    public void FireUIChange()
+    {
+        UIChange?.Invoke();
+    }
 }

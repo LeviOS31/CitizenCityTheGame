@@ -27,7 +27,7 @@ public class PlayerCardUI : MonoBehaviour
     private Player player;
     private SpelerData matchedScoreData;
 
-    private Dictionary<Guid, GameObject> cardEntities = new Dictionary<Guid, GameObject>();
+    private List<GameObject> cardEntities = new List<GameObject>();
     private int maxHandSize = 10;
 
     public void Initialize(Player player)
@@ -50,8 +50,9 @@ public class PlayerCardUI : MonoBehaviour
 
         gameController = FindAnyObjectByType<GameController>();
         GameController.NewTurn += NewTurn;
-        this.player.OnDrawCard += card => CreateCard(card, true);
-        this.player.OnTradeCards += TradeCards;
+
+        this.player.OnDrawCard += (card) => RegenerateHandVisuals();
+        this.player.OnTradeCards += (received, given) => RegenerateHandVisuals();
     }
 
     public void LinkToScoreData()
@@ -95,48 +96,56 @@ public class PlayerCardUI : MonoBehaviour
 
     public void RegenerateHandVisuals()
     {
-        cardEntities.Values.ToList().ForEach(card => { if (card != null) card.transform.DOKill(); Destroy(card); });
-        cardEntities.Clear();
+        ClearHolder();
 
-        foreach (DataCard card in player.cards)
+        if (player.cards == null || player.cards.Count == 0)
         {
-            CreateCard(card, false);
+            // If the AI has no cards, the layout stays empty. Return early.
+            return;
         }
+
+        // Group cards sharing the same Color and Icon symbol
+        var groupedCards = player.cards
+            .GroupBy(card => new { card.Color, card.CardType.dataIcon })
+            .Select(group => new
+            {
+                SampleCard = group.First(),
+                Count = group.Count()
+            });
+
+        foreach (var group in groupedCards)
+        {
+            CreateGroupedCardVisual(group.SampleCard, group.Count);
+        }
+
         UpdateCardPositions();
     }
 
-    private void CreateCard(DataCard playerCard, bool updatePostion)
+    private void CreateGroupedCardVisual(DataCard playerCard, int count)
     {
         if (splineContainer == null || cardPrefab == null) return;
 
         GameObject cardInstance = Instantiate(cardPrefab);
-        cardInstance.transform.SetParent(splineContainer.transform, true);
-        cardInstance.GetComponent<DataCardUI>().Initialize(playerCard, false);
+        cardInstance.transform.SetParent(splineContainer.transform, false); // Using false keeps UI scales stable
 
-        cardEntities.Add(playerCard.ID, cardInstance);
+        // Pass the calculated stack count to the DataCardUI component
+        cardInstance.GetComponent<DataCardUI>().Initialize(playerCard, false, count);
+
         cardInstance.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-
-        if (updatePostion) UpdateCardPositions();
+        cardEntities.Add(cardInstance);
     }
 
-    public void TradeCards(List<DataCard> cardsReceived, List<DataCard> cardsGiven)
+    private void ClearHolder()
     {
-        foreach (DataCard card in cardsReceived)
+        foreach (GameObject card in cardEntities)
         {
-            CreateCard(card, false);
-        }
-
-        foreach (DataCard card in cardsGiven)
-        {
-            if (cardEntities.ContainsKey(card.ID))
+            if (card != null)
             {
-                cardEntities[card.ID].transform.DOKill();
-                Destroy(cardEntities[card.ID]);
-                cardEntities.Remove(card.ID);
+                card.transform.DOKill();
+                Destroy(card);
             }
         }
-
-        UpdateCardPositions();
+        cardEntities.Clear();
     }
 
     public void ToggleInteractability(Player activePlayer)
@@ -172,7 +181,7 @@ public class PlayerCardUI : MonoBehaviour
             Vector3 up = spline.EvaluateUpVector(position);
             Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
 
-            var cardVisual = cardEntities.ElementAt(i).Value;
+            var cardVisual = cardEntities[i];
             if (cardVisual != null)
             {
                 cardVisual.transform.DOLocalMove(splinePosition, 0.25f);
@@ -192,13 +201,4 @@ public class PlayerCardUI : MonoBehaviour
 
     public Player GetPlayerModel() => player;
     public SpelerData GetScoreData() => matchedScoreData;
-
-    private void ClearHolder()
-    {
-        foreach (GameObject card in cardEntities.Values)
-        {
-            if (card != null) Destroy(card);
-        }
-        cardEntities.Clear();
-    }
 }

@@ -195,6 +195,9 @@ public class DataSpacesController : MonoBehaviour
         {
             activeplayer.cards.Remove(cardToRemove);
             TurnHistory.AddTurnAction?.Invoke($"{activeplayer.name} submitted a <color=#{ColorUtility.ToHtmlStringRGB(dataRequired.color)}> {dataRequired.cardType} data card </color> to a data space.");
+
+            Player.FireUIChangePlayer(activeplayer);
+            activeplayer.FireUIChange();
         }
 
         return dataRequired;
