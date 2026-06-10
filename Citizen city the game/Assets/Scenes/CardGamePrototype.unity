@@ -1540,7 +1540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5625120829562281161, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6268106335221290757, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
@@ -7084,7 +7084,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1919402457424140022, guid: de795dea82cb20041a9e0839bb9bbb4e, type: 3}
       propertyPath: AICount
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1919402457424140022, guid: de795dea82cb20041a9e0839bb9bbb4e, type: 3}
       propertyPath: gameController

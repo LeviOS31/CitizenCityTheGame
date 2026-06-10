@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
     public static Action<Player> NewTurn;
     public static Action UpdateUI;
     public static Action<Player, ProjectData> Completedproject;
+    public static Action<GameObject> OpenWindow;
 
     void Awake()
     {
@@ -64,8 +65,6 @@ public class GameController : MonoBehaviour
         dataSpaceController.ReloadPlayer(activePlayer);
 
         TurnHistory.AddTurnAction.Invoke("Started the game");
-
-        PlayerPrefs.SetInt("TutorialCompleted", 1);
 
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) != 1)
         {
@@ -176,22 +175,7 @@ public class GameController : MonoBehaviour
             aiController.TakeTurn(activePlayer);
         }
 
-        List<ProjectData> playerprojects = new List<ProjectData>();
-        playerprojects.AddRange(activePlayer.PersonalProjects);
-        playerprojects.AddRange(activePlayer.ProvicialProjects);
 
-        foreach (ProjectData project in playerprojects)
-        {
-            if (project.IsDone && !project.IsClaimed)
-            {
-                activePlayer.money += project.ScoreMoney;
-                Debug.Log($"[REWARD] {activePlayer.name} ontvangt €{project.ScoreMoney} voor project {project.Name}");
-                Completedproject?.Invoke(activePlayer, project);
-
-                project.IsClaimed = true;
-                break;
-            }
-        }
     }
 
     private Player CreatePlayer(string name, Color color)

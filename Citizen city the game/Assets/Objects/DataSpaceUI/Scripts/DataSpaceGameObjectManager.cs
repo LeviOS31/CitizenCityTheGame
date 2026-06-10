@@ -251,7 +251,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             return;
         }
 
-        costText.text = $"Cost: {dataSpace.cost}";
+        costText.text = $"Kost: {dataSpace.cost}";
     }
 
     private void SetupCostTextForRegionalContracts(Transform container, DataSpaceData dataSpace)
@@ -282,7 +282,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
                 return;
             }
 
-            costText.text = $"Cost: {dataSpace.cost / 2}";
+            costText.text = $"Kost: {dataSpace.cost / 2}";
         }
     }
 

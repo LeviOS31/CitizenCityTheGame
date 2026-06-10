@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class ProjectController : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class ProjectController : MonoBehaviour
     private List<ProjectData> AllPersonalProjects;
     private List<ProjectData> AllGroupProjects;
     private List<ProjectData> AllOpenProjects;
+
+    public static Action ProjectDone;
 
     private void Awake()
     {
@@ -22,6 +25,7 @@ public class ProjectController : MonoBehaviour
     {
         OpenProject = GetOpenProject();
         GetComponent<ProjectsUI>().CheckCards += CheckPlayerCards;
+        ProjectDone += GivePlayersScoreandMoney;
     }
 
     private List<ProjectData> shuffle(List<ProjectData> list)
@@ -30,7 +34,7 @@ public class ProjectController : MonoBehaviour
         while (i > 1)
         {
             i--;
-            int j = Random.Range(0, i + 1);
+            int j = UnityEngine.Random.Range(0, i + 1);
             ProjectData temp = list[j];
             list[j] = list[i];
             list[i] = temp;
@@ -140,23 +144,47 @@ public class ProjectController : MonoBehaviour
                     remove.Add(card);
                     Data.IsMet = true;
 
-                    FeedbackManager.Instance.ShowFeedback($"The {card.CardType} card has been handed into the project successfully!", FeedbackType.Success);
+                    FeedbackManager.Instance.ShowFeedback($"De {card.CardType.dataType} kaart is ingeleverd voor het project", FeedbackType.Success);
 
                     AudioSignalHandler.PlaySound.Invoke("ProjectPling");
                     break;
                 }
             }
 
-            if (remove.Count == 0) return;
+            if (remove.Count == 0)
+            {
+                FeedbackManager.Instance.ShowFeedback($"Je hebt geen kaart van type {Data.CardType.dataType}", FeedbackType.Error);
+                return;
+            }
 
             foreach (DataCard card in remove)
             {
                 activeplayer.cards.Remove(card);
-                TurnHistory.AddTurnAction?.Invoke(activeplayer.name + " used a <color=#" + ColorUtility.ToHtmlStringRGB(card.Color) + ">" + card.CardType + " card</color> for a project");
+                TurnHistory.AddTurnAction?.Invoke(activeplayer.name + " used a <color=#" + ColorUtility.ToHtmlStringRGB(card.Color) + ">" + card.CardType.dataType + " card</color> for a project");
             }
 
             Player.FireUIChangePlayer(activeplayer);
             activeplayer.FireUIChange();
+        }
+    }
+
+    public void GivePlayersScoreandMoney() 
+    {
+        List<ProjectData> playerprojects = new List<ProjectData>();
+        playerprojects.AddRange(GameController.activePlayer.PersonalProjects);
+        playerprojects.AddRange(GameController.activePlayer.ProvicialProjects);
+
+        foreach (ProjectData project in playerprojects)
+        {
+            if (project.IsDone && !project.IsClaimed)
+            {
+                GameController.activePlayer.money += project.ScoreMoney;
+                Debug.Log($"[REWARD] {GameController.activePlayer.name} ontvangt €{project.ScoreMoney} voor project {project.Name}");
+                GameController.Completedproject?.Invoke(GameController.activePlayer, project);
+
+                project.IsClaimed = true;
+                break;
+            }
         }
     }
 }

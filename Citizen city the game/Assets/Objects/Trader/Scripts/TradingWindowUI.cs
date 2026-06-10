@@ -33,6 +33,8 @@ public class TradingWindowUI : MonoBehaviour
         _trader.aiController = aiController;
 
         _trader.TradeComplete += ClearValues;
+        GameController.NewTurn += (Player) => ClearValues();
+        GameController.OpenWindow += TryClose;
     }
 
     private void Update()
@@ -70,6 +72,7 @@ public class TradingWindowUI : MonoBehaviour
 
     public void OpenTradingMenu(Player receivingPlayer)
     {
+        GameController.OpenWindow?.Invoke(gameObject);
         RefuseTrade();
 
         if (Tutorial.Tutorialposition == 16)
@@ -221,5 +224,13 @@ public class TradingWindowUI : MonoBehaviour
         refuseButton.SetActive(false);
         OpenTradingWindow.Invoke(false);
         tradingWindow.SetActive(false);
+    }
+
+    public void TryClose(GameObject window)
+    {
+        if (window != gameObject)
+        {
+            ClearValues();
+        }
     }
 }

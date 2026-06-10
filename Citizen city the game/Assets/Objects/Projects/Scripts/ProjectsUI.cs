@@ -21,6 +21,7 @@ public class ProjectsUI : MonoBehaviour
     private void Start()
     {
         GameController.NewTurn += (Player) => Close();
+        GameController.OpenWindow += TryClose;
     }
 
     public void ReloadProjectsUI(List<ProjectData> personalProjects, List<ProjectData> provincialProjects, ProjectData OpenProject)
@@ -79,6 +80,8 @@ public class ProjectsUI : MonoBehaviour
 
     public async void Open()
     {
+        GameController.OpenWindow?.Invoke(gameObject);
+
         if (Tutorial.Tutorialposition == 4 || Tutorial.Tutorialposition == 14 || Tutorial.Tutorialposition == 26)
         {
             Tutorial.AdvanceTutorial?.Invoke();
@@ -181,5 +184,13 @@ public class ProjectsUI : MonoBehaviour
     {
         Debug.Log("sending to controller " + data.CardType);
         CheckCards?.Invoke(data);
+    }
+
+    public void TryClose(GameObject window)
+    {
+        if (window != gameObject)
+        {
+            Close();
+        }
     }
 }

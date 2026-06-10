@@ -45,6 +45,7 @@ public class ConsultantManagerUI : MonoBehaviour
         CloseConsultDashboard();
         GameController.UpdateUI += RefreshUI;
         GameController.NewTurn += (Player) => CloseConsultDashboard();
+        GameController.OpenWindow += TryClose;
     }
 
     private void CreateConsultants()
@@ -150,6 +151,8 @@ public class ConsultantManagerUI : MonoBehaviour
 
     public void OpenConsultantDashboard()
     {
+        GameController.OpenWindow?.Invoke(gameObject);
+
         if (Tutorial.Tutorialposition == 7 || Tutorial.Tutorialposition == 22)
         {
             Tutorial.AdvanceTutorial?.Invoke();
@@ -178,5 +181,13 @@ public class ConsultantManagerUI : MonoBehaviour
     {
         OpenConsultancyScreen();
         Funds.text = GameController.activePlayer.money.ToString();
+    }
+
+    public void TryClose(GameObject window)
+    {
+        if (window != gameObject)
+        {
+            CloseConsultDashboard();
+        }
     }
 }
