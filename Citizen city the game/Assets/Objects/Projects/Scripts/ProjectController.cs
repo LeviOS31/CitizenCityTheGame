@@ -137,6 +137,9 @@ public class ProjectController : MonoBehaviour
                     Debug.Log("card found");
                     remove.Add(card);
                     Data.IsMet = true;
+
+                    FeedbackManager.Instance.ShowFeedback($"The {card.CardType} card has been handed into the project successfully!", FeedbackType.Success);
+
                     AudioSignalHandler.PlaySound.Invoke("ProjectPling");
                     break;
                 }
