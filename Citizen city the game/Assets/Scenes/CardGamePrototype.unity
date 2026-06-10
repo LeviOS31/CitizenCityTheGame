@@ -852,6 +852,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 65311450}
     m_Modifications:
+    - target: {fileID: 600036521377798987, guid: 5b7d74ac267c1ae4fb7c4fb4cbfd609a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 139.35083
+      objectReference: {fileID: 0}
+    - target: {fileID: 600036521377798987, guid: 5b7d74ac267c1ae4fb7c4fb4cbfd609a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 26.946045
+      objectReference: {fileID: 0}
     - target: {fileID: 4095905518526601482, guid: 5b7d74ac267c1ae4fb7c4fb4cbfd609a, type: 3}
       propertyPath: m_Name
       value: TurnHistory
@@ -1105,6 +1113,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1 &349694306 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2403119545025669728, guid: 75baa7c133257ae4fbdf962cc4f64660, type: 3}
+  m_PrefabInstance: {fileID: 576061870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &372282648 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4719187699340169643, guid: d937efcb55f43924e9b7488d40cf6134, type: 3}
@@ -1687,6 +1700,54 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 576061871}
+        m_TargetAssemblyTypeName: ConsultantManagerUI, Assembly-CSharp
+        m_MethodName: OpenConsultancyScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1824646909}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 349694306}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1792021571}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &544489826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2236,7 +2297,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 134.90002, y: 7.544983}
+  m_AnchoredPosition: {x: 134.90002, y: 7.544922}
   m_SizeDelta: {x: -1014.4, y: -314.91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &748023606
@@ -5670,6 +5731,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750432671}
   m_CullTransparentMesh: 1
+--- !u!1 &1792021571 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4813302662681949505, guid: 75baa7c133257ae4fbdf962cc4f64660, type: 3}
+  m_PrefabInstance: {fileID: 576061870}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1824646909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 495962968606510695, guid: 75baa7c133257ae4fbdf962cc4f64660, type: 3}
+  m_PrefabInstance: {fileID: 576061870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1834372184 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8963013965358307348, guid: d1a4c4aafa639044b836238ca6a39479, type: 3}
@@ -6862,6 +6933,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1919402457424140022, guid: de795dea82cb20041a9e0839bb9bbb4e, type: 3}
+      propertyPath: AICount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1919402457424140022, guid: de795dea82cb20041a9e0839bb9bbb4e, type: 3}
       propertyPath: gameController
       value: 

@@ -19,7 +19,6 @@ public class ConsultantManagerUI : MonoBehaviour
     [SerializeField] GameObject ActiveContractUIPrefab;
     [SerializeField] GameObject ConsultancyScreen;
     [SerializeField] TMP_Text Funds;
-
     private void Start()
     {
         ConsultantOption[] consultantOptions = Resources.LoadAll<ConsultantOption>("ScriptableObjects/Consultants");

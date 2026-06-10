@@ -104,6 +104,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
     }
 
     private GameObject GetPrefabForDataSpace(DataSpaceData dataSpace)
@@ -137,6 +138,8 @@ public class DataSpaceGameObjectManager : MonoBehaviour
         {
             SetupRegionalContractButtons(container, dataSpace);
             SetupCostTextForRegionalContracts(container, dataSpace);
+
+            EnableStampForContracts.enableSignedStamp?.Invoke(dataSpace);
         }
         else
         {

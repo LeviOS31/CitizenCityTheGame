@@ -58,7 +58,7 @@ public class Player
     {
         DataCardType randomType = dataCardTypes[UnityEngine.Random.Range(0, dataCardTypes.Length)];
 
-        DataCard dataCard = new DataCard(randomType, color, true);
+        DataCard dataCard = new DataCard(randomType, color);
 
         UIChange.Invoke();
         UIChangeplayer.Invoke(this);

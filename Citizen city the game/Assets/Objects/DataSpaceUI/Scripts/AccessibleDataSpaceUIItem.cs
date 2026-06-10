@@ -70,7 +70,7 @@ public class AccessibleDataSpaceUIItem : MonoBehaviour
             return;
         }
 
-        DataCard dataCard = new DataCard(dataCardType, selectedColor, false);
+        DataCard dataCard = new DataCard(dataCardType, selectedColor);
         DataSpacesController.addSelectedCards.Invoke(dataCard);
     }
 }

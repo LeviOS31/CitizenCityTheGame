@@ -27,6 +27,12 @@ public class EnableStampForContracts : MonoBehaviour
         stamp.SetActive(false);
     }
 
+    private void OnDestroy()
+    {
+        enableStamp -= EnableStamp;
+        enableSignedStamp -= EnableSignedStamp;
+    }
+
     public void EnableStamp(DataSpaceData data)
     {
         if(text == null)
@@ -47,8 +53,10 @@ public class EnableStampForContracts : MonoBehaviour
 
     public void EnableSignedStamp(DataSpaceData dataSpaceData)
     {
+        if (dataCard1stSet == null || dataCard2ndSet == null) return;
+
         Color dataCard1stSetColor = dataCard1stSet.GetComponent<Image>().color;
-        Color dataCard2ndSetColor = dataCard2ndSet.GetComponent<Image>().color;
+        Color dataCard2ndSetColor = dataCard2ndSet.GetComponent<Image>().color; 
         bool otherPlayerInvested = CheckIfOtherPlayerHasInvested(dataSpaceData);
         bool activePlayerInvested = CheckIfActivePlayerHasInvested(dataSpaceData);
         
