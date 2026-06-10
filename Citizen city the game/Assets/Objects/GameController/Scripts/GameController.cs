@@ -65,7 +65,7 @@ public class GameController : MonoBehaviour
 
         TurnHistory.AddTurnAction.Invoke("Started the game");
 
-        PlayerPrefs.SetInt("TutorialCompleted", 0);
+        PlayerPrefs.SetInt("TutorialCompleted", 1);
 
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) != 1)
         {
