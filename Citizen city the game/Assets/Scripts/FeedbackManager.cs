@@ -1,7 +1,9 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class FeedbackManager : MonoBehaviour
 {
     public static FeedbackManager Instance { get; private set; }
@@ -9,11 +11,11 @@ public class FeedbackManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI feedbackText;
 
+    private CanvasGroup panelCanvasGroup;
+
     [Header("Timing Settings")]
-    [Tooltip("How long the text stays perfectly visible before starting to disappear.")]
-    [SerializeField] private float displayDuration = 1.2f; // Short duration for fast gameplay
-    [Tooltip("How fast the text completely vanishes.")]
-    [SerializeField] private float fadeOutSpeed = 0.2f;    // Snappy fade out
+    [SerializeField] private float displayDuration = 1.2f;
+    [SerializeField] private float fadeOutSpeed = 0.2f;
 
     [Header("Feedback Palette")]
     [SerializeField] private Color successColor = new Color(0.12f, 0.73f, 0.40f);
@@ -31,11 +33,12 @@ public class FeedbackManager : MonoBehaviour
         }
         Instance = this;
 
-        if (feedbackText != null)
-        {
-            feedbackText.text = string.Empty;
-        }
+        panelCanvasGroup = GetComponent<CanvasGroup>();
+
+        if (feedbackText != null) feedbackText.text = string.Empty;
+        panelCanvasGroup.alpha = 0f;
     }
+
     public void ShowFeedback(string message, FeedbackType type)
     {
         if (feedbackText == null) return;
@@ -45,15 +48,17 @@ public class FeedbackManager : MonoBehaviour
             StopCoroutine(activeLifecycleCoroutine);
         }
 
-        Color targetColor = infoColor;
         switch (type)
         {
-            case FeedbackType.Success: targetColor = successColor; break;
-            case FeedbackType.Error: targetColor = errorColor; break;
+            case FeedbackType.Success: feedbackText.color = successColor; break;
+            case FeedbackType.Error: feedbackText.color = errorColor; break;
+            case FeedbackType.Info: feedbackText.color = infoColor; break;
         }
 
-        feedbackText.color = new Color(targetColor.r, targetColor.g, targetColor.b, 1f);
         feedbackText.text = message;
+        panelCanvasGroup.alpha = 1f;
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)transform);
 
         activeLifecycleCoroutine = StartCoroutine(FeedbackLifecycle());
     }
@@ -62,14 +67,11 @@ public class FeedbackManager : MonoBehaviour
     {
         yield return new WaitForSeconds(displayDuration);
 
-        Color originalColor = feedbackText.color;
         float elapsedTime = 0f;
-
         while (elapsedTime < fadeOutSpeed)
         {
             elapsedTime += Time.deltaTime;
-            float newAlpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeOutSpeed);
-            feedbackText.color = new Color(originalColor.r, originalColor.g, originalColor.b, newAlpha);
+            panelCanvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeOutSpeed);
             yield return null;
         }
 
