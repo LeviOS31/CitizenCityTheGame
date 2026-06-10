@@ -132,7 +132,9 @@ public class ProjectController : MonoBehaviour
 
             foreach (DataCard card in activeplayer.cards)
             {
-                if (card.CardType == Data.CardType && card.Color == Data.Color)
+                float colordiff = Vector4.Distance(card.Color, Data.Color);
+
+                if (card.CardType == Data.CardType && colordiff < 0.05f)
                 {
                     Debug.Log("card found");
                     remove.Add(card);
