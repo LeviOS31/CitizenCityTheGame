@@ -15,6 +15,8 @@ public class TradingWindowUI : MonoBehaviour
     [SerializeField] GameObject acceptButton;
     [SerializeField] GameObject refuseButton;
     [SerializeField] GameObject cardHolder;
+    [SerializeField] Button offerButton;
+
 
     Trader _trader = new Trader();
 
@@ -31,6 +33,39 @@ public class TradingWindowUI : MonoBehaviour
         _trader.aiController = aiController;
 
         _trader.TradeComplete += ClearValues;
+    }
+
+    private void Update()
+    {
+        if (!gameObject.activeSelf) return;
+
+        bool p1 = false;
+        bool p2 = false;
+
+        foreach (DataCardUI card in offerSelection)
+        {
+            if (card.isSelected)
+            {
+                p1 = true;
+            }
+        }
+
+        foreach (DataCardUI card in requestSelection) 
+        {
+            if (card.isSelected)
+            {
+                p2 = true;
+            }
+        }
+
+        if (p1 && p2)
+        {
+            offerButton.interactable = true;
+        }
+        else
+        {
+            offerButton.interactable = false;
+        }
     }
 
     public void OpenTradingMenu(Player receivingPlayer)
@@ -61,6 +96,9 @@ public class TradingWindowUI : MonoBehaviour
                 cardInstance.Initialize(card, true);
                 offerSelection.Add(cardInstance);
                 cardInstance.transform.SetParent(offerContainer.transform, false);
+
+                Button button = cardInstance.transform.GetChild(0).gameObject.AddComponent<Button>();
+                button.onClick.AddListener(() => cardInstance.Click());
             }
         }
 
@@ -72,6 +110,9 @@ public class TradingWindowUI : MonoBehaviour
                 cardInstance.Initialize(card, true);
                 requestSelection.Add(cardInstance);
                 cardInstance.transform.SetParent(requestContainer.transform, false);
+
+                Button button = cardInstance.transform.GetChild(0).gameObject.AddComponent<Button>();
+                button.onClick.AddListener(() => cardInstance.Click());
             }
         }
     }
@@ -83,6 +124,7 @@ public class TradingWindowUI : MonoBehaviour
 
     public void StartTrade()
     {
+        offerButton.gameObject.SetActive(false);
 
         if (!receivingPlayer.isAI)
         {
@@ -153,6 +195,7 @@ public class TradingWindowUI : MonoBehaviour
 
     private void ClearValues()
     {
+
         if (Tutorial.Tutorialposition == 17)
         {
             Tutorial.AdvanceTutorial?.Invoke();
@@ -173,6 +216,7 @@ public class TradingWindowUI : MonoBehaviour
 
         offerSelection.Clear();
         requestSelection.Clear();
+        offerButton.gameObject.SetActive(true);
         acceptButton.SetActive(false);
         refuseButton.SetActive(false);
         OpenTradingWindow.Invoke(false);
