@@ -408,8 +408,8 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 2
-  m_MatchWidthOrHeight: 0.5
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1436,27 +1436,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3627195652896564360, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3627195652896564360, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3627195652896564360, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3627195652896564360, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3627195652896564360, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1920
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3627195652896564360, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1080
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3627195652896564360, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_LocalPosition.x
