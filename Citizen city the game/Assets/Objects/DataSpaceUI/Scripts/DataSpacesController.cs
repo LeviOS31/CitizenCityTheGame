@@ -12,8 +12,7 @@ public class DataSpacesController : MonoBehaviour
     public List<DataSpaceData> dataSpaces = new List<DataSpaceData>();
     private List<DataCard> selectedDataCards = new List<DataCard>();
     public static Action<DataCard> addSelectedCards;
-    private int requiredDataSpaceSelectionCount = 0;
-    private bool hasCollectedDataSpaceCardsThisTurn = false;
+    private List<Color> dataSpacesUsedThisTurn = new List<Color>();
     void Start()
     {
         CreateAllDataSpaces();
@@ -175,21 +174,21 @@ public class DataSpacesController : MonoBehaviour
             {
                 if (dataSpace.type == DataSpaceType.regional)
                 {
-                    if(dataRequired.color != activeplayer.color)
+                    if (dataRequired.color != activeplayer.color)
                     {
                         dataRequired.isMet = CheckPlayerCards(dataRequired).isMet;
                         Debug.Log("Data was sumbited");
                     }
                     else
                     {
-                        Debug.Log("You cant submit this type of data");                        
-                    }                 
+                        Debug.Log("You cant submit this type of data");
+                    }
                 }
                 else
                 {
                     dataRequired.isMet = CheckPlayerCards(dataRequired).isMet;
                     Debug.Log("Data was sumbited");
-                }                
+                }
             }
         }
     }
@@ -365,7 +364,7 @@ public class DataSpacesController : MonoBehaviour
             FeedbackManager.Instance.ShowFeedback($"Je hebt niet alle benodigde data ingeleverd", FeedbackType.Error);
         }
 
-            return dataSpace.isEnabled;
+        return dataSpace.isEnabled;
     }
 
     private void UpdateDataSpaceControllerList(int id)
@@ -381,12 +380,6 @@ public class DataSpacesController : MonoBehaviour
 
     private void FillSelectedDataSpaceCardsList(DataCard card)
     {
-        if (hasCollectedDataSpaceCardsThisTurn)
-        {
-            Debug.Log("This player has already collected data space cards this turn.");
-            return;
-        }
-
         DataCard existingCardFromSameRegion = null;
 
         foreach (DataCard selectedCard in selectedDataCards)
@@ -410,13 +403,6 @@ public class DataSpacesController : MonoBehaviour
 
     public void GetSelectedDataSpaceCards()
     {
-        if (hasCollectedDataSpaceCardsThisTurn)
-        {
-            Debug.Log("You have already collected from the data spaces this turn.");
-            FeedbackManager.Instance.ShowFeedback($"Je hebt de dataspace al gebruikt deze beurt", FeedbackType.Error);
-            return;
-        }
-
         if (selectedDataCards.Count <= 0)
         {
             Debug.Log("No cards selected.");
@@ -424,39 +410,48 @@ public class DataSpacesController : MonoBehaviour
             return;
         }
 
-        if (selectedDataCards.Count < requiredDataSpaceSelectionCount)
-        {
-            //TODO: Change this shit
-
-            FeedbackManager.Instance.ShowFeedback($"Je hebt niet data geselecteerd van elke beschikbare regio", FeedbackType.Error);
-
-            Debug.Log($"You must select one data card from each available region before collecting. Selected {selectedDataCards.Count}/{requiredDataSpaceSelectionCount}.");
-            return;
-        }
-
         foreach (DataCard dataCard in selectedDataCards)
         {
+            if (HaveIUsedThisDataSpaceThisTurn(dataCard))
+            {
+                Debug.Log("This player has already collected data from this data space this turn.");
+                FeedbackManager.Instance.ShowFeedback($"Je hebt de {dataCard.Color} dataspace al gebruikt deze beurt", FeedbackType.Error);
+                continue;
+            }
             activeplayer.DrawDataSpaceCard(dataCard);
+            Debug.Log("Data space cards collected.");
+            FeedbackManager.Instance.ShowFeedback($"De geselecteerde kaarten zijn verzameld", FeedbackType.Success);
+            TurnHistory.AddTurnAction?.Invoke($"{activeplayer.name} collected {selectedDataCards.Count} data card(s) from the data spaces.");
         }
 
-        selectedDataCards.Clear();
-        hasCollectedDataSpaceCardsThisTurn = true;
-
-        Debug.Log("Data space cards collected.");
-        FeedbackManager.Instance.ShowFeedback($"De geselecteerde kaarten zijn verzameld", FeedbackType.Success);
-        TurnHistory.AddTurnAction?.Invoke($"{activeplayer.name} collected {selectedDataCards.Count} data card(s) from the data spaces.");
-    }
-
-    public void SetRequiredDataSpaceSelectionCount(int count)
-    {
-        requiredDataSpaceSelectionCount = count;
         selectedDataCards.Clear();
     }
 
     public void ResetDataSpaceCollectionForNewTurn()
     {
-        hasCollectedDataSpaceCardsThisTurn = false;
         selectedDataCards.Clear();
-        requiredDataSpaceSelectionCount = 0;
+        dataSpacesUsedThisTurn.Clear();
+    }
+
+    private bool HaveIUsedThisDataSpaceThisTurn(DataCard card)
+    {
+        if (dataSpacesUsedThisTurn.Count == 0)
+        {
+            dataSpacesUsedThisTurn.Add(card.Color);
+            Debug.Log($"From if the color count is{dataSpacesUsedThisTurn.Count}");
+
+            return false;
+        }
+
+        foreach (Color color in dataSpacesUsedThisTurn)
+        {
+            if (color == card.Color)
+            {
+                return true;
+            }
+        }
+        dataSpacesUsedThisTurn.Add(card.Color);
+        Debug.Log($"From foreach the color count is{dataSpacesUsedThisTurn.Count}");
+        return false;
     }
 }

@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     public int totalPlayers = 4;
     public int roundNumber = 0;
     public int turnNumber = 0;
-
+    public int enableTutorial = 0; //0 if you want it enabled, other number if you dont
     private ConnectorNode[] connectorNodes;
     private List<PlayerCardUI> playerCards;
 
@@ -66,9 +66,9 @@ public class GameController : MonoBehaviour
 
         TurnHistory.AddTurnAction.Invoke("Started the game");
 
-        PlayerPrefs.SetInt("TutorialCompleted", 0); 
+        PlayerPrefs.SetInt("TutorialCompleted", enableTutorial); 
 
-        if (PlayerPrefs.GetInt("TutorialCompleted", 0) != 1)
+        if (PlayerPrefs.GetInt("TutorialCompleted", enableTutorial) != 1)
         {
             Tutorial.AdvanceTutorial();
         }
