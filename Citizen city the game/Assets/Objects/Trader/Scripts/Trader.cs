@@ -46,11 +46,14 @@ public class Trader
         receivingPlayer.TradeCards(cardsOffered, cardsRequested);
 
         ClearTradeVariables();
+
+        FeedbackManager.Instance.ShowFeedback($"Handel geaccepteerd", FeedbackType.Info);
     }
 
     public void RefuseTrade()
     {
         ClearTradeVariables();
+        FeedbackManager.Instance.ShowFeedback($"Handel geweigerd", FeedbackType.Info);
     }
 
     public void ClearTradeVariables()

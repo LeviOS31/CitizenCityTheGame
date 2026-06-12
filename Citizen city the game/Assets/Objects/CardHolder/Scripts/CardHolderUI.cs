@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
+using System.Linq;
 
 public class CardHolderUI : MonoBehaviour
 {
@@ -39,22 +40,36 @@ public class CardHolderUI : MonoBehaviour
         this.player.OnReceiveTradeCards += TradeCards;
 
         ClearHolder();
-        foreach(DataCard card in player.cards)
+
+        if (player.cards == null || player.cards.Count == 0) return;
+
+        var groupedCards = player.cards
+            .GroupBy(card => new { card.Color, card.CardType.dataIcon })
+            .Select(group => new
+            {
+                FirstCardSample = group.First(), // Use the first instance to build visuals
+                Count = group.Count()            // Total number of these duplicates
+            });
+
+        foreach (var group in groupedCards)
         {
             GameObject cardInstance = Instantiate(cardPrefab);
             cardInstance.transform.SetParent(transform, false);
-            cardInstance.GetComponent<DataCardUI>().Initialize(card, false);
+
+            // Pass the group count into our updated initializer
+            cardInstance.GetComponent<DataCardUI>().Initialize(group.FirstCardSample, false, group.Count);
             cardInstance.GetComponent<DataCardUI>().OnHover += RedrawCardPositions;
+
             cards.Add(cardInstance);
-            UpdateCardPositions();
         }
+
+        UpdateCardPositions();
     }
 
     private void UpdateCardPositions()
     {
         if (cards.Count == 0) return;
         float cardSpacing = 0.1f;
-        float cardHoverSpacing = 0.2f;
         float firstCardPosition = 0.5f - (cards.Count - 1) * cardSpacing / 2;
 
         for (int i = 0; i < cards.Count; i++)
@@ -101,27 +116,20 @@ public class CardHolderUI : MonoBehaviour
         }
     }
 
-    private void TradeCards(List<DataCard> cards)
-    {
-        CreateCards(player);
-    }
+    private void TradeCards(List<DataCard> cards) => CreateCards(player);
 
     private void ClearHolder()
     {
-        if (cards.Count == 0) return;
-
         foreach (GameObject card in cards)
         {
-            Destroy(card);
+            if (card != null) Destroy(card);
         }
-
         cards.Clear();
     }
 
     private void ToggleRender(bool isTradingWindowActive)
     {
         gameObject.SetActive(!isTradingWindowActive);
-
         if (!isTradingWindowActive) CreateCards(player);
     }
 }

@@ -19,7 +19,6 @@ public class ConsultantManagerUI : MonoBehaviour
     [SerializeField] GameObject ActiveContractUIPrefab;
     [SerializeField] GameObject ConsultancyScreen;
     [SerializeField] TMP_Text Funds;
-
     private void Start()
     {
         ConsultantOption[] consultantOptions = Resources.LoadAll<ConsultantOption>("ScriptableObjects/Consultants");
@@ -46,6 +45,7 @@ public class ConsultantManagerUI : MonoBehaviour
         CloseConsultDashboard();
         GameController.UpdateUI += RefreshUI;
         GameController.NewTurn += (Player) => CloseConsultDashboard();
+        GameController.OpenWindow += TryClose;
     }
 
     private void CreateConsultants()
@@ -59,6 +59,14 @@ public class ConsultantManagerUI : MonoBehaviour
             ConsultantUI instance = Instantiate(ConsultantUIPrefab).GetComponent<ConsultantUI>();
             instance.Initialize(consultant);
             instance.transform.SetParent(DashboardBody.transform, false);
+
+            if (Tutorial.Tutorialposition == 8 
+                && !consultant.Specializations.Contains(GameController.dataCardTypes.First(c => c.dataType == "Utility"))
+                && !consultant.Specializations.Contains(GameController.dataCardTypes.First(c => c.dataType == "Traffic"))
+               ) 
+            {
+                instance.GetComponentInChildren<Button>().interactable = false;
+            }
         }
     }
 
@@ -114,7 +122,7 @@ public class ConsultantManagerUI : MonoBehaviour
 
         CreateActiveContractsUIElements();
 
-        if (Tutorial.Tutorialposition == 8) 
+        if (Tutorial.Tutorialposition == 9) 
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
@@ -122,10 +130,6 @@ public class ConsultantManagerUI : MonoBehaviour
 
     public void OpenDataSpaceScreen()
     {
-        if (Tutorial.Tutorialposition == 22)
-        {
-            Tutorial.AdvanceTutorial?.Invoke();
-        }
         ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.white;
         DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.black;
@@ -134,7 +138,7 @@ public class ConsultantManagerUI : MonoBehaviour
 
     public void OpenDataContractSpaceScreen()
     {
-        if (Tutorial.Tutorialposition == 22)
+        if (Tutorial.Tutorialposition == 23)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
@@ -147,7 +151,9 @@ public class ConsultantManagerUI : MonoBehaviour
 
     public void OpenConsultantDashboard()
     {
-        if (Tutorial.Tutorialposition == 6 || Tutorial.Tutorialposition == 21)
+        GameController.OpenWindow?.Invoke(gameObject);
+
+        if (Tutorial.Tutorialposition == 7 || Tutorial.Tutorialposition == 22)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
@@ -163,7 +169,7 @@ public class ConsultantManagerUI : MonoBehaviour
 
     public void CloseConsultDashboard()
     {
-        if (Tutorial.Tutorialposition == 24)
+        if (Tutorial.Tutorialposition == 25)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
@@ -175,5 +181,13 @@ public class ConsultantManagerUI : MonoBehaviour
     {
         OpenConsultancyScreen();
         Funds.text = GameController.activePlayer.money.ToString();
+    }
+
+    public void TryClose(GameObject window)
+    {
+        if (window != gameObject)
+        {
+            CloseConsultDashboard();
+        }
     }
 }

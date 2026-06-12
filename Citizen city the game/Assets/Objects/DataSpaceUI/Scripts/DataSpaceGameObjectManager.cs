@@ -41,7 +41,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
     private void RefreshList()
     {
         activePlayerContracts.Clear();
-        foreach(DataSpaceData data in activeplayer.DataSpaces)
+        foreach (DataSpaceData data in activeplayer.DataSpaces)
         {
             if (!data.isEnabled)
             {
@@ -54,8 +54,8 @@ public class DataSpaceGameObjectManager : MonoBehaviour
     {
         RefreshList();
         ClearDataSpaceWindow();
-        if(i == 2)
-        {            
+        if (i == 2)
+        {
             currenntContractIndex -= 1;
         }
         else
@@ -64,7 +64,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
         }
 
         int lastIndex = activePlayerContracts.Count - 1;
-        
+
         if (currenntContractIndex < 0)
         {
             currenntContractIndex = lastIndex;
@@ -104,6 +104,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
     }
 
     private GameObject GetPrefabForDataSpace(DataSpaceData dataSpace)
@@ -133,8 +134,19 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             return;
         }
 
-        SetupEnableButton(container, dataSpace);
-        SetupCostText(container, dataSpace);
+        if (dataSpace.type == DataSpaceType.regional)
+        {
+            SetupRegionalContractButtons(container, dataSpace);
+            SetupCostTextForRegionalContracts(container, dataSpace);
+
+            EnableStampForContracts.enableSignedStamp?.Invoke(dataSpace);
+        }
+        else
+        {
+            SetupEnableButton(container, dataSpace);
+            SetupCostText(container, dataSpace);
+        }
+        
         SetupCardClickAreas(container, dataSpace);
         SetupIdText(container, dataSpace);
     }
@@ -183,6 +195,36 @@ public class DataSpaceGameObjectManager : MonoBehaviour
         });
     }
 
+    private void SetupRegionalContractButtons(Transform container, DataSpaceData dataSpace)
+    {
+        Transform buttonTransform = container.Find("Buttons");
+
+        if (buttonTransform == null)
+        {
+            Debug.LogWarning("Could not find Button in Data&CostArea.");
+            return;
+        }
+
+        foreach (Transform child in buttonTransform)
+        {
+            Button button = child.GetComponent<Button>();
+
+            if (button == null)
+            {
+                Debug.LogWarning("Button object does not have a Button component.");
+                continue;
+            }
+
+            button.onClick.RemoveAllListeners();
+
+            button.onClick.AddListener(() =>
+            {
+                Debug.Log("This has been added");
+                dataSpacesController.InvestInRegionalDataSpace(dataSpace);
+            });
+        }
+    }
+
     private void SetupCostText(Transform container, DataSpaceData dataSpace)
     {
         Transform costContainer = container.Find("CostText");
@@ -209,7 +251,39 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             return;
         }
 
-        costText.text = $"Cost: {dataSpace.cost}";
+        costText.text = $"Kost: {dataSpace.cost}";
+    }
+
+    private void SetupCostTextForRegionalContracts(Transform container, DataSpaceData dataSpace)
+    {
+        Transform costContainer = container.Find("Cost");
+
+        if (costContainer == null)
+        {
+            Debug.LogWarning("Could not find CostText in Data&CostArea.");
+            return;
+        }
+
+        foreach (Transform child in costContainer)
+        {
+            Transform costTextTransform = child.Find("text2");
+
+            if (costTextTransform == null)
+            {
+                Debug.LogWarning("Could not find text2 inside CostText.");
+                return;
+            }
+
+            TextMeshProUGUI costText = costTextTransform.GetComponent<TextMeshProUGUI>();
+
+            if (costText == null)
+            {
+                Debug.LogWarning("text2 does not have a TextMeshProUGUI component.");
+                return;
+            }
+
+            costText.text = $"Kost: {dataSpace.cost / 2}";
+        }
     }
 
     private void SetupCardClickAreas(Transform container, DataSpaceData dataSpace)
@@ -325,5 +399,5 @@ public class DataSpaceGameObjectManager : MonoBehaviour
                 Debug.LogWarning($"No icon assigned for DataCardType: {cardType.dataType}");
                 return null;
         }
-    }
+    }    
 }

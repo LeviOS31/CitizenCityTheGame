@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
+using static UnityEngine.Analytics.IAnalytic;
 public class DataSpacesController : MonoBehaviour
 {
     [SerializeField] private GameController gameController;
@@ -66,6 +68,8 @@ public class DataSpacesController : MonoBehaviour
                 DataSpaceType.regional,
                 dataForRegionalDataSpaces,
                 250,
+                false,
+                false,
                 false
             );
 
@@ -93,6 +97,8 @@ public class DataSpacesController : MonoBehaviour
                 DataSpaceType.municipal,
                 dataForMunicipalDataSpaces,
                 250,
+                false,
+                false,
                 false
             );
 
@@ -124,7 +130,7 @@ public class DataSpacesController : MonoBehaviour
         }
 
         if (activeplayer.DataSpaces.Count > 0)
-        {            
+        {
             return;
         }
 
@@ -167,7 +173,23 @@ public class DataSpacesController : MonoBehaviour
         {
             if (!dataRequired.isMet && dataRequired == requiredData)
             {
-                dataRequired.isMet = CheckPlayerCards(dataRequired).isMet;
+                if (dataSpace.type == DataSpaceType.regional)
+                {
+                    if(dataRequired.color != activeplayer.color)
+                    {
+                        dataRequired.isMet = CheckPlayerCards(dataRequired).isMet;
+                        Debug.Log("Data was sumbited");
+                    }
+                    else
+                    {
+                        Debug.Log("You cant submit this type of data");                        
+                    }                 
+                }
+                else
+                {
+                    dataRequired.isMet = CheckPlayerCards(dataRequired).isMet;
+                    Debug.Log("Data was sumbited");
+                }                
             }
         }
     }
@@ -195,9 +217,108 @@ public class DataSpacesController : MonoBehaviour
         {
             activeplayer.cards.Remove(cardToRemove);
             TurnHistory.AddTurnAction?.Invoke($"{activeplayer.name} submitted a <color=#{ColorUtility.ToHtmlStringRGB(dataRequired.color)}> {dataRequired.cardType} data card </color> to a data space.");
+            FeedbackManager.Instance.ShowFeedback($"De {cardToRemove.CardType.dataType} kaart is succesvol ingeleverd voor de dataspace!", FeedbackType.Success);
+
+
+            Player.FireUIChangePlayer(activeplayer);
+            activeplayer.FireUIChange();
+        }
+        else
+        {
+            FeedbackManager.Instance.ShowFeedback($"Je hebt geen kaart van het type {dataRequired.cardType.dataType}", FeedbackType.Error);
         }
 
         return dataRequired;
+    }
+
+    public void InvestInRegionalDataSpace(DataSpaceData dataSpace)
+    {
+        if (activeplayer == null)
+        {
+            Debug.LogWarning("Cannot enable data space because activeplayer is null.");
+            return;
+        }
+
+        if (dataSpace == null)
+        {
+            Debug.LogWarning("Cannot enable data space because dataSpace is null.");
+            return;
+        }
+
+        if (dataSpace.player1HasInvested && dataSpace.player2HasInvested)
+        {
+            Debug.LogWarning("Players already invested in this DataSpace");
+            return;
+        }
+
+        int completedRequirements = 0;
+        int dataCardToInvest = 0;
+
+        foreach (DataSpaceDataRequired data in dataSpace.neededData)
+        {
+            if (data.isMet && activeplayer.color != data.color)
+            {
+                completedRequirements++;
+            }
+
+            if (activeplayer.color != data.color)
+            {
+                dataCardToInvest++;
+            }
+        }
+
+        int dataSpaceCostToInvest = dataSpace.cost / 2;
+        bool allDataSubmitted = completedRequirements == dataCardToInvest;
+        bool playerCanPay = activeplayer.money >= dataSpaceCostToInvest;
+        bool justchanged = false;
+
+        if (allDataSubmitted && playerCanPay)
+        {
+            activeplayer.money -= dataSpaceCostToInvest;
+            if (!dataSpace.player1HasInvested)
+            {
+                dataSpace.player1HasInvested = true;
+                justchanged = true;
+                EnableStampForContracts.enableSignedStamp?.Invoke(dataSpace);
+                Debug.Log("You invested in the data space");
+                FeedbackManager.Instance.ShowFeedback($"Je hebt geïnvesteerd in de regionale dataspace", FeedbackType.Success);
+            }
+
+            if (dataSpace.player1HasInvested && !dataSpace.player2HasInvested && !justchanged)
+            {
+                dataSpace.player2HasInvested = true;
+                EnableStampForContracts.enableSignedStamp?.Invoke(dataSpace);
+                Debug.Log("You invested in the data space");
+                FeedbackManager.Instance.ShowFeedback($"Je hebt geïnvesteerd in de regionale dataspace", FeedbackType.Success);
+            }
+        }
+        else
+        {
+            if (!allDataSubmitted)
+            {
+                Debug.Log("There are still data to submit");
+                FeedbackManager.Instance.ShowFeedback($"Je hebt niet alle benodigde data ingeleverd", FeedbackType.Error);
+            }
+
+            if (!playerCanPay)
+            {
+                Debug.Log("You don't have enough money to fully invest");
+                FeedbackManager.Instance.ShowFeedback($"Je hebt niet genoeg geld om in deze dataspace te beleggen", FeedbackType.Error);
+            }
+
+            return;
+        }
+
+        if (dataSpace.player1HasInvested && dataSpace.player2HasInvested)
+        {
+            dataSpace.isEnabled = true;
+            Debug.Log("Data space is enabled");
+            EnableStampForContracts.enableStamp?.Invoke(dataSpace);
+            UpdateDataSpaceControllerList(dataSpace.id);
+
+            FeedbackManager.Instance.ShowFeedback($"Dataspace is succesvol geactiveerd", FeedbackType.Success);
+        }
+
     }
 
     public bool EnableDataSpace(DataSpaceData dataSpace)
@@ -230,15 +351,21 @@ public class DataSpacesController : MonoBehaviour
         {
             activeplayer.money -= dataSpace.cost;
             dataSpace.isEnabled = true;
-        }
-
-        if (dataSpace.isEnabled)
-        {
             EnableStampForContracts.enableStamp?.Invoke(dataSpace);
             UpdateDataSpaceControllerList(dataSpace.id);
+
+            FeedbackManager.Instance.ShowFeedback($"Dataspace is succesvol geactiveerd", FeedbackType.Success);
+        }
+        else if (!playerCanPay)
+        {
+            FeedbackManager.Instance.ShowFeedback($"Je hebt niet genoeg geld om in deze dataspace te beleggen", FeedbackType.Error);
+        }
+        else if (!allDataSubmitted)
+        {
+            FeedbackManager.Instance.ShowFeedback($"Je hebt niet alle benodigde data ingeleverd", FeedbackType.Error);
         }
 
-        return dataSpace.isEnabled;
+            return dataSpace.isEnabled;
     }
 
     private void UpdateDataSpaceControllerList(int id)
@@ -286,17 +413,23 @@ public class DataSpacesController : MonoBehaviour
         if (hasCollectedDataSpaceCardsThisTurn)
         {
             Debug.Log("You have already collected from the data spaces this turn.");
+            FeedbackManager.Instance.ShowFeedback($"Je hebt de dataspace al gebruikt deze beurt", FeedbackType.Error);
             return;
         }
 
         if (selectedDataCards.Count <= 0)
         {
             Debug.Log("No cards selected.");
+            FeedbackManager.Instance.ShowFeedback($"Je hebt geen kaarten geselecteerd om te verzamelen", FeedbackType.Error);
             return;
         }
 
         if (selectedDataCards.Count < requiredDataSpaceSelectionCount)
         {
+            //TODO: Change this shit
+
+            FeedbackManager.Instance.ShowFeedback($"Je hebt niet data geselecteerd van elke beschikbare regio", FeedbackType.Error);
+
             Debug.Log($"You must select one data card from each available region before collecting. Selected {selectedDataCards.Count}/{requiredDataSpaceSelectionCount}.");
             return;
         }
@@ -310,6 +443,7 @@ public class DataSpacesController : MonoBehaviour
         hasCollectedDataSpaceCardsThisTurn = true;
 
         Debug.Log("Data space cards collected.");
+        FeedbackManager.Instance.ShowFeedback($"De geselecteerde kaarten zijn verzameld", FeedbackType.Success);
         TurnHistory.AddTurnAction?.Invoke($"{activeplayer.name} collected {selectedDataCards.Count} data card(s) from the data spaces.");
     }
 

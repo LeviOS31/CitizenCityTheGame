@@ -20,13 +20,14 @@ public class GameController : MonoBehaviour
     public int roundNumber = 0;
     public int turnNumber = 0;
 
-    public DataCardType[] dataCardTypes; //TODO: Make private again
     private ConnectorNode[] connectorNodes;
     private List<PlayerCardUI> playerCards;
 
+    public static DataCardType[] dataCardTypes; //TODO: Make private again
     public static Action<Player> NewTurn;
     public static Action UpdateUI;
     public static Action<Player, ProjectData> Completedproject;
+    public static Action<GameObject> OpenWindow;
 
     void Awake()
     {
@@ -65,7 +66,7 @@ public class GameController : MonoBehaviour
 
         TurnHistory.AddTurnAction.Invoke("Started the game");
 
-        PlayerPrefs.SetInt("TutorialCompleted", 0);
+        PlayerPrefs.SetInt("TutorialCompleted", 0); 
 
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) != 1)
         {
@@ -75,7 +76,7 @@ public class GameController : MonoBehaviour
 
     private void StartNewRound()
     {
-        if (Tutorial.Tutorialposition == 11 || Tutorial.Tutorialposition == 18)
+        if (Tutorial.Tutorialposition == 12 || Tutorial.Tutorialposition == 19)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
@@ -108,7 +109,7 @@ public class GameController : MonoBehaviour
 
     public void EndTurn()
     {
-        if (Tutorial.Tutorialposition == 10 || Tutorial.Tutorialposition == 17)
+        if (Tutorial.Tutorialposition == 11 || Tutorial.Tutorialposition == 18)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
@@ -176,22 +177,7 @@ public class GameController : MonoBehaviour
             aiController.TakeTurn(activePlayer);
         }
 
-        List<ProjectData> playerprojects = new List<ProjectData>();
-        playerprojects.AddRange(activePlayer.PersonalProjects);
-        playerprojects.AddRange(activePlayer.ProvicialProjects);
 
-        foreach (ProjectData project in playerprojects)
-        {
-            if (project.IsDone && !project.IsClaimed)
-            {
-                activePlayer.money += project.ScoreMoney;
-                Debug.Log($"[REWARD] {activePlayer.name} ontvangt €{project.ScoreMoney} voor project {project.Name}");
-                Completedproject?.Invoke(activePlayer, project);
-
-                project.IsClaimed = true;
-                break;
-            }
-        }
     }
 
     private Player CreatePlayer(string name, Color color)

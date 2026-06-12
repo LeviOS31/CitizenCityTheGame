@@ -33,13 +33,19 @@ public class Consultant
 
     public void HireConsultant(List<DataCard> selection, Player player)
     {
-        if (player.money < BasePrice) return;
+        if (player.money < BasePrice) 
+        {
+            FeedbackManager.Instance.ShowFeedback($"Je hebt niet genoeg geld om deze consultant in te huren", FeedbackType.Error);
+            return;
+        }
 
         player.money -= BasePrice;
 
         HiredConsultant hiredConsultant = new HiredConsultant(this, selection, player);
         OnHire.Invoke(hiredConsultant);
         GameController.UpdateUI.Invoke();
+        FeedbackManager.Instance.ShowFeedback($"Consultant in dienst", FeedbackType.Success);
+
     }
 }
 

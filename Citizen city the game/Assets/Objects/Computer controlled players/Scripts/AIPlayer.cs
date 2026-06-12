@@ -43,8 +43,9 @@ public class AIPlayer
             {
                 foreach (DataSpaceDataRequired req in otherSpace.neededData)
                 {
+                    float colordiff = Vector4.Distance(req.color, self.color);
                     // if another player has contributed a card towards a dataspace that requires this AI's color
-                    if (req.color == self.color && req.isMet)
+                    if (colordiff < 0.05f && req.isMet)
                     {
                         // try to find matching requirement in this AI's own dataspaces
                         foreach (DataSpaceData mySpace in self.DataSpaces)
@@ -52,12 +53,13 @@ public class AIPlayer
                             DataSpaceDataRequired myReq = mySpace.neededData.Find(d => d.cardType == req.cardType && d.color != self.color && !d.isMet);
                             if (myReq != null)
                             {
+                                float mycolordiff = Vector4.Distance(myReq.color, self.color);
                                 // if AI has a matching card, play it
-                                DataCard card = self.cards.Find(c => c.CardType == myReq.cardType && c.Color == myReq.color);
+                                DataCard card = self.cards.Find(c => c.CardType == myReq.cardType && mycolordiff < 0.05f);
                                 if (card != null)
                                 {
                                     dataSpacesController.CheckPlayerCards(myReq);
-                                    dataSpacesController.EnableDataSpace(mySpace);
+                                    dataSpacesController.InvestInRegionalDataSpace(mySpace);
                                 }
                             }
                         }
@@ -85,7 +87,7 @@ public class AIPlayer
                 {
                     if ((!req.isMet && req.color != self.color && !municipaldataspace) || (!req.isMet && municipaldataspace))
                     {
-                        DataCard card = self.cards.Find(c => c.CardType == req.cardType && c.Color == req.color);
+                        DataCard card = self.cards.Find(c => c.CardType == req.cardType && Vector4.Distance(c.Color, req.color) < 0.05f);
                         if (card != null)
                         {
                             dataSpacesController.CheckPlayerCards(req);
@@ -103,7 +105,8 @@ public class AIPlayer
                 {
                     if (!req.isMet)
                     {
-                        bool hasCard = self.cards.Any(c => c.CardType == req.cardType && c.Color == req.color);
+                        float colordiff = Vector4.Distance(req.color, self.color);
+                        bool hasCard = self.cards.Any(c => c.CardType == req.cardType && colordiff < 0.05f);
                         if (!hasCard) municipalNeeded.Add(req.cardType);
                     }
                 }
@@ -122,7 +125,7 @@ public class AIPlayer
             {
                 if (!req.IsMet)
                 {
-                    DataCard card = self.cards.Find(c => c.CardType == req.CardType && c.Color == req.Color);
+                    DataCard card = self.cards.Find(c => c.CardType == req.CardType && Vector4.Distance(c.Color, req.Color) < 0.05f);
                     if (card != null)
                     {
                         projectController.CheckPlayerCards(req);
@@ -137,7 +140,7 @@ public class AIPlayer
             {
                 if (!req.IsMet)
                 {
-                    DataCard card = self.cards.Find(c => c.CardType == req.CardType && c.Color == req.Color);
+                    DataCard card = self.cards.Find(c => c.CardType == req.CardType && Vector4.Distance(c.Color, req.Color) < 0.05f);
                     if (card != null)
                     {
                         projectController.CheckPlayerCards(req);
@@ -159,7 +162,8 @@ public class AIPlayer
             {
                 if (!req.IsMet)
                 {
-                    bool hasCard = self.cards.Any(c => c.CardType == req.CardType && c.Color == req.Color);
+                    float colordiff = Vector4.Distance(req.Color, self.color);
+                    bool hasCard = self.cards.Any(c => c.CardType == req.CardType && colordiff < 0.05f);
                     if (!hasCard) generalNeeded.Add(req.CardType);
                 }
             }
@@ -174,7 +178,8 @@ public class AIPlayer
             {
                 if (!req.isMet)
                 {
-                    bool hasCard = self.cards.Any(c => c.CardType == req.cardType && c.Color == req.color);
+                    float colordiff = Vector4.Distance(req.color, self.color);
+                    bool hasCard = self.cards.Any(c => c.CardType == req.cardType && colordiff < 0.05f);
                     if (!hasCard) generalNeeded.Add(req.cardType);
                 }
             }
