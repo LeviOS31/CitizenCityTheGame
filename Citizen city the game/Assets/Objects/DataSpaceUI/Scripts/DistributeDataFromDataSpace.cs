@@ -24,8 +24,6 @@ public class DistributeDataFromDataSpace : MonoBehaviour
 
         List<Color> reachableColors = GetReachablePlayerColors();
 
-        dataSpacesController.SetRequiredDataSpaceSelectionCount(reachableColors.Count);
-
         foreach (Color reachableColor in reachableColors)
         {
             bool hasMunicipalDataSpaceEnabled = HasMunicipalDataSpaceEnabled(reachableColor);
@@ -66,8 +64,6 @@ public class DistributeDataFromDataSpace : MonoBehaviour
             Debug.Log("AI has no available data spaces to collect from.");
             return;
         }
-
-        dataSpacesController.SetRequiredDataSpaceSelectionCount(reachableColors.Count);
 
         foreach (Color reachableColor in reachableColors)
         {

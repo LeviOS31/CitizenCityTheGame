@@ -30,10 +30,10 @@ public class ScoreDemoManager : MonoBehaviour
         // 1. Seed singleplayer match setup if empty
         if (spelers.Count == 0)
         {
-            spelers.Add(new SpelerData { spelerNaam = "Player (You)", isBot = false, assignedColorIndex = 0 });
-            spelers.Add(new SpelerData { spelerNaam = "Bot Alpha", isBot = true, assignedColorIndex = 1 });
-            spelers.Add(new SpelerData { spelerNaam = "Bot Bravo", isBot = true, assignedColorIndex = 2 });
-            spelers.Add(new SpelerData { spelerNaam = "Bot Charlie", isBot = true, assignedColorIndex = 3 });
+            spelers.Add(new SpelerData { spelerNaam = "Eindhoven", isBot = false, assignedColorIndex = 0 });
+            spelers.Add(new SpelerData { spelerNaam = "Veldhoven", isBot = true, assignedColorIndex = 1 });
+            spelers.Add(new SpelerData { spelerNaam = "Veghel", isBot = true, assignedColorIndex = 2 });
+            spelers.Add(new SpelerData { spelerNaam = "Geldrop", isBot = true, assignedColorIndex = 3 });
         }
 
         // 2. Clear out editor placeholder layout elements

@@ -12,7 +12,6 @@ public class ButtonCursorChanger : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         if (HoverCursor != null)
         {
-            Debug.Log("WHYYYYY");
             Cursor.SetCursor(HoverCursor, hotSpot, CursorMode.Auto);
         }
     }
@@ -21,7 +20,6 @@ public class ButtonCursorChanger : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         if (DefaultCursor != null)
         {
-            Debug.Log("NOOOOOTTTT");
             Cursor.SetCursor(DefaultCursor, Vector2.zero, CursorMode.Auto);
         }
     }

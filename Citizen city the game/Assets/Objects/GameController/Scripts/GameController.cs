@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,13 +14,16 @@ public class GameController : MonoBehaviour
     [SerializeField] DistributeDataFromDataSpace distribute;
     [SerializeField] ConsultantManagerUI consultantManagerUI;
     [SerializeField] AIController aiController;
+    [SerializeField] ScoreDemoManager scoreDemoManager;
     [SerializeField] Canvas GameUI;
+    [SerializeField] RadarFiller EndScreen;
+    [SerializeField] int scorelimit;
     public List<Player> players = new List<Player>();
     public static Player activePlayer;
     public int totalPlayers = 4;
     public int roundNumber = 0;
     public int turnNumber = 0;
-
+    public int enableTutorial = 0; //0 if you want it enabled, other number if you dont
     private ConnectorNode[] connectorNodes;
     private List<PlayerCardUI> playerCards;
 
@@ -29,11 +33,20 @@ public class GameController : MonoBehaviour
     public static Action<Player, ProjectData> Completedproject;
     public static Action<GameObject> OpenWindow;
 
+    bool done = false;
+
     void Awake()
     {
         for (int i = 0; i < totalPlayers; i++)
         {
-            Player player = CreatePlayer("Player " + (i + 1).ToString(), availableColors[i]);
+            string playername = "";
+
+            if(i == 0) playername = "Eindhoven";
+            else if(i == 1) playername = "Veldhoven";
+            else if(i == 2) playername = "Veghel";
+            else if(i == 3) playername = "Geldrop";
+
+            Player player = CreatePlayer(playername, availableColors[i]);
             players.Add(player);
         }
     }
@@ -66,11 +79,36 @@ public class GameController : MonoBehaviour
 
         TurnHistory.AddTurnAction.Invoke("Started the game");
 
-        PlayerPrefs.SetInt("TutorialCompleted", 0); 
+        PlayerPrefs.SetInt("TutorialCompleted", enableTutorial); 
 
-        if (PlayerPrefs.GetInt("TutorialCompleted", 0) != 1)
+        if (PlayerPrefs.GetInt("TutorialCompleted", enableTutorial) != 1)
         {
             Tutorial.AdvanceTutorial();
+        }
+        else
+        {
+            Tutorial.Tutorialposition = 29;
+            Tutorial.AdvanceTutorial();
+        }
+    }
+
+    private void Update()
+    {
+        if (done) return; 
+
+        SpelerData speler = scoreDemoManager.spelers.FirstOrDefault(p => p.algemeneScore > scorelimit);
+        if (speler != null)
+        {
+            done = true;
+            EndScreen.gameObject.SetActive(true);
+            EndScreen.EndGame(scoreDemoManager.spelers);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            done = true;
+            EndScreen.gameObject.SetActive(true);
+            EndScreen.EndGame(scoreDemoManager.spelers);
         }
     }
 
