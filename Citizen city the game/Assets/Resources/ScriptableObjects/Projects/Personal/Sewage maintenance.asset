@@ -15,11 +15,10 @@ MonoBehaviour:
   Name: Project Flow-Pure
   Type: 0
   Image: {fileID: 0}
-  Description: Omdat de Eindhovense afvalwaterbuizen uit 1950 verouderd zijn en niet
-    passen bij een dichtbevolkte verticale stad, moet Project Flow-Pure een innovatief
-    systeem gaan gebruiken. Dit systeem moet ervoor zorgen dat de afvalwaterstroom
-    slim en modulair wordt beheerd en er ook voor zorgen dat warmte-energie wordt
-    teruggewonnen als duurzame verwarming voor toekomstige bouwprojecten.
+  Description: "De rioolbuizen van Eindhoven zijn verouderd en niet geschikt voor
+    een stad met veel hoogbouw. Project Flow-Pure introduceert daarom een slim nieuw
+    systeem. Dit systeem regelt het afvalwater \xE9n hergebruikt de warmte uit het
+    water voor de verwarming van nieuwe projecten."
   NeededData:
   - CardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
     Color: {r: 0.30588236, g: 0.34509805, b: 1, a: 1}

@@ -15,10 +15,8 @@ MonoBehaviour:
   Name: biodiversiteit district E
   Type: 0
   Image: {fileID: 0}
-  Description: De flora rondom District E moet zorgvuldig gekozen worden wanneer
-    het gaat om de plant- en boomsoorten en de plaatsing hiervan.  Dit zorgt ervoor
-    dat luchtkwaliteit verbetert in de binnenstad en geeft inwoners een mooie omgeving
-    om in te leven in plaats van kille betonnen structuren.
+  Description: In District E komen bomen en planten op de juiste plekken te staan.
+    Dit zorgt voor schonere lucht en maakt de stad mooi groen in plaats van grijs.
   NeededData:
   - CardType: {fileID: 11400000, guid: 70c6ee5ec7116a64eb6f39ac40ca8b58, type: 2}
     Color: {r: 0, g: 0, b: 0, a: 0}

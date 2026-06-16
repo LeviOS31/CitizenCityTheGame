@@ -15,10 +15,9 @@ MonoBehaviour:
   Name: Inclusieve Openbare omgevingen
   Type: 0
   Image: {fileID: 0}
-  Description: Openbare omgevingen rondom de gemeente moeten veranderd worden in
-    dynamische plekken die gestuurd worden door smart technology en data. Deze  veranderingen
-    moeten ervoor zorgen dat deze plekken veilig en toegankelijk zijn voor iedereen,
-    ongeacht fysieke beperkingen zoals een handicap.
+  Description: We gaan openbare plekken in de gemeente verbeteren. Dit doen we met
+    slimme technologie en data. Zo worden de plekken voor iedereen veilig en goed
+    toegankelijk, ook met een handicap.
   NeededData:
   - CardType: {fileID: 11400000, guid: 27e7f3bf123437a499d02456c38a398b, type: 2}
     Color: {r: 0, g: 0, b: 0, a: 0}
