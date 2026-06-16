@@ -46,24 +46,35 @@ public class ProjectController : MonoBehaviour
     {
         activeplayer = player;
 
-        if (activeplayer.PersonalProjects.Count == 0 || activeplayer.PersonalProjects.Count(x => !x.IsDone) == 0)
+        if (activeplayer.PersonalProjects.Count == 0)
         {
             activeplayer.PersonalProjects.Insert(0,GetPersonalProject(activeplayer.color));
+            activeplayer.PersonalProjects.Insert(0,GetPersonalProject(activeplayer.color));
+            activeplayer.PersonalProjects.Insert(0,GetPersonalProject(activeplayer.color));
         }
-        if (activeplayer.ProvicialProjects.Count == 0 || activeplayer.ProvicialProjects.Count(x => !x.IsDone) == 0)
+        else if (activeplayer.PersonalProjects.Count(x => !x.IsDone) < 3)
+        {
+            int needed = activeplayer.PersonalProjects.Count(x => !x.IsDone);
+
+            for (int i = 0; i < needed; i++)
+            {
+                activeplayer.PersonalProjects.Insert(0,GetPersonalProject(activeplayer.color));
+            }
+        }
+        if (activeplayer.ProvicialProjects.Count == 0)
         {
             activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
+            activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
+            activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
         }
-
-        //Debug.Log(activeplayer.name + " " + activeplayer.color + " Projects:");
-
-        foreach (ProjectData project in activeplayer.PersonalProjects)
+        else if (activeplayer.ProvicialProjects.Count(x => !x.IsDone) < 3)
         {
-            //Debug.Log(project.Name);
-        }
-        foreach (ProjectData project in activeplayer.ProvicialProjects)
-        {
-            //Debug.Log(project.Name);
+            int needed = activeplayer.ProvicialProjects.Count(x => !x.IsDone);
+
+            for (int i = 0; i < needed; i++)
+            {
+                activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
+            }
         }
 
         GetComponent<ProjectsUI>().ReloadProjectsUI(activeplayer.PersonalProjects, activeplayer.ProvicialProjects, OpenProject);
