@@ -48,17 +48,21 @@ public class FeedbackManager : MonoBehaviour
             StopCoroutine(activeLifecycleCoroutine);
         }
 
+        Image panel = GetComponent<Image>();
+
         switch (type)
         {
-            case FeedbackType.Success: feedbackText.color = successColor; break;
-            case FeedbackType.Error: feedbackText.color = errorColor; break;
-            case FeedbackType.Info: feedbackText.color = infoColor; break;
+            case FeedbackType.Success: panel.color = successColor; break;
+            case FeedbackType.Error: panel.color = errorColor; break;
+            case FeedbackType.Info: panel.color = infoColor; break;
         }
 
         feedbackText.text = message;
         panelCanvasGroup.alpha = 1f;
 
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)transform);
+
+        AudioSignalHandler.PlaySound?.Invoke("PopUp");
 
         activeLifecycleCoroutine = StartCoroutine(FeedbackLifecycle());
     }

@@ -101,14 +101,14 @@ public class GameController : MonoBehaviour
         {
             done = true;
             EndScreen.gameObject.SetActive(true);
-            EndScreen.EndGame(scoreDemoManager.spelers);
+            EndScreen.EndGame(scoreDemoManager.spelers, players);
         }
 
         if (Input.GetKeyDown(KeyCode.F12))
         {
             done = true;
             EndScreen.gameObject.SetActive(true);
-            EndScreen.EndGame(scoreDemoManager.spelers);
+            EndScreen.EndGame(scoreDemoManager.spelers, players);
         }
     }
 

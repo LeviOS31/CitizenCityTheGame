@@ -1,5 +1,4 @@
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -8,19 +7,13 @@ using UnityEngine.UI;
 
 public class RadarFiller : MonoBehaviour
 {
-    public static Action<List<SpelerData>> EndGameaction;
 
     public List<ModularRadarChart> Radars;
     public List<TextMeshProUGUI> Name;
     public List<TextMeshProUGUI> Score;
+    public List<Image> ColorStrip;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        EndGameaction += EndGame;
-    }
-
-    public void EndGame(List<SpelerData> Players)
+    public void EndGame(List<SpelerData> Players, List<Player> playerColors)
     {
         // Execute baseline game math updates
         foreach (var Player in Players)
@@ -42,10 +35,10 @@ public class RadarFiller : MonoBehaviour
         // Sort descending based on real-time calculated general standings
         var gesorteerdeSpelers = Players.OrderByDescending(s => s.algemeneScore).ToList();
 
-        UpdateVisueleRanglijsten(gesorteerdeSpelers, hoogsteGevondenScore);
+        UpdateVisueleRanglijsten(gesorteerdeSpelers, hoogsteGevondenScore, playerColors);
     }
 
-    private void UpdateVisueleRanglijsten(List<SpelerData> gesorteerdeLijst, float globaleMax)
+    private void UpdateVisueleRanglijsten(List<SpelerData> gesorteerdeLijst, float globaleMax, List<Player> players)
     {
         for (int i = 0; i < gesorteerdeLijst.Count; i++)
         {
@@ -62,6 +55,8 @@ public class RadarFiller : MonoBehaviour
                 Name[i].text = Player.spelerNaam;
 
                 Score[i].text = Player.algemeneScore.ToString() + " Punten";
+
+                ColorStrip[i].color = players.FirstOrDefault(p => p.name == Player.spelerNaam)?.color ?? Color.white;
             }
         }
     }

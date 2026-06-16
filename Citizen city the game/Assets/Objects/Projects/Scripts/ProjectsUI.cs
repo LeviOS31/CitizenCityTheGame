@@ -63,8 +63,6 @@ public class ProjectsUI : MonoBehaviour
             projectPaper.GetComponent<ProjectPrefab>().onclick += OnNeededDataClick;
         }
 
-        //TODO: load in open project
-
 
     }
 

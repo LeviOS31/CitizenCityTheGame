@@ -6875,6 +6875,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9028735816214580325, guid: 051fe4da8f8e74245bf6ca41b1bde979, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9028735816214580325, guid: 051fe4da8f8e74245bf6ca41b1bde979, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9028735816214580325, guid: 051fe4da8f8e74245bf6ca41b1bde979, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -7118,6 +7126,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1626040510}
     - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
+      propertyPath: enableTutorial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
       propertyPath: playerContainer
       value: 
       objectReference: {fileID: 703086846}
@@ -7317,7 +7329,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1919402457424140022, guid: de795dea82cb20041a9e0839bb9bbb4e, type: 3}
       propertyPath: AICount
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1919402457424140022, guid: de795dea82cb20041a9e0839bb9bbb4e, type: 3}
       propertyPath: gameController
