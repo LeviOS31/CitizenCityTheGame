@@ -34,6 +34,6 @@ Material:
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0.75}
     - _CutoutPos: {r: 1.2109375, g: 0.5, b: 0, a: 0}
-    - _Size: {r: 0.17192233, g: 0.08739323, b: 0, a: 0}
+    - _Size: {r: 0.17104441, g: 0.0858145, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

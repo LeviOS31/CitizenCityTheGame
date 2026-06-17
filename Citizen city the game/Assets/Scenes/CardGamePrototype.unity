@@ -1423,12 +1423,24 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 65311450}
     m_Modifications:
+    - target: {fileID: 352689961562329846, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 444393029907922221, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 616300491875876960, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1110423766877198918, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 205
+      objectReference: {fileID: 0}
+    - target: {fileID: 1110423766877198918, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1662573036902694955, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
@@ -1438,6 +1450,14 @@ PrefabInstance:
     - target: {fileID: 2858985788693616332, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154013492738698843, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_text
+      value: 'Welkom bij Citizen City het spel!
+
+
+        In dit spel speel je als
+        gemeente en verzamel je data om projecten te voltooien.'
       objectReference: {fileID: 0}
     - target: {fileID: 3397460724581746534, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
@@ -1547,6 +1567,14 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5509575560417485153, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 283
+      objectReference: {fileID: 0}
+    - target: {fileID: 5509575560417485153, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 103
+      objectReference: {fileID: 0}
     - target: {fileID: 5587154277062421885, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1577,6 +1605,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6815737797489199548, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861256730285046746, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861256730285046746, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6909078847975192106, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
@@ -7127,7 +7163,7 @@ PrefabInstance:
       objectReference: {fileID: 1626040510}
     - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
       propertyPath: enableTutorial
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
       propertyPath: playerContainer
