@@ -65,9 +65,8 @@ public class ProjectController : MonoBehaviour
         {
             activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
             activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
-            activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
         }
-        else if (activeplayer.ProvicialProjects.Count(x => !x.IsDone) < 3)
+        else if (activeplayer.ProvicialProjects.Count(x => !x.IsDone) < 2)
         {
             int needed = activeplayer.ProvicialProjects.Count(x => !x.IsDone);
 
