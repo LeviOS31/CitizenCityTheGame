@@ -1,11 +1,9 @@
 using System;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 public class EnableStampForContracts : MonoBehaviour
 {
     [SerializeField] private GameObject stamp;
-    [SerializeField] private GameObject text;
     [SerializeField] private GameObject dataCard1stSet;
     [SerializeField] private GameObject dataCard2ndSet;
     [SerializeField] private GameObject firstSignedStamp;
@@ -24,7 +22,6 @@ public class EnableStampForContracts : MonoBehaviour
         }
         enableStamp += EnableStamp;
         enableSignedStamp += EnableSignedStamp;
-        stamp.SetActive(false);
     }
 
     private void OnDestroy()
@@ -35,20 +32,10 @@ public class EnableStampForContracts : MonoBehaviour
 
     public void EnableStamp(DataSpaceData data)
     {
-        if(text == null)
-        {
-            Debug.Log("text isnt there");
-            return;
-        }
-        
-        string id = text.GetComponent<TextMeshProUGUI>().text;
-        if(data.id.ToString() == id)
-        {
-            if (data.isEnabled)
-            {
-                stamp.SetActive(true);
-            }            
-        }       
+        if (data.isEnabled)
+        {            
+            stamp.SetActive(true);
+        }     
     }
 
     public void EnableSignedStamp(DataSpaceData dataSpaceData)
