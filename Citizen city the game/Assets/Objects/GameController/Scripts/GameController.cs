@@ -122,7 +122,6 @@ public class GameController : MonoBehaviour
         foreach (Player player in players)
         {
             player.DrawDataCard(dataCardTypes);
-            player.UpdateScore();
         }
 
         if (connectorNodes == null)

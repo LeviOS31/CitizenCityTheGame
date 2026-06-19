@@ -7,9 +7,6 @@ public class Player
 {
     public Guid ID = new Guid();
     public string name = string.Empty;
-    public int scorePerTurn = 0;
-    public int score = 0;
-    public float scoreMultiplier = 0f;
     public int money = 1500;
     public Color color;
     public List<DataCard> cards = new List<DataCard>();
@@ -30,11 +27,6 @@ public class Player
     {
         this.name = name;
         this.color = color;
-    }
-
-    public void UpdateScore()
-    {
-        score += scorePerTurn;
     }
 
     //public void DrawProjectCard()
