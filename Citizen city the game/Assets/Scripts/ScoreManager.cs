@@ -6,9 +6,6 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    [Header("Simulation Stress Tester")]
-    [Tooltip("Automatically increase random scores for everyone test")]
-    public bool simulateGameplay = true;
 
     [Header("Data Monitoring")]
     public List<SpelerData> spelers = new List<SpelerData>();
@@ -115,11 +112,6 @@ public class ScoreManager : MonoBehaviour
                     }
                 }
             }
-        }
-
-        if (simulateGameplay)
-        {
-            StartCoroutine(SimulateRandomScoreIncreases());
         }
     }
 
