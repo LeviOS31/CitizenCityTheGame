@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
     [SerializeField] DistributeDataFromDataSpace distribute;
     [SerializeField] ConsultantManagerUI consultantManagerUI;
     [SerializeField] AIController aiController;
-    [SerializeField] ScoreDemoManager scoreDemoManager;
+    [SerializeField] ScoreManager scoreDemoManager;
     [SerializeField] Canvas GameUI;
     [SerializeField] RadarFiller EndScreen;
     [SerializeField] int scorelimit;

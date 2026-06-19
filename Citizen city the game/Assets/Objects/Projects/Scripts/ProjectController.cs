@@ -47,9 +47,9 @@ public class ProjectController : MonoBehaviour
 
         if (activeplayer.PersonalProjects.Count == 0)
         {
-            activeplayer.PersonalProjects.Insert(0,GetPersonalProject(activeplayer.color));
-            activeplayer.PersonalProjects.Insert(0,GetPersonalProject(activeplayer.color));
-            activeplayer.PersonalProjects.Insert(0,GetPersonalProject(activeplayer.color));
+            activeplayer.PersonalProjects.Insert(0,GetLocalProject(activeplayer.color));
+            activeplayer.PersonalProjects.Insert(0,GetLocalProject(activeplayer.color));
+            activeplayer.PersonalProjects.Insert(0,GetLocalProject(activeplayer.color));
         }
         else if (activeplayer.PersonalProjects.Count(x => !x.IsDone) < 3)
         {
@@ -57,13 +57,13 @@ public class ProjectController : MonoBehaviour
 
             for (int i = 0; i < needed; i++)
             {
-                activeplayer.PersonalProjects.Insert(0,GetPersonalProject(activeplayer.color));
+                activeplayer.PersonalProjects.Insert(0,GetLocalProject(activeplayer.color));
             }
         }
         if (activeplayer.ProvicialProjects.Count == 0)
         {
-            activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
-            activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
+            activeplayer.ProvicialProjects.Insert(0,GetRegionalProject(activeplayer.color));
+            activeplayer.ProvicialProjects.Insert(0,GetRegionalProject(activeplayer.color));
         }
         else if (activeplayer.ProvicialProjects.Count(x => !x.IsDone) < 2)
         {
@@ -71,19 +71,19 @@ public class ProjectController : MonoBehaviour
 
             for (int i = 0; i < needed; i++)
             {
-                activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
+                activeplayer.ProvicialProjects.Insert(0,GetRegionalProject(activeplayer.color));
             }
         }
 
         GetComponent<ProjectsUI>().ReloadProjectsUI(activeplayer.PersonalProjects, activeplayer.ProvicialProjects, OpenProject);
     }
 
-    public ProjectData GetPersonalProject(Color color)
+    public ProjectData GetLocalProject(Color color)
     {
 
         if (AllPersonalProjects.Count == 0)
         {
-            Debug.LogWarning("No personal projects available.");
+            Debug.LogWarning("No local projects available.");
             return null;
         }
 
@@ -103,7 +103,7 @@ public class ProjectController : MonoBehaviour
         return project;
     }
 
-    public ProjectData GetGroupProject(Color color)
+    public ProjectData GetRegionalProject(Color color)
     {
         if (AllGroupProjects.Count == 0)
         {

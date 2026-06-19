@@ -57,7 +57,7 @@ public class PlayerCardUI : MonoBehaviour
 
     public void LinkToScoreData()
     {
-        ScoreDemoManager scoreMgr = FindAnyObjectByType<ScoreDemoManager>();
+        ScoreManager scoreMgr = FindAnyObjectByType<ScoreManager>();
         if (scoreMgr != null && player != null)
         {
             matchedScoreData = scoreMgr.spelers.FirstOrDefault(s => s.spelerNaam == player.name);
