@@ -24,14 +24,14 @@ public class ProjectsUI : MonoBehaviour
         GameController.OpenWindow += TryClose;
     }
 
-    public void ReloadProjectsUI(List<ProjectData> personalProjects, List<ProjectData> provincialProjects, ProjectData OpenProject)
+    public void ReloadProjectsUI(List<ProjectData> LocalProjects, List<ProjectData> RegionalProjects, ProjectData OpenProject)
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("ProjectPaper");
         foreach (GameObject obj in objects) {
             Destroy(obj);
         }
 
-        foreach (ProjectData project in personalProjects)
+        foreach (ProjectData project in LocalProjects)
         {
             GameObject projectPaper = Instantiate(PrefabProjectPaper, PaperParent);
             RectTransform rectTransform = projectPaper.GetComponent<RectTransform>();
@@ -47,7 +47,7 @@ public class ProjectsUI : MonoBehaviour
             projectPaper.GetComponent<ProjectPrefab>().onclick += OnNeededDataClick;
         }
 
-        foreach (ProjectData project in provincialProjects)
+        foreach (ProjectData project in RegionalProjects)
         {
             GameObject projectPaper = Instantiate(PrefabProjectPaper, PaperParent);
             RectTransform rectTransform = projectPaper.GetComponent<RectTransform>();

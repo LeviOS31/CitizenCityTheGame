@@ -10,8 +10,8 @@ public class Player
     public int money = 1500;
     public Color color;
     public List<DataCard> cards = new List<DataCard>();
-    public List<ProjectData> PersonalProjects = new List<ProjectData>();
-    public List<ProjectData> ProvicialProjects = new List<ProjectData>();
+    public List<ProjectData> LocalProjects = new List<ProjectData>();
+    public List<ProjectData> RegionalProjects = new List<ProjectData>();
     public List<DataSpaceData> DataSpaces = new List<DataSpaceData>();
     public bool isAI = false;
 

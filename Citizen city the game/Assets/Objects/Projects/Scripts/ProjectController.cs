@@ -45,37 +45,37 @@ public class ProjectController : MonoBehaviour
     {
         activeplayer = player;
 
-        if (activeplayer.PersonalProjects.Count == 0)
+        if (activeplayer.LocalProjects.Count == 0)
         {
-            activeplayer.PersonalProjects.Insert(0,GetLocalProject(activeplayer.color));
-            activeplayer.PersonalProjects.Insert(0,GetLocalProject(activeplayer.color));
-            activeplayer.PersonalProjects.Insert(0,GetLocalProject(activeplayer.color));
+            activeplayer.LocalProjects.Insert(0,GetLocalProject(activeplayer.color));
+            activeplayer.LocalProjects.Insert(0,GetLocalProject(activeplayer.color));
+            activeplayer.LocalProjects.Insert(0,GetLocalProject(activeplayer.color));
         }
-        else if (activeplayer.PersonalProjects.Count(x => !x.IsDone) < 3)
+        else if (activeplayer.LocalProjects.Count(x => !x.IsDone) < 3)
         {
-            int needed = activeplayer.PersonalProjects.Count(x => !x.IsDone);
+            int needed = activeplayer.LocalProjects.Count(x => !x.IsDone);
 
             for (int i = 0; i < needed; i++)
             {
-                activeplayer.PersonalProjects.Insert(0,GetLocalProject(activeplayer.color));
+                activeplayer.LocalProjects.Insert(0,GetLocalProject(activeplayer.color));
             }
         }
-        if (activeplayer.ProvicialProjects.Count == 0)
+        if (activeplayer.RegionalProjects.Count == 0)
         {
-            activeplayer.ProvicialProjects.Insert(0,GetRegionalProject(activeplayer.color));
-            activeplayer.ProvicialProjects.Insert(0,GetRegionalProject(activeplayer.color));
+            activeplayer.RegionalProjects.Insert(0,GetRegionalProject(activeplayer.color));
+            activeplayer.RegionalProjects.Insert(0,GetRegionalProject(activeplayer.color));
         }
-        else if (activeplayer.ProvicialProjects.Count(x => !x.IsDone) < 2)
+        else if (activeplayer.RegionalProjects.Count(x => !x.IsDone) < 2)
         {
-            int needed = activeplayer.ProvicialProjects.Count(x => !x.IsDone);
+            int needed = activeplayer.RegionalProjects.Count(x => !x.IsDone);
 
             for (int i = 0; i < needed; i++)
             {
-                activeplayer.ProvicialProjects.Insert(0,GetRegionalProject(activeplayer.color));
+                activeplayer.RegionalProjects.Insert(0,GetRegionalProject(activeplayer.color));
             }
         }
 
-        GetComponent<ProjectsUI>().ReloadProjectsUI(activeplayer.PersonalProjects, activeplayer.ProvicialProjects, OpenProject);
+        GetComponent<ProjectsUI>().ReloadProjectsUI(activeplayer.LocalProjects, activeplayer.RegionalProjects, OpenProject);
     }
 
     public ProjectData GetLocalProject(Color color)
@@ -90,7 +90,7 @@ public class ProjectController : MonoBehaviour
         shuffle(AllPersonalProjects);
         ProjectData project = Instantiate(AllPersonalProjects.First());
         
-        if (GameController.activePlayer.PersonalProjects.Count == 0 && PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
+        if (GameController.activePlayer.LocalProjects.Count == 0 && PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
             project = Instantiate(AllPersonalProjects.First(x => x.Name == "Project Flow-Pure"));
         }
@@ -168,8 +168,8 @@ public class ProjectController : MonoBehaviour
     public void GivePlayersScoreandMoney() 
     {
         List<ProjectData> playerprojects = new List<ProjectData>();
-        playerprojects.AddRange(GameController.activePlayer.PersonalProjects);
-        playerprojects.AddRange(GameController.activePlayer.ProvicialProjects);
+        playerprojects.AddRange(GameController.activePlayer.LocalProjects);
+        playerprojects.AddRange(GameController.activePlayer.RegionalProjects);
 
         foreach (ProjectData project in playerprojects)
         {
