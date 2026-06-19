@@ -125,18 +125,6 @@ public class ProjectController : MonoBehaviour
         return null;
     }
 
-    public ProjectData GetOpenProject()
-    {
-        if (AllOpenProjects.Count == 0)
-        {
-            Debug.LogWarning("No open projects available.");
-            return null;
-        }
-
-        shuffle(AllOpenProjects);
-        return Instantiate(AllOpenProjects.First());
-    }
-
     public void CheckPlayerCards(DataRequired Data)
     {
         Debug.Log("checking " + Data.CardType + " with color " + Data.Color);
