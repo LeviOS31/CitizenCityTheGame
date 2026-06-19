@@ -8,17 +8,15 @@ public class ProjectController : MonoBehaviour
     public ProjectData OpenProject;
 
     private Player activeplayer;
-    private List<ProjectData> AllPersonalProjects;
-    private List<ProjectData> AllGroupProjects;
-    private List<ProjectData> AllOpenProjects;
+    private List<ProjectData> AllLocalProjects;
+    private List<ProjectData> AllRegionalProjects;
 
     public static Action ProjectDone;
 
     private void Awake()
     {
-        AllPersonalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Personal"));
-        AllGroupProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Group"));
-        AllOpenProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Open"));
+        AllLocalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Personal"));
+        AllRegionalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Group"));
     }
 
     private void Start()
@@ -81,18 +79,18 @@ public class ProjectController : MonoBehaviour
     public ProjectData GetLocalProject(Color color)
     {
 
-        if (AllPersonalProjects.Count == 0)
+        if (AllLocalProjects.Count == 0)
         {
             Debug.LogWarning("No local projects available.");
             return null;
         }
 
-        shuffle(AllPersonalProjects);
-        ProjectData project = Instantiate(AllPersonalProjects.First());
+        shuffle(AllLocalProjects);
+        ProjectData project = Instantiate(AllLocalProjects.First());
         
         if (GameController.activePlayer.LocalProjects.Count == 0 && PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
-            project = Instantiate(AllPersonalProjects.First(x => x.Name == "Project Flow-Pure"));
+            project = Instantiate(AllLocalProjects.First(x => x.Name == "Project Flow-Pure"));
         }
 
         foreach (DataRequired data in project.NeededData)
@@ -105,14 +103,14 @@ public class ProjectController : MonoBehaviour
 
     public ProjectData GetRegionalProject(Color color)
     {
-        if (AllGroupProjects.Count == 0)
+        if (AllRegionalProjects.Count == 0)
         {
             Debug.LogWarning("No group projects available.");
             return null;
         }
 
-        shuffle(AllGroupProjects);
-        foreach (ProjectData project in AllGroupProjects)
+        shuffle(AllRegionalProjects);
+        foreach (ProjectData project in AllRegionalProjects)
         {
             if (project.HasColor(color))
             {

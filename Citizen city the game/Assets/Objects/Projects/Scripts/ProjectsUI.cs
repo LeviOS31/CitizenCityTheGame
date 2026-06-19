@@ -165,13 +165,13 @@ public class ProjectsUI : MonoBehaviour
     {
         foreach (Transform child in PaperParent)
         {
-            if (child.GetComponent<ProjectPrefab>().project.Type == ProjectType.Personal)
+            if (child.GetComponent<ProjectPrefab>().project.Type == ProjectType.Local)
             {
                 child.GetComponent<Animator>().SetTrigger("Next");
 
             }
 
-            if (child.GetComponent<ProjectPrefab>().project.Type == ProjectType.Provincial)
+            if (child.GetComponent<ProjectPrefab>().project.Type == ProjectType.Regional)
             {
                 CurProject = child.gameObject;
             }
