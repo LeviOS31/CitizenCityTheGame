@@ -23,7 +23,6 @@ public class ProjectController : MonoBehaviour
 
     private void Start()
     {
-        OpenProject = GetOpenProject();
         GetComponent<ProjectsUI>().CheckCards += CheckPlayerCards;
         ProjectDone += GivePlayersScoreandMoney;
     }
