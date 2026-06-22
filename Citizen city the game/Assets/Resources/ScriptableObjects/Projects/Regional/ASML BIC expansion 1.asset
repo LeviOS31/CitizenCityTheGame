@@ -10,27 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
-  m_Name: Multimodal Transport Hub 3
+  m_Name: ASML BIC expansion 1
   m_EditorClassIdentifier: Assembly-CSharp::ProjectData
-  Name: Multimodal Transport Hub
+  Name: ASML BIC uitbreiding
   Type: 1
   Image: {fileID: 0}
-  Description: "Omdat het centrale station de 150.000 dagelijkse reizigers niet kan
-    dragen, moet de transporthub een effici\xEBntere indeling gaan gebruiken. Dit
-    systeem moet ervoor zorgen dat bussen en fietsen ondergronds verdwijnen ter bevordering
-    van natuurvriendelijk transport en er ook voor zorgen dat er bovengronds geen
-    overlast ontstaat door grote voertuigen."
+  Description: Nieuwe chiptechnologie vraagt om gebouwen die goed tegen trillingen
+    kunnen. De BIC-uitbreiding krijgt daarom een slim nieuw ontwerp. Dit zorgt voor
+    20.000 extra banen, met minimale impact op de natuur. Ook zorgt het plan ervoor
+    dat het zware verkeer op de snelweg goed kan doorstromen.
   NeededData:
-  - CardType: {fileID: 11400000, guid: d4a97629c31953347b887b63e6e9ced5, type: 2}
+  - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    IsMet: 0
+  - CardType: {fileID: 11400000, guid: 70c6ee5ec7116a64eb6f39ac40ca8b58, type: 2}
     Color: {r: 1, g: 0, b: 0, a: 1}
     IsMet: 0
   - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
     Color: {r: 0, g: 0.60784316, b: 0.07058824, a: 1}
     IsMet: 0
-  - CardType: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
-    Color: {r: 1, g: 0, b: 0, a: 1}
-    IsMet: 0
-  ScoreMoney: 1500
+  ScoreMoney: 2500
   ScoreData: 
   IsDone: 0
   IsClaimed: 0

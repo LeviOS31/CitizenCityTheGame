@@ -7,14 +7,11 @@ public class Player
 {
     public Guid ID = new Guid();
     public string name = string.Empty;
-    public int scorePerTurn = 0;
-    public int score = 0;
-    public float scoreMultiplier = 0f;
     public int money = 1500;
     public Color color;
     public List<DataCard> cards = new List<DataCard>();
-    public List<ProjectData> PersonalProjects = new List<ProjectData>();
-    public List<ProjectData> ProvicialProjects = new List<ProjectData>();
+    public List<ProjectData> LocalProjects = new List<ProjectData>();
+    public List<ProjectData> RegionalProjects = new List<ProjectData>();
     public List<DataSpaceData> DataSpaces = new List<DataSpaceData>();
     public bool isAI = false;
 
@@ -30,11 +27,6 @@ public class Player
     {
         this.name = name;
         this.color = color;
-    }
-
-    public void UpdateScore()
-    {
-        score += scorePerTurn;
     }
 
     //public void DrawProjectCard()

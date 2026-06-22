@@ -15,11 +15,8 @@ MonoBehaviour:
   Name: Project Genius
   Type: 1
   Image: {fileID: 0}
-  Description: Omdat het lokale stroomnetwerk overbelast raakt door meer dan 40 grote
-    universiteits- en bedrijfsgebouwen, moet Project Genius een campus-brede oplossing
-    gaan gebruiken. Dit systeem moet ervoor zorgen dat een centrale batterij van
-    3.4 megawattuur en een voorspellend energieplatform als buffer dienen en er ook
-    voor zorgen dat er geen stroomuitval ontstaat op de drukste momenten van de dag.
+  Description: Voorkom stroomuitval door 40 grote gebouwen met een slimme, centrale
+    campus-batterij.
   NeededData:
   - CardType: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
     Color: {r: 0, g: 0.49411765, b: 1, a: 1}

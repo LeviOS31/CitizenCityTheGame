@@ -15,11 +15,10 @@ MonoBehaviour:
   Name: 'Water Storage '
   Type: 0
   Image: {fileID: 0}
-  Description: Omdat regenwater moeilijk via de grond kan weglopen moet District
-    E een innovatief watersysteem gaan gebruiken. Dit systeem moet ervoor zorgen
-    dat regenwater wordt gebruikt ter voordelen van de bewoners tijdens hittegolven
-    en er ook voor zorgen dat er geen overstromingen ontstaan door heftige regenbuien
-    en het gebrek aan goede grond voor afvoer.
+  Description: Regenwater kan in District E moeilijk in de grond zakken. Daarom komt
+    er een slim watersysteem. Dit systeem voorkomt overstromingen bij heftige regenbuien.
+    Daarnaast wordt het opgevangen water slim gebruikt om bewoners te helpen tijdens
+    hittegolven.
   NeededData:
   - CardType: {fileID: 11400000, guid: d4a97629c31953347b887b63e6e9ced5, type: 2}
     Color: {r: 0, g: 0, b: 0, a: 0}

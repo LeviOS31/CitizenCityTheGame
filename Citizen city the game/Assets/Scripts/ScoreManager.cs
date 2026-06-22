@@ -4,11 +4,8 @@ using UnityEngine;
 using System.Linq;
 using TMPro;
 
-public class ScoreDemoManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour
 {
-    [Header("Simulation Stress Tester")]
-    [Tooltip("Automatically increase random scores for everyone test")]
-    public bool simulateGameplay = true;
 
     [Header("Data Monitoring")]
     public List<SpelerData> spelers = new List<SpelerData>();
@@ -116,11 +113,6 @@ public class ScoreDemoManager : MonoBehaviour
                 }
             }
         }
-
-        if (simulateGameplay)
-        {
-            StartCoroutine(SimulateRandomScoreIncreases());
-        }
     }
 
     private void Update()
@@ -145,10 +137,10 @@ public class ScoreDemoManager : MonoBehaviour
         // Sort descending based on real-time calculated general standings
         var gesorteerdeSpelers = spelers.OrderByDescending(s => s.algemeneScore).ToList();
 
-        UpdateVisueleRanglijsten(gesorteerdeSpelers, hoogsteGevondenScore);
+        UpdateVisuals(gesorteerdeSpelers, hoogsteGevondenScore);
     }
 
-    private void UpdateVisueleRanglijsten(List<SpelerData> gesorteerdeLijst, float globaleMax)
+    private void UpdateVisuals(List<SpelerData> gesorteerdeLijst, float globaleMax)
     {
         for (int i = 0; i < gesorteerdeLijst.Count; i++)
         {
@@ -253,52 +245,6 @@ public class ScoreDemoManager : MonoBehaviour
         foreach (Transform child in container)
         {
             Destroy(child.gameObject);
-        }
-    }
-
-    // --- Interactive Input Button / Event Modifier Triggers ---
-    public void VerhoogAuto(int spelerIndex) { if (IndexValid(spelerIndex)) spelers[spelerIndex].aantalAuto++; }
-    public void VerlaagAuto(int spelerIndex) { if (IndexValid(spelerIndex) && spelers[spelerIndex].aantalAuto > 0) spelers[spelerIndex].aantalAuto--; }
-
-    public void VerhoogStroom(int spelerIndex) { if (IndexValid(spelerIndex)) spelers[spelerIndex].aantalStroom++; }
-    public void VerlaagStroom(int spelerIndex) { if (IndexValid(spelerIndex) && spelers[spelerIndex].aantalStroom > 0) spelers[spelerIndex].aantalStroom--; }
-
-    public void VerhoogBoom(int spelerIndex) { if (IndexValid(spelerIndex)) spelers[spelerIndex].aantalBoom++; }
-    public void VerlaagBoom(int spelerIndex) { if (IndexValid(spelerIndex) && spelers[spelerIndex].aantalBoom > 0) spelers[spelerIndex].aantalBoom--; }
-
-    public void VerhoogPoppetje(int spelerIndex) { if (IndexValid(spelerIndex)) spelers[spelerIndex].aantalPoppetje++; }
-    public void VerlaagPoppetje(int spelerIndex) { if (IndexValid(spelerIndex) && spelers[spelerIndex].aantalPoppetje > 0) spelers[spelerIndex].aantalPoppetje--; }
-
-    public void VerhoogHuis(int spelerIndex) { if (IndexValid(spelerIndex)) spelers[spelerIndex].aantalHuis++; }
-    public void VerlaagHuis(int spelerIndex) { if (IndexValid(spelerIndex) && spelers[spelerIndex].aantalHuis > 0) spelers[spelerIndex].aantalHuis--; }
-
-    private bool IndexValid(int index) => index >= 0 && index < spelers.Count;
-
-    private IEnumerator SimulateRandomScoreIncreases()
-    {
-        yield return new WaitForSeconds(1.5f);
-
-        while (simulateGameplay)
-        {
-            // 1. Pick a random player from the live list
-            int randomPlayerIndex = Random.Range(0, spelers.Count);
-
-            // 2. Pick a random category modifier (0 to 4)
-            int randomCategory = Random.Range(0, 5);
-
-            // 3. Fire the appropriate increment method
-            switch (randomCategory)
-            {
-                case 0: VerhoogAuto(randomPlayerIndex); break;
-                case 1: VerhoogStroom(randomPlayerIndex); break;
-                case 2: VerhoogBoom(randomPlayerIndex); break;
-                case 3: VerhoogPoppetje(randomPlayerIndex); break;
-                case 4: VerhoogHuis(randomPlayerIndex); break;
-            }
-
-            // 4. Wait between 1 to 2.5 seconds before hitting the next random score upgrade
-            float randomInterval = Random.Range(0.1f, 0.5f);
-            yield return new WaitForSeconds(randomInterval);
         }
     }
 }

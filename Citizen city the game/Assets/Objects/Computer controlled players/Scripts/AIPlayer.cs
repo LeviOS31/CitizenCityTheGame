@@ -119,7 +119,7 @@ public class AIPlayer
         Debug.Log("AIPlayer " + self.name + " is considering its projects.");
 
         // 3) Try to satisfy project requirements when possible
-        foreach (ProjectData project in self.PersonalProjects)
+        foreach (ProjectData project in self.LocalProjects)
         {
             foreach (DataRequired req in project.NeededData)
             {
@@ -134,7 +134,7 @@ public class AIPlayer
             }
         }
 
-        foreach (ProjectData project in self.ProvicialProjects)
+        foreach (ProjectData project in self.RegionalProjects)
         {
             foreach (DataRequired req in project.NeededData)
             {
@@ -156,7 +156,7 @@ public class AIPlayer
         // collect missing data card types (that AI doesn't already have)
         HashSet<DataCardType> generalNeeded = new HashSet<DataCardType>();
 
-        foreach (ProjectData project in self.PersonalProjects.Concat(self.ProvicialProjects))
+        foreach (ProjectData project in self.LocalProjects.Concat(self.RegionalProjects))
         {
             foreach (DataRequired req in project.NeededData)
             {

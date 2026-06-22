@@ -8,22 +8,19 @@ public class ProjectController : MonoBehaviour
     public ProjectData OpenProject;
 
     private Player activeplayer;
-    private List<ProjectData> AllPersonalProjects;
-    private List<ProjectData> AllGroupProjects;
-    private List<ProjectData> AllOpenProjects;
+    private List<ProjectData> AllLocalProjects;
+    private List<ProjectData> AllRegionalProjects;
 
     public static Action ProjectDone;
 
     private void Awake()
     {
-        AllPersonalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Personal"));
-        AllGroupProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Group"));
-        AllOpenProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Open"));
+        AllLocalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Local"));
+        AllRegionalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Regional"));
     }
 
     private void Start()
     {
-        OpenProject = GetOpenProject();
         GetComponent<ProjectsUI>().CheckCards += CheckPlayerCards;
         ProjectDone += GivePlayersScoreandMoney;
     }
@@ -46,44 +43,54 @@ public class ProjectController : MonoBehaviour
     {
         activeplayer = player;
 
-        if (activeplayer.PersonalProjects.Count == 0 || activeplayer.PersonalProjects.Count(x => !x.IsDone) == 0)
+        if (activeplayer.LocalProjects.Count == 0)
         {
-            activeplayer.PersonalProjects.Insert(0,GetPersonalProject(activeplayer.color));
+            activeplayer.LocalProjects.Insert(0,GetLocalProject(activeplayer.color));
+            activeplayer.LocalProjects.Insert(0,GetLocalProject(activeplayer.color));
+            activeplayer.LocalProjects.Insert(0,GetLocalProject(activeplayer.color));
         }
-        if (activeplayer.ProvicialProjects.Count == 0 || activeplayer.ProvicialProjects.Count(x => !x.IsDone) == 0)
+        else if (activeplayer.LocalProjects.Count(x => !x.IsDone) < 3)
         {
-            activeplayer.ProvicialProjects.Insert(0,GetGroupProject(activeplayer.color));
+            int needed = activeplayer.LocalProjects.Count(x => !x.IsDone);
+
+            for (int i = 0; i < needed; i++)
+            {
+                activeplayer.LocalProjects.Insert(0,GetLocalProject(activeplayer.color));
+            }
+        }
+        if (activeplayer.RegionalProjects.Count == 0)
+        {
+            activeplayer.RegionalProjects.Insert(0,GetRegionalProject(activeplayer.color));
+            activeplayer.RegionalProjects.Insert(0,GetRegionalProject(activeplayer.color));
+        }
+        else if (activeplayer.RegionalProjects.Count(x => !x.IsDone) < 2)
+        {
+            int needed = activeplayer.RegionalProjects.Count(x => !x.IsDone);
+
+            for (int i = 0; i < needed; i++)
+            {
+                activeplayer.RegionalProjects.Insert(0,GetRegionalProject(activeplayer.color));
+            }
         }
 
-        //Debug.Log(activeplayer.name + " " + activeplayer.color + " Projects:");
-
-        foreach (ProjectData project in activeplayer.PersonalProjects)
-        {
-            //Debug.Log(project.Name);
-        }
-        foreach (ProjectData project in activeplayer.ProvicialProjects)
-        {
-            //Debug.Log(project.Name);
-        }
-
-        GetComponent<ProjectsUI>().ReloadProjectsUI(activeplayer.PersonalProjects, activeplayer.ProvicialProjects, OpenProject);
+        GetComponent<ProjectsUI>().ReloadProjectsUI(activeplayer.LocalProjects, activeplayer.RegionalProjects, OpenProject);
     }
 
-    public ProjectData GetPersonalProject(Color color)
+    public ProjectData GetLocalProject(Color color)
     {
 
-        if (AllPersonalProjects.Count == 0)
+        if (AllLocalProjects.Count == 0)
         {
-            Debug.LogWarning("No personal projects available.");
+            Debug.LogWarning("No local projects available.");
             return null;
         }
 
-        shuffle(AllPersonalProjects);
-        ProjectData project = Instantiate(AllPersonalProjects.First());
+        shuffle(AllLocalProjects);
+        ProjectData project = Instantiate(AllLocalProjects.First());
         
-        if (GameController.activePlayer.PersonalProjects.Count == 0 && PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
+        if (GameController.activePlayer.LocalProjects.Count == 0 && PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
-            project = Instantiate(AllPersonalProjects.First(x => x.Name == "Project Flow-Pure"));
+            project = Instantiate(AllLocalProjects.First(x => x.Name == "Project Flow-Pure"));
         }
 
         foreach (DataRequired data in project.NeededData)
@@ -94,16 +101,16 @@ public class ProjectController : MonoBehaviour
         return project;
     }
 
-    public ProjectData GetGroupProject(Color color)
+    public ProjectData GetRegionalProject(Color color)
     {
-        if (AllGroupProjects.Count == 0)
+        if (AllRegionalProjects.Count == 0)
         {
             Debug.LogWarning("No group projects available.");
             return null;
         }
 
-        shuffle(AllGroupProjects);
-        foreach (ProjectData project in AllGroupProjects)
+        shuffle(AllRegionalProjects);
+        foreach (ProjectData project in AllRegionalProjects)
         {
             if (project.HasColor(color))
             {
@@ -113,18 +120,6 @@ public class ProjectController : MonoBehaviour
 
         Debug.LogWarning("No group projects found with the required color.");
         return null;
-    }
-
-    public ProjectData GetOpenProject()
-    {
-        if (AllOpenProjects.Count == 0)
-        {
-            Debug.LogWarning("No open projects available.");
-            return null;
-        }
-
-        shuffle(AllOpenProjects);
-        return Instantiate(AllOpenProjects.First());
     }
 
     public void CheckPlayerCards(DataRequired Data)
@@ -171,8 +166,8 @@ public class ProjectController : MonoBehaviour
     public void GivePlayersScoreandMoney() 
     {
         List<ProjectData> playerprojects = new List<ProjectData>();
-        playerprojects.AddRange(GameController.activePlayer.PersonalProjects);
-        playerprojects.AddRange(GameController.activePlayer.ProvicialProjects);
+        playerprojects.AddRange(GameController.activePlayer.LocalProjects);
+        playerprojects.AddRange(GameController.activePlayer.RegionalProjects);
 
         foreach (ProjectData project in playerprojects)
         {

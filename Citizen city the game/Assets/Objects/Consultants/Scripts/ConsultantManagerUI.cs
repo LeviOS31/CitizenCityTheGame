@@ -190,4 +190,9 @@ public class ConsultantManagerUI : MonoBehaviour
             CloseConsultDashboard();
         }
     }
+
+    public void RefreshFunds()
+    {
+        Funds.text = GameController.activePlayer.money.ToString();
+    }
 }

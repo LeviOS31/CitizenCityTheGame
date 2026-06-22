@@ -10,25 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
-  m_Name: Multimodal Transport Hub
+  m_Name: Multimodal Transport Hub 1
   m_EditorClassIdentifier: Assembly-CSharp::ProjectData
   Name: Multimodal Transport Hub
   Type: 1
   Image: {fileID: 0}
-  Description: "Omdat het centrale station de 150.000 dagelijkse reizigers niet kan
-    dragen, moet de transporthub een effici\xEBntere indeling gaan gebruiken. Dit
-    systeem moet ervoor zorgen dat bussen en fietsen ondergronds verdwijnen ter bevordering
-    van natuurvriendelijk transport en er ook voor zorgen dat er bovengronds geen
-    overlast ontstaat door grote voertuigen."
+  Description: Het centraal station kan de 150.000 dagelijkse reizigers niet meer
+    aan. Daarom krijgt de transporthub een slimmere indeling. Bussen en fietsen verdwijnen
+    onder de grond om groen vervoer te helpen. Hierdoor is er bovengronds geen last
+    meer van grote voertuigen.
   NeededData:
   - CardType: {fileID: 11400000, guid: d4a97629c31953347b887b63e6e9ced5, type: 2}
-    Color: {r: 0, g: 0.60784316, b: 0.07058824, a: 1}
+    Color: {r: 0, g: 0.49411765, b: 1, a: 1}
     IsMet: 0
   - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
-    Color: {r: 1, g: 0.6784314, b: 0, a: 1}
+    Color: {r: 0, g: 0.60784316, b: 0.07058824, a: 1}
     IsMet: 0
   - CardType: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
-    Color: {r: 1, g: 0, b: 0, a: 1}
+    Color: {r: 0, g: 0.49411765, b: 1, a: 1}
     IsMet: 0
   ScoreMoney: 1500
   ScoreData: 

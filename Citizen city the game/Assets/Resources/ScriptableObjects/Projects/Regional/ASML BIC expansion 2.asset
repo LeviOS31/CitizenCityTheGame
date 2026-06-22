@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
-  m_Name: ASML BIC expansion 3
+  m_Name: ASML BIC expansion 2
   m_EditorClassIdentifier: Assembly-CSharp::ProjectData
   Name: ASML BIC uitbreiding
   Type: 1
   Image: {fileID: 0}
-  Description: Omdat de nieuwe semiconductor-technologie vraagt om vibratiebestendige
-    gebouwen, moet de BIC-uitbreiding een innovatieve campusopzet gaan gebruiken.
-    Dit systeem moet ervoor zorgen dat er 20.000 banen ontstaan met minimale impact
-    op de natuur en er ook voor zorgen dat de snelweg de zware logistiek aankan.
+  Description: Nieuwe chiptechnologie vraagt om gebouwen die trillingsvrij zijn.
+    De BIC krijgt daarom een slimme opzet. Dit zorgt voor 20.000 banen met weinig
+    gevolgen voor de natuur. Daarnaast zorgt het ervoor dat het zware verkeer op
+    de snelweg goed kan doorstromen.
   NeededData:
   - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
-    Color: {r: 1, g: 0.6784314, b: 0, a: 1}
+    Color: {r: 0, g: 0.60784316, b: 0.07058824, a: 1}
     IsMet: 0
   - CardType: {fileID: 11400000, guid: 70c6ee5ec7116a64eb6f39ac40ca8b58, type: 2}
-    Color: {r: 1, g: 0.6784314, b: 0, a: 1}
+    Color: {r: 0, g: 0.60784316, b: 0.07058824, a: 1}
     IsMet: 0
   - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
-    Color: {r: 0, g: 0.60784316, b: 0.07058824, a: 1}
+    Color: {r: 0, g: 0.49411765, b: 1, a: 1}
     IsMet: 0
   ScoreMoney: 2500
   ScoreData: 

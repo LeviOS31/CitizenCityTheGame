@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MUNIDASH
+  m_text: Munidash
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
   m_sharedMaterial: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.2
+  m_fontSize: 37
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -755,7 +755,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player 1
+  m_text: Speler 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1423,12 +1423,24 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 65311450}
     m_Modifications:
+    - target: {fileID: 352689961562329846, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 444393029907922221, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 616300491875876960, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1110423766877198918, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 205
+      objectReference: {fileID: 0}
+    - target: {fileID: 1110423766877198918, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1662573036902694955, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
@@ -1438,6 +1450,14 @@ PrefabInstance:
     - target: {fileID: 2858985788693616332, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154013492738698843, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_text
+      value: 'Welkom bij Citizen City het spel!
+
+
+        In dit spel speel je als
+        gemeente en verzamel je data om projecten te voltooien.'
       objectReference: {fileID: 0}
     - target: {fileID: 3397460724581746534, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
@@ -1547,6 +1567,14 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5509575560417485153, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 283
+      objectReference: {fileID: 0}
+    - target: {fileID: 5509575560417485153, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 103
+      objectReference: {fileID: 0}
     - target: {fileID: 5587154277062421885, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1577,6 +1605,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6815737797489199548, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861256730285046746, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861256730285046746, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6909078847975192106, guid: 9b3cafbeb1c51a147bb8e21df51e4065, type: 3}
@@ -3044,7 +3080,7 @@ RectTransform:
   m_GameObject: {fileID: 1007763521}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.92650247, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2110426343}
@@ -3074,7 +3110,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Volgende speler
+  m_text: "Beurt Be\xEBindigen"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
   m_sharedMaterial: {fileID: -3335536666227734383, guid: 40b0a86fa6399f54bab876c18595d7c1, type: 2}
@@ -3211,7 +3247,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player 4
+  m_text: Speler 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5375,9 +5411,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Player 3
-
-'
+  m_text: Speler 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6539,7 +6573,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player 2
+  m_text: Speler 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6875,6 +6909,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9028735816214580325, guid: 051fe4da8f8e74245bf6ca41b1bde979, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9028735816214580325, guid: 051fe4da8f8e74245bf6ca41b1bde979, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9028735816214580325, guid: 051fe4da8f8e74245bf6ca41b1bde979, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -7114,9 +7156,17 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
+      propertyPath: turnNumber
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
       propertyPath: aiController
       value: 
       objectReference: {fileID: 1626040510}
+    - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
+      propertyPath: enableTutorial
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
       propertyPath: playerContainer
       value: 
@@ -7317,7 +7367,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1919402457424140022, guid: de795dea82cb20041a9e0839bb9bbb4e, type: 3}
       propertyPath: AICount
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1919402457424140022, guid: de795dea82cb20041a9e0839bb9bbb4e, type: 3}
       propertyPath: gameController

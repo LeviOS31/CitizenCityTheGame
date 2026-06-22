@@ -10,25 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f363aba7de14129489cab415fcd2beef, type: 3}
-  m_Name: Project Genius 2
+  m_Name: Project Genius 1
   m_EditorClassIdentifier: Assembly-CSharp::ProjectData
   Name: Project Genius
   Type: 1
   Image: {fileID: 0}
-  Description: Omdat het lokale stroomnetwerk overbelast raakt door meer dan 40 grote
-    universiteits- en bedrijfsgebouwen, moet Project Genius een campus-brede oplossing
-    gaan gebruiken. Dit systeem moet ervoor zorgen dat een centrale batterij van
-    3.4 megawattuur en een voorspellend energieplatform als buffer dienen en er ook
-    voor zorgen dat er geen stroomuitval ontstaat op de drukste momenten van de dag.
+  Description: Het lokale stroomnet raakt overbelast door 40 grote gebouwen op de
+    campus. Project Genius introduceert daarom een slim energiesysteem. Een centrale
+    batterij dient samen met een voorspellend platform als buffer. Dit voorkomt stroomuitval
+    op piekmomenten.
   NeededData:
+  - CardType: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    IsMet: 0
   - CardType: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
     Color: {r: 0, g: 0.60784316, b: 0.07058824, a: 1}
     IsMet: 0
   - CardType: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
     Color: {r: 1, g: 0.6784314, b: 0, a: 1}
-    IsMet: 0
-  - CardType: {fileID: 11400000, guid: f5df24a94a49d164a98a49a724240bb9, type: 2}
-    Color: {r: 0, g: 0.49411765, b: 1, a: 1}
     IsMet: 0
   ScoreMoney: 1500
   ScoreData: 

@@ -1247,7 +1247,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: End Turn
+  m_text: Einde Beurt
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1860,6 +1860,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 156765218}
     m_Modifications:
+    - target: {fileID: 1334438005846792999, guid: 06a25e9b00effa3499bd6b932bd6db54, type: 3}
+      propertyPath: m_text
+      value: Data Kaart Uitwissenling
+      objectReference: {fileID: 0}
+    - target: {fileID: 1544901657359858442, guid: 06a25e9b00effa3499bd6b932bd6db54, type: 3}
+      propertyPath: m_text
+      value: Bod Doen
+      objectReference: {fileID: 0}
     - target: {fileID: 2843097067720807229, guid: 06a25e9b00effa3499bd6b932bd6db54, type: 3}
       propertyPath: m_Name
       value: TradingScreenContainer
@@ -2646,7 +2654,6 @@ MonoBehaviour:
   personIcon: {fileID: 21300000, guid: 1c9fa4e19bf1eff4283edda015304f01, type: 3}
   municipalDSPrefab: {fileID: 5868982145277586516, guid: 1f1c22976d7001640917bc941aca33c6, type: 3}
   regionalDSPrefab: {fileID: 2814002036392424292, guid: 454f29abe01f22c489920240fdf9bf54, type: 3}
-  closeButton: {fileID: 1004619821}
   dataSpaceContainer: {fileID: 797359210}
 --- !u!114 &797359206
 MonoBehaviour:
@@ -4820,6 +4827,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 156765218}
     m_Modifications:
+    - target: {fileID: 600036521377798987, guid: 5b7d74ac267c1ae4fb7c4fb4cbfd609a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 139.35083
+      objectReference: {fileID: 0}
+    - target: {fileID: 600036521377798987, guid: 5b7d74ac267c1ae4fb7c4fb4cbfd609a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 26.946045
+      objectReference: {fileID: 0}
     - target: {fileID: 3862498876535996541, guid: 5b7d74ac267c1ae4fb7c4fb4cbfd609a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -7014,6 +7029,7 @@ MonoBehaviour:
   ConsultancyButton: {fileID: 1203628620}
   ActiveContractsButton: {fileID: 2062067817}
   DataSpaceButton: {fileID: 1220740455}
+  DataSpaceContractButton: {fileID: 0}
   ConsultantUIPrefab: {fileID: 7680789697549027708, guid: 8e3dc4de7efcc25439eef53a039dfc1c, type: 3}
   ActiveContractUIPrefab: {fileID: 7680789697549027708, guid: 6b9b97cdb7d64c2479bb572c10ff78a4, type: 3}
   ConsultancyScreen: {fileID: 1634148286}

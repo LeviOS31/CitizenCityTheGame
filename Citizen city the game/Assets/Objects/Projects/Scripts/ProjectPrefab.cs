@@ -73,8 +73,8 @@ public class ProjectPrefab : MonoBehaviour
 
         ProjectName.text = project.Name;
         ProjectDescription.text = project.Description;
-        ProjectTypeColor1.color = project.Type == ProjectType.Personal ? new Color(0.365f, 0.6f, 1.0f) : new Color(0.918f, 0.247f, 0.247f);
-        ProjectTypeColor2.color = project.Type == ProjectType.Personal ? new Color(0.365f, 0.6f, 1.0f) : new Color(0.918f, 0.247f, 0.247f);
+        ProjectTypeColor1.color = project.Type == ProjectType.Local ? new Color(0.365f, 0.6f, 1.0f) : new Color(0.918f, 0.247f, 0.247f);
+        ProjectTypeColor2.color = project.Type == ProjectType.Local ? new Color(0.365f, 0.6f, 1.0f) : new Color(0.918f, 0.247f, 0.247f);
         Points.text = "+" + project.ScoreMoney;
         ProjectImage.sprite = project.Image;
 

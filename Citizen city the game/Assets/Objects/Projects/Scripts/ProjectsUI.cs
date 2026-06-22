@@ -24,14 +24,14 @@ public class ProjectsUI : MonoBehaviour
         GameController.OpenWindow += TryClose;
     }
 
-    public void ReloadProjectsUI(List<ProjectData> personalProjects, List<ProjectData> provincialProjects, ProjectData OpenProject)
+    public void ReloadProjectsUI(List<ProjectData> LocalProjects, List<ProjectData> RegionalProjects, ProjectData OpenProject)
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("ProjectPaper");
         foreach (GameObject obj in objects) {
             Destroy(obj);
         }
 
-        foreach (ProjectData project in personalProjects)
+        foreach (ProjectData project in LocalProjects)
         {
             GameObject projectPaper = Instantiate(PrefabProjectPaper, PaperParent);
             RectTransform rectTransform = projectPaper.GetComponent<RectTransform>();
@@ -47,7 +47,7 @@ public class ProjectsUI : MonoBehaviour
             projectPaper.GetComponent<ProjectPrefab>().onclick += OnNeededDataClick;
         }
 
-        foreach (ProjectData project in provincialProjects)
+        foreach (ProjectData project in RegionalProjects)
         {
             GameObject projectPaper = Instantiate(PrefabProjectPaper, PaperParent);
             RectTransform rectTransform = projectPaper.GetComponent<RectTransform>();
@@ -62,8 +62,6 @@ public class ProjectsUI : MonoBehaviour
 
             projectPaper.GetComponent<ProjectPrefab>().onclick += OnNeededDataClick;
         }
-
-        //TODO: load in open project
 
 
     }
@@ -167,13 +165,13 @@ public class ProjectsUI : MonoBehaviour
     {
         foreach (Transform child in PaperParent)
         {
-            if (child.GetComponent<ProjectPrefab>().project.Type == ProjectType.Personal)
+            if (child.GetComponent<ProjectPrefab>().project.Type == ProjectType.Local)
             {
                 child.GetComponent<Animator>().SetTrigger("Next");
 
             }
 
-            if (child.GetComponent<ProjectPrefab>().project.Type == ProjectType.Provincial)
+            if (child.GetComponent<ProjectPrefab>().project.Type == ProjectType.Regional)
             {
                 CurProject = child.gameObject;
             }
