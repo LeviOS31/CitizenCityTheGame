@@ -15,8 +15,8 @@ public class ProjectController : MonoBehaviour
 
     private void Awake()
     {
-        AllLocalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Personal"));
-        AllRegionalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Group"));
+        AllLocalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Local"));
+        AllRegionalProjects = new List<ProjectData>(Resources.LoadAll<ProjectData>("ScriptableObjects/Projects/Regional"));
     }
 
     private void Start()

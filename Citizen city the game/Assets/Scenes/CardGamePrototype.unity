@@ -7156,12 +7156,16 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
+      propertyPath: turnNumber
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
       propertyPath: aiController
       value: 
       objectReference: {fileID: 1626040510}
     - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
       propertyPath: enableTutorial
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2196398248972390202, guid: 16dfc35008a02f94196139c26bd5a331, type: 3}
       propertyPath: playerContainer
