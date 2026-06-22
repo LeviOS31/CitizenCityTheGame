@@ -15,10 +15,9 @@ MonoBehaviour:
   Name: ASML BIC uitbreiding
   Type: 1
   Image: {fileID: 0}
-  Description: Omdat de nieuwe semiconductor-technologie vraagt om vibratiebestendige
-    gebouwen, moet de BIC-uitbreiding een innovatieve campusopzet gaan gebruiken.
-    Dit systeem moet ervoor zorgen dat er 20.000 banen ontstaan met minimale impact
-    op de natuur en er ook voor zorgen dat de snelweg de zware logistiek aankan.
+  Description: Voor nieuwe chiptechnologie zijn gebouwen nodig die trillingsvrij
+    zijn. De BIC krijgt daarom een slimme opzet. Dit zorgt voor 20.000 banen met
+    minimale gevolgen voor de natuur en een snelweg die klaar is voor zwaar verkeer.
   NeededData:
   - CardType: {fileID: 11400000, guid: d1d34ee15fb761b45a78cd8f99d61422, type: 2}
     Color: {r: 1, g: 0.6784314, b: 0, a: 1}

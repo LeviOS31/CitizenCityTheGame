@@ -231,8 +231,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Door op de kaarten te klikken kan je kiezen welke kaarten je will weg geven
-    en welke je will krijgen
+  m_text: Door op de kaarten te klikken kan je kiezen welke kaarten je wilt weggeven
+    en welke je wilt krijgen.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -522,7 +522,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Je hebt nu ook de data van de andere consultant gekregen
+  m_text: Je hebt nu de data van de andere consultant ook gekregen.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1041,7 +1041,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Welkom bij Citizen City het spel!
+  m_text: 'Welkom bij CitizenCity: The Game!
 
 
 
@@ -1050,8 +1050,8 @@ MonoBehaviour:
 
 
 
-    Nu leggen we de UI uit
-    die je op het scherm ziet'
+    Nu leggen we de schermindeling
+    uit die je voor je ziet.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1188,11 +1188,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'In Munidash zijn meer opties dan alleen consultants aannemen.
-
-
-    Open
-    Munidash'
+  m_text: "In MuniDash zijn er meer opties dan alleen consultants aannemen. \n\nOpen
+    MuniDash."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1329,12 +1326,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Zoals je kan zien heb je extra data kaarten gekregen.
-
-
-    per ronde
-    krijg je altijd een Burger datakaart en de andere kaart komt van een van de consultants
-    die klaar was.'
+  m_text: "Zoals je kan zien, heb je extra datakaarten gekregen. \n\nPer ronde krijg
+    je altijd een burgerdatakaart en de andere kaart komt van een van de consultants
+    die klaar was."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1995,7 +1989,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Open het projecten overzicht weer
+  m_text: Open het projectenoverzicht weer.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2340,8 +2334,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Dit is een project. onderaan kan je zien wat voor data je nodig hebt om
-    het project af te maken
+  m_text: Dit is een project. Onderaan kan je zien wat voor data je nodig hebt om
+    het project af te maken.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2632,8 +2626,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Je kan nu data inzetten om je project te vorderen maar dat hoeft niet je
-    kan het ook voor andere doeleinde gebruiken
+  m_text: Je kan nu data inzetten om je project verder te helpen, maar dat hoeft
+    niet. Je kan het ook voor andere doeleinden gebruiken.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2771,7 +2765,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Hier zijn je datakaarten. Dit zijn de middelen die je beheert en gebruikt
-    om punten te scoren in het spel
+    om punten te scoren in het spel.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2984,8 +2978,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: dit zijn je spelerspanelen. Je ziet hier de score, het geld en de kaarten
-    van jou en je medegemeenten
+  m_text: Dit zijn je spelerspanelen. Je ziet hier de score, het geld en de kaarten
+    van jouw gemeente en die van de medegemeenten.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4161,7 +4155,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hier kan je zien welke acties er allemaal zijn gebeurt in de vorige beurten
+  m_text: Hier kan je zien welke acties er allemaal zijn gebeurd in de vorige beurten.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4658,11 +4652,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Data is te verkijgen via Munidash doormiddel van consultants of een datspace
+  m_text: 'Data is te verkrijgen via MuniDash door middel van consultants of een
+    dataspace.
 
 
-    Open
-    Munidash'
+    Open Munidash.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5008,11 +5002,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Nu heb je genoeg data om je lokale project af te maken
-
-
-    klik op de
-    checkboxen om het project af te maken'
+  m_text: "Nu heb je genoeg data om je lokale project af te maken. \n\nKlik op de
+    selectievakjes om het project af te ronden."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5362,8 +5353,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hier zie je dat je actieve contracten hebt met 2 consultants en er staat
-    aangegeven hoeveel beurten het nog duurt voordat je de data krijgt
+  m_text: Hier zie je dat je actieve contracten hebt met twee consultants. Er staat
+    aangegeven hoeveel beurten het nog duurt voordat je de data krijgt.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5500,7 +5491,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Dit was de tutorial voor Citizen City the game. Succes!
+  m_text: 'Dit was de tutorial voor CitizenCity: The Game. Succes!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6301,8 +6292,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Nu heb je alles gedaan wat in deze beurt kan. \n\nklik hier om naar de
-    volgende beurt te gaan"
+  m_text: "Nu heb je alles gedaan wat je in deze beurt kan doen. \n\nKlik hier om
+    naar de volgende beurt te gaan."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6898,10 +6889,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'op deze pagina is een overzicht van je dataspace
-
-
-    open de pagina'
+  m_text: "Op deze pagina vind je een overzicht van je dataspace. \n\nOpen de pagina."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7038,11 +7026,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'als het goed is heb je data die je kunt inzetten voor een project
-
-
-    Open
-    het projecten overzichtg'
+  m_text: "Als het goed is, heb je nu data die je kunt inzetten voor een project.
+    \n\nOpen het projectenoverzicht!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7255,10 +7240,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Met deze knop kun je het projecten overzicht openen.
+  m_text: 'Met deze knop kun je het projectenoverzicht openen.
 
 
-    probeer het
+    Probeer het
     nu!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7701,7 +7686,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Hier kan je zien in welke dataspace je zit en welke data je kan gebruiken
-    van bedrijven en andere municipalities
+    van bedrijven en andere gemeenten.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8068,8 +8053,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Je hebt nog geen dataspace. Je hebt de nodige data om je eigen dataspace
-    op te starten maar nog niet genoeg geld
+  m_text: Je hebt nog geen dataspace. Je hebt wel de nodige data om je eigen dataspace
+    op te starten, maar nog niet genoeg geld.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9005,8 +8990,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: maar je hebt wel genoeg data om een project af te maken. laten we in het
-    projecten overzicht gaan kijken
+  m_text: Maar je hebt wel genoeg data om een project af te maken. Laten we in het
+    projectenoverzicht gaan kijken!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9143,8 +9128,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Nu kan je weer door gaan naar de volgende beurt. \n\nklik om je beurt
-    te beindigen"
+  m_text: "Nu kan je weer doorgaan naar de volgende beurt. \n\nKlik om je beurt te
+    be\xEBindigen."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9489,9 +9474,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Je kan je data ook verhandelen met andere spelers. hierdoor kan je data
-    krijgen die je kan gebruiken in regionale projecten. \n\nklik op een speler om
-    het te proberen"
+  m_text: "Je kan je data ook verhandelen met andere spelers. Hierdoor kan je data
+    krijgen die je kan gebruiken in regionale projecten. \n\nKlik op een speler om
+    het te proberen."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10416,8 +10401,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: zoals je ziet krijg je ook elke keer op het begin van je beurt geld er
-    bij.
+  m_text: Zoals je ziet, krijg je ook elke keer aan het begin van je beurt geld erbij.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10630,11 +10614,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Nu je consultants hebt aangenomen kan je op de actieve contracten pagina
-    zien hoe lang het nog duurt voordat je de data krijgt
-
-
-    open de pagina'
+  m_text: "Nu je consultants hebt aangenomen, kan je op de actieve-contractenpagina
+    zien hoelang het nog duurt voordat je de data krijgt. \n\nOpen de pagina."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10771,7 +10752,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Zoals je ziet is je score omhoog gegaan en heb je extra geld gekregen
+  m_text: Zoals je ziet, is je score omhooggegaan en heb je extra geld gekregen.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10908,12 +10889,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Dit is de consultant pagina. Hier kan je consultants aannemen om data
-    te verkrijgen waar jij nog geen toegang tot hebt
+  m_text: 'Dit is de consultantpagina. Hier kan je consultants aannemen om data te
+    verkrijgen waartoe jij nog geen toegang hebt.
 
+    
 
-    Neem consultants aan voor
-    de data die je nodig hebt:'
+    Neem consultants aan
+    voor de data die je nodig hebt:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11335,7 +11317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Zoals je ziet mis je de data die je nodig hebt om het project te voltooien
+  m_text: Zoals je ziet mis je de data die je nodig hebt om het project te voltooien.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -15,11 +15,9 @@ MonoBehaviour:
   Name: Multimodal Transport Hub
   Type: 1
   Image: {fileID: 0}
-  Description: "Omdat het centrale station de 150.000 dagelijkse reizigers niet kan
-    dragen, moet de transporthub een effici\xEBntere indeling gaan gebruiken. Dit
-    systeem moet ervoor zorgen dat bussen en fietsen ondergronds verdwijnen ter bevordering
-    van natuurvriendelijk transport en er ook voor zorgen dat er bovengronds geen
-    overlast ontstaat door grote voertuigen."
+  Description: Omdat het station te klein is voor 150.000 reizigers, gaan bussen
+    en fietsen voortaan ondergronds. Dit stimuleert groen vervoer en zorgt bovengronds
+    voor een rustig plein zonder grote voertuigen.
   NeededData:
   - CardType: {fileID: 11400000, guid: d4a97629c31953347b887b63e6e9ced5, type: 2}
     Color: {r: 0, g: 0.60784316, b: 0.07058824, a: 1}
