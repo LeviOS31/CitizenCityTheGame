@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class ButtonCursorChanger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -10,7 +11,9 @@ public class ButtonCursorChanger : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (HoverCursor != null)
+        Button button = GetComponent<Button>();
+
+        if (HoverCursor != null && button.interactable)
         {
             Cursor.SetCursor(HoverCursor, hotSpot, CursorMode.Auto);
         }

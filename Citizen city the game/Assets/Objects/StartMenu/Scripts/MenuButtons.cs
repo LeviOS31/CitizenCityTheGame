@@ -5,7 +5,8 @@ public class MenuButtons : MonoBehaviour
 {
     public GameObject SettingsMenu;
     public bool isingamesettings = false;
-
+    public GameObject playerSelector;
+    public GameObject MainMenuButtons;
     private void Update()
     {
         if (!isingamesettings) return;
@@ -34,6 +35,12 @@ public class MenuButtons : MonoBehaviour
     }
 
     public void StartNewGame()
+    {
+        playerSelector.SetActive(true);
+        MainMenuButtons.SetActive(false);
+    }
+
+    public void StartGame()
     {
         SceneManager.LoadScene("CardGamePrototype");
     }
