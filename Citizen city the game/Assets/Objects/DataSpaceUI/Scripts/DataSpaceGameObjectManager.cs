@@ -24,35 +24,17 @@ public class DataSpaceGameObjectManager : MonoBehaviour
     private Player activeplayer;
     private int currenntContractIndex;
     private List<DataSpaceData> activePlayerContracts = new List<DataSpaceData>();
-    private void Start()
-    {
-        activeplayer = GameController.activePlayer;
-    }
-
     public void DataSpaceContractsButton()
     {
         activeplayer = GameController.activePlayer;
+        activePlayerContracts = activeplayer.DataSpaces;
         ClearDataSpaceWindow();
-        RefreshList();
         currenntContractIndex = 0;
         GenerateDataSpaceObjects(activePlayerContracts[currenntContractIndex]);
     }
 
-    private void RefreshList()
-    {
-        activePlayerContracts.Clear();
-        foreach (DataSpaceData data in activeplayer.DataSpaces)
-        {
-            if (!data.isEnabled)
-            {
-                activePlayerContracts.Add(data);
-            }
-        }
-    }
-
     public void SwitchDataSpaceContract(int i)
     {
-        RefreshList();
         ClearDataSpaceWindow();
         if (i == 2)
         {
@@ -92,10 +74,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             return;
         }
 
-        if (!dataSpace.isEnabled)
-        {
-            CreateDataSpaceWindow(prefabToUse, dataSpace);
-        }
+        CreateDataSpaceWindow(prefabToUse, dataSpace);
     }
 
     public void ClearDataSpaceWindow()
@@ -134,30 +113,57 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             return;
         }
 
+        SetupCardClickAreas(container, dataSpace);
+
         if (dataSpace.type == DataSpaceType.regional)
         {
             SetupRegionalContractButtons(container, dataSpace);
             SetupCostTextForRegionalContracts(container, dataSpace);
-
-            EnableStampForContracts.enableSignedStamp?.Invoke(dataSpace);
+            ChangePlayerTextForRegionalContracts(dataSpaceWindow);
         }
         else
         {
             SetupEnableButton(container, dataSpace);
             SetupCostText(container, dataSpace);
         }
-        
-        SetupCardClickAreas(container, dataSpace);
-        SetupIdText(container, dataSpace);
+
+        HandleStamps(dataSpaceWindow, dataSpace);
     }
 
-    private void SetupIdText(Transform container, DataSpaceData data)
+    private void ChangePlayerTextForRegionalContracts(GameObject dataSpaceWindow)
     {
-        Transform idText = container.Find("idText");
+        ChangeRegionalContractNames playerTextController =
+            dataSpaceWindow.GetComponentInChildren<ChangeRegionalContractNames>(true);
 
-        TextMeshProUGUI costText = idText.GetComponent<TextMeshProUGUI>();
+        if (playerTextController == null)
+        {
+            Debug.LogWarning("No ChangeRegionalContractNames found in instantiated prefab.");
+            return;
+        }
 
-        costText.text = data.id.ToString();
+        playerTextController.ChageText(gameController.players);
+    }
+
+    private void HandleStamps(GameObject dataSpaceWindow, DataSpaceData dataSpace)
+    {
+        EnableStampForContracts stampController =
+            dataSpaceWindow.GetComponentInChildren<EnableStampForContracts>(true);
+
+        if (stampController == null)
+        {
+            Debug.LogWarning("No EnableStampForContracts found in instantiated prefab.");
+            return;
+        }
+
+        if (dataSpace.isEnabled)
+        {
+            stampController.EnableStamp(dataSpace);
+        }
+
+        if (dataSpace.type == DataSpaceType.regional && dataSpace.player1HasInvested)
+        {
+            stampController.EnableSignedStamp(dataSpace);
+        }
     }
 
     private void SetupEnableButton(Transform container, DataSpaceData dataSpace)
@@ -399,5 +405,5 @@ public class DataSpaceGameObjectManager : MonoBehaviour
                 Debug.LogWarning($"No icon assigned for DataCardType: {cardType.dataType}");
                 return null;
         }
-    }    
+    }
 }

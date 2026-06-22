@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
     public int totalPlayers = 4;
     public int roundNumber = 0;
     public int turnNumber = 0;
-    public int enableTutorial = 0; //0 if you want it enabled, other number if you dont
+    public bool enableTutorial = true;
     private ConnectorNode[] connectorNodes;
     private List<PlayerCardUI> playerCards;
 
@@ -78,10 +78,14 @@ public class GameController : MonoBehaviour
         dataSpaceController.ReloadPlayer(activePlayer);
 
         TurnHistory.AddTurnAction.Invoke("Started the game");
+        int tutorialInt = 0;
+        if (!enableTutorial)
+        {
+            tutorialInt = 1;
+        }
+        PlayerPrefs.SetInt("TutorialCompleted", tutorialInt); 
 
-        PlayerPrefs.SetInt("TutorialCompleted", enableTutorial); 
-
-        if (PlayerPrefs.GetInt("TutorialCompleted", enableTutorial) != 1)
+        if (PlayerPrefs.GetInt("TutorialCompleted", tutorialInt) != 1)
         {
             Tutorial.AdvanceTutorial();
         }

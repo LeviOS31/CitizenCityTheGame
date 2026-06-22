@@ -13,9 +13,11 @@ public class DataSpacesController : MonoBehaviour
     private List<DataCard> selectedDataCards = new List<DataCard>();
     public static Action<DataCard> addSelectedCards;
     private List<Color> dataSpacesUsedThisTurn = new List<Color>();
+    private ConsultantManagerUI consultantManagerUI = new ConsultantManagerUI();
     void Start()
     {
         CreateAllDataSpaces();
+        consultantManagerUI = gameObject.GetComponent<ConsultantManagerUI>();
         addSelectedCards += FillSelectedDataSpaceCardsList;
     }
 
@@ -274,6 +276,7 @@ public class DataSpacesController : MonoBehaviour
         if (allDataSubmitted && playerCanPay)
         {
             activeplayer.money -= dataSpaceCostToInvest;
+            consultantManagerUI.RefreshFunds();
             if (!dataSpace.player1HasInvested)
             {
                 dataSpace.player1HasInvested = true;
@@ -334,6 +337,12 @@ public class DataSpacesController : MonoBehaviour
             return false;
         }
 
+        if (dataSpace.isEnabled)
+        {
+            Debug.LogWarning("This data space is already enabled.");
+            return false;
+        }
+
         int completedRequirements = 0;
 
         foreach (DataSpaceDataRequired data in dataSpace.neededData)
@@ -352,7 +361,7 @@ public class DataSpacesController : MonoBehaviour
             dataSpace.isEnabled = true;
             EnableStampForContracts.enableStamp?.Invoke(dataSpace);
             UpdateDataSpaceControllerList(dataSpace.id);
-
+            consultantManagerUI.RefreshFunds();
             FeedbackManager.Instance.ShowFeedback($"Dataspace is succesvol geactiveerd", FeedbackType.Success);
         }
         else if (!playerCanPay)
