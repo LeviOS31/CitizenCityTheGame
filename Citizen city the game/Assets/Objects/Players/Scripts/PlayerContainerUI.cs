@@ -50,9 +50,12 @@ public class PlayerContainerUI : MonoBehaviour
         // Update layout ordering hierarchy and text components
         for (int i = 0; i < sortedList.Count; i++)
         {
-            sortedList[i].transform.SetSiblingIndex(i);
             sortedList[i].SetVisualRank(i + 1);
-            sortedList[i].UpdateUI(); // Safely updates strings without generating massive garbage allocations
+        }
+
+        foreach (var card in instantiatedCards)
+        {
+            card.UpdateUI();
         }
     }
 
