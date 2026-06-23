@@ -1,33 +1,41 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AlphaCutout : MonoBehaviour, ICanvasRaycastFilter
 {
     public Material highlightMaterial;
+    public int[] numbers = { 1, 2, 3, 5, 6, 10, 13, 15, 20, 21, 24, 28, 29};
 
     public bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera)
     {
+        // Skips the raycast check if the current tutorial position is in the numbers array
+        if (numbers.Contains(Tutorial.Tutorialposition))
+        {
+            return true;
+        }
+
         // If we don't have the material, block everything by default
         if (highlightMaterial == null) return true;
 
-        // 1. Get the cutout center and size from the shader
+        // Get the cutout center and size from the shader
         Vector4 cutoutPos = highlightMaterial.GetVector("_CutoutPos");
         Vector4 cutoutSize = highlightMaterial.GetVector("_Size");
 
-        // 2. Convert the incoming click position (pixels) to normalized screen coordinates (0 to 1)
+        // Convert the incoming click position (pixels) to normalized screen coordinates (0 to 1)
         float clickX = sp.x / Screen.width;
         float clickY = sp.y / Screen.height;
 
-        // 3. Calculate the boundaries of the rectangular cutout
+        // Calculate the boundaries of the rectangular cutout
         float minX = cutoutPos.x - (cutoutSize.x * 0.5f);
         float maxX = cutoutPos.x + (cutoutSize.x * 0.5f);
         float minY = cutoutPos.y - (cutoutSize.y * 0.5f);
         float maxY = cutoutPos.y + (cutoutSize.y * 0.5f);
 
-        // 4. Check if the click happened INSIDE the cutout area
+        // Check if the click happened INSIDE the cutout area
         if (clickX >= minX && clickX <= maxX && clickY >= minY && clickY <= maxY)
         {
-            // The click is inside the hole! Return false so the raycast passes through
+            //Return false so the raycast passes through
             return false;
         }
 

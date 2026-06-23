@@ -13,7 +13,7 @@ public class ConsultantManager
     private GameController gameController;
     private bool subscribed = false;
 
-    private void UpdateInProgressConsultants(Player player) 
+    private void UpdateInProgressConsultants(Player player)
     {
         activePlayer = player;
 
@@ -45,11 +45,53 @@ public class ConsultantManager
         }
     }
 
+    private void UpdateAllConsultantsForNewRound()
+    {
+        List<Player> playersToRemove = new List<Player>();
+
+        foreach (KeyValuePair<Player, List<HiredConsultant>> entry in playerHiredConsultants)
+        {
+            Player player = entry.Key;
+            List<HiredConsultant> hiredConsultants = entry.Value;
+
+            for (int i = hiredConsultants.Count - 1; i >= 0; i--)
+            {
+                List<DataCard> consultResult = hiredConsultants[i].UpdateConsultantProgress();
+
+                if (consultResult == null)
+                {
+                    continue;
+                }
+
+                player.ReceiveConsultantCards(consultResult);
+                hiredConsultants.RemoveAt(i);
+            }
+
+            if (hiredConsultants.Count == 0)
+            {
+                playersToRemove.Add(player);
+            }
+        }
+
+        foreach (Player player in playersToRemove)
+        {
+            playerHiredConsultants.Remove(player);
+        }
+
+        if (playerHiredConsultants.Count == 0)
+        {
+            GameController.NewRound -= UpdateAllConsultantsForNewRound;
+            subscribed = false;
+        }
+
+        GameController.UpdateUI?.Invoke();
+    }
+
     public void HireConsultant(HiredConsultant hiredConsultant)
     {
         if (!subscribed)
         {
-            GameController.NewTurn += UpdateInProgressConsultants;
+            GameController.NewRound += UpdateAllConsultantsForNewRound;
             subscribed = true;
         }
 
@@ -68,7 +110,7 @@ public class ConsultantManager
     {
         consultantOptions = consultants;
 
-        foreach (Consultant consultant in consultants) 
+        foreach (Consultant consultant in consultants)
         {
             consultant.OnHire += HireConsultant;
         }

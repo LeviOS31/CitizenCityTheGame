@@ -19,24 +19,27 @@ public class ConsultantManagerUI : MonoBehaviour
     [SerializeField] GameObject ActiveContractUIPrefab;
     [SerializeField] GameObject ConsultancyScreen;
     [SerializeField] TMP_Text Funds;
+
+    private readonly Color selectedTabColor = new Color(0.96f, 0.96f, 0.96f, 1f); // #F5F5F5
+    private readonly Color unselectedTabColor = new Color(0.18f, 0.18f, 0.18f, 1f); // #2E2E2E
+
     private void Start()
     {
         ConsultantOption[] consultantOptions = Resources.LoadAll<ConsultantOption>("ScriptableObjects/Consultants");
         Consultant[] consultants = new Consultant[consultantOptions.Length];
 
-        for (int i = 0; i < consultantOptions.Length; i++) 
+        for (int i = 0; i < consultantOptions.Length; i++)
         {
             ConsultantOption option = consultantOptions[i];
-            
-            Consultant consultant = 
-                new Consultant(
-                    option.Name,
-                    option.Icon,
-                    option.Specializations,
-                    option.BasePrice,
-                    option.PricePerData,
-                    option.Duration
-                    );
+
+            Consultant consultant = new Consultant(
+                option.Name,
+                option.Icon,
+                option.Specializations,
+                option.BasePrice,
+                option.PricePerData,
+                option.Duration
+            );
 
             consultants[i] = consultant;
         }
@@ -60,10 +63,10 @@ public class ConsultantManagerUI : MonoBehaviour
             instance.Initialize(consultant);
             instance.transform.SetParent(DashboardBody.transform, false);
 
-            if (Tutorial.Tutorialposition == 8 
+            if (Tutorial.Tutorialposition == 8
                 && !consultant.Specializations.Contains(GameController.dataCardTypes.First(c => c.dataType == "Utility"))
                 && !consultant.Specializations.Contains(GameController.dataCardTypes.First(c => c.dataType == "Traffic"))
-               ) 
+               )
             {
                 instance.GetComponentInChildren<Button>().interactable = false;
             }
@@ -73,7 +76,7 @@ public class ConsultantManagerUI : MonoBehaviour
     private void CreateActiveContractsUIElements()
     {
         ClearDashboardBody();
-         
+
         List<HiredConsultant> hiredConsultants;
         if (!consultantManager.playerHiredConsultants.TryGetValue(GameController.activePlayer, out hiredConsultants)) return;
 
@@ -89,40 +92,31 @@ public class ConsultantManagerUI : MonoBehaviour
     {
         ConsultantUI[] children = DashboardBody.GetComponentsInChildren<ConsultantUI>();
 
-        foreach (ConsultantUI child in children) 
-        { 
+        foreach (ConsultantUI child in children)
+        {
             Destroy(child.gameObject);
         }
 
         ActiveContractUI[] activeContracts = DashboardBody.GetComponentsInChildren<ActiveContractUI>();
 
-        foreach (ActiveContractUI activeContract in activeContracts) 
-        { 
-            Destroy(activeContract.gameObject); 
+        foreach (ActiveContractUI activeContract in activeContracts)
+        {
+            Destroy(activeContract.gameObject);
         }
     }
 
     public void OpenConsultancyScreen()
     {
-
-        ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.black;
-        ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.white;
-        DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.white;
-        DataSpaceContractButton.GetComponentInChildren<TMP_Text>().color = Color.white;
-
+        UpdateTabVisuals(ConsultancyButton, ActiveContractsButton, DataSpaceButton, DataSpaceContractButton);
         CreateConsultants();
     }
 
     public void OpenActiveContractScreen()
     {
-        ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
-        ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.black;
-        DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.white;
-        DataSpaceContractButton.GetComponentInChildren<TMP_Text>().color = Color.white;
-
+        UpdateTabVisuals(ActiveContractsButton, ConsultancyButton, DataSpaceButton, DataSpaceContractButton);
         CreateActiveContractsUIElements();
 
-        if (Tutorial.Tutorialposition == 9) 
+        if (Tutorial.Tutorialposition == 9)
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
@@ -130,10 +124,7 @@ public class ConsultantManagerUI : MonoBehaviour
 
     public void OpenDataSpaceScreen()
     {
-        ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
-        ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.white;
-        DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.black;
-        DataSpaceContractButton.GetComponentInChildren<TMP_Text>().color = Color.white;
+        UpdateTabVisuals(DataSpaceButton, ConsultancyButton, ActiveContractsButton, DataSpaceContractButton);
     }
 
     public void OpenDataContractSpaceScreen()
@@ -142,11 +133,7 @@ public class ConsultantManagerUI : MonoBehaviour
         {
             Tutorial.AdvanceTutorial?.Invoke();
         }
-        ConsultancyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
-        ActiveContractsButton.GetComponentInChildren<TMP_Text>().color = Color.white;
-        DataSpaceButton.GetComponentInChildren<TMP_Text>().color = Color.white;
-        DataSpaceContractButton.GetComponentInChildren<TMP_Text>().color = Color.black;
-
+        UpdateTabVisuals(DataSpaceContractButton, ConsultancyButton, ActiveContractsButton, DataSpaceButton);
     }
 
     public void OpenConsultantDashboard()
@@ -163,7 +150,9 @@ public class ConsultantManagerUI : MonoBehaviour
         {
             button.interactable = true;
         }
-        CreateConsultants();
+
+        // Refreshes the active visuals and builds the consultants grid immediately
+        OpenConsultancyScreen();
         Funds.text = GameController.activePlayer.money.ToString();
     }
 
@@ -194,5 +183,40 @@ public class ConsultantManagerUI : MonoBehaviour
     public void RefreshFunds()
     {
         Funds.text = GameController.activePlayer.money.ToString();
+    }
+
+    /// <summary>
+    /// Swaps button background ColorBlock states and text coloring depending on what tab is active.
+    /// </summary>
+    private void UpdateTabVisuals(Button activeButton, params Button[] inactiveButtons)
+    {
+        // 1. Style the Selected Active Tab (#F5F5F5 Background, Black Text)
+        if (activeButton != null)
+        {
+            ColorBlock cb = activeButton.colors;
+            cb.normalColor = selectedTabColor;
+            cb.selectedColor = selectedTabColor;
+            cb.highlightedColor = selectedTabColor;
+            activeButton.colors = cb;
+
+            TMP_Text buttonText = activeButton.GetComponentInChildren<TMP_Text>();
+            if (buttonText != null) buttonText.color = Color.black;
+        }
+
+        // 2. Style all Unselected Inactive Tabs (#2E2E2E Background, White Text)
+        foreach (Button inactiveButton in inactiveButtons)
+        {
+            if (inactiveButton != null)
+            {
+                ColorBlock cb = inactiveButton.colors;
+                cb.normalColor = unselectedTabColor;
+                cb.selectedColor = unselectedTabColor;
+                cb.highlightedColor = unselectedTabColor;
+                inactiveButton.colors = cb;
+
+                TMP_Text buttonText = inactiveButton.GetComponentInChildren<TMP_Text>();
+                if (buttonText != null) buttonText.color = Color.white;
+            }
+        }
     }
 }
