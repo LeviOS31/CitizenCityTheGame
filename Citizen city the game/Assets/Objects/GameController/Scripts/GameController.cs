@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
     public static Action UpdateUI;
     public static Action<Player, ProjectData> Completedproject;
     public static Action<GameObject> OpenWindow;
-
+    public static Action NewRound;
     bool done = false;
 
     void Awake()
@@ -41,10 +41,10 @@ public class GameController : MonoBehaviour
         {
             string playername = "";
 
-            if(i == 0) playername = "Eindhoven";
-            else if(i == 1) playername = "Veldhoven";
-            else if(i == 2) playername = "Veghel";
-            else if(i == 3) playername = "Geldrop";
+            if (i == 0) playername = "Eindhoven";
+            else if (i == 1) playername = "Veldhoven";
+            else if (i == 2) playername = "Veghel";
+            else if (i == 3) playername = "Geldrop";
 
             Player player = CreatePlayer(playername, availableColors[i]);
             players.Add(player);
@@ -56,8 +56,8 @@ public class GameController : MonoBehaviour
         roundNumber = 0;
         turnNumber = 0;
 
-        dataCardTypes = Resources.LoadAll<DataCardType>("ScriptableObjects/DataCardTypes");        
-        
+        dataCardTypes = Resources.LoadAll<DataCardType>("ScriptableObjects/DataCardTypes");
+
         playerCards = playerContainer.Initialize(players);
         aiController.Initialize(this, players, projectController, dataSpaceController, distribute, consultantManagerUI.consultantManager);
 
@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour
         {
             tutorialInt = 1;
         }
-        PlayerPrefs.SetInt("TutorialCompleted", tutorialInt); 
+        PlayerPrefs.SetInt("TutorialCompleted", tutorialInt);
 
         if (PlayerPrefs.GetInt("TutorialCompleted", tutorialInt) != 1)
         {
@@ -93,12 +93,12 @@ public class GameController : MonoBehaviour
         {
             Tutorial.Tutorialposition = 29;
             Tutorial.AdvanceTutorial();
-        }
+        }        
     }
 
     private void Update()
     {
-        if (done) return; 
+        if (done) return;
 
         SpelerData speler = scoreDemoManager.spelers.FirstOrDefault(p => p.algemeneScore > scorelimit);
         if (speler != null)
@@ -144,8 +144,8 @@ public class GameController : MonoBehaviour
                 playerTwo.cards.Add(playerOne.DrawDataSpaceCard(dataCardTypes));
             }
         }
-
-        NewTurn.Invoke(activePlayer);
+        NewRound?.Invoke();
+        //NewTurn.Invoke(activePlayer);
     }
 
     public void EndTurn()
@@ -155,7 +155,7 @@ public class GameController : MonoBehaviour
             Tutorial.AdvanceTutorial?.Invoke();
         }
 
-        activePlayer.money += 300;  
+        activePlayer.money += 300;
 
         turnNumber++;
 
@@ -168,7 +168,7 @@ public class GameController : MonoBehaviour
         if (turnNumber < players.Count)
         {
             activePlayer = players[turnNumber];
-            
+
         }
         else
         {
@@ -185,7 +185,7 @@ public class GameController : MonoBehaviour
         dataSpaceController.ReloadPlayer(activePlayer);
         dataSpaceController.ResetDataSpaceCollectionForNewTurn();
 
-        foreach (PlayerCardUI playerCard in playerCards) 
+        foreach (PlayerCardUI playerCard in playerCards)
         {
             playerCard.UpdateUI();
             playerCard.ToggleInteractability(activePlayer);
@@ -211,14 +211,12 @@ public class GameController : MonoBehaviour
             }
         }
 
-        NewTurn.Invoke(activePlayer);
+        NewTurn?.Invoke(activePlayer);
 
         if (activePlayer.isAI)
         {
             aiController.TakeTurn(activePlayer);
         }
-
-
     }
 
     private Player CreatePlayer(string name, Color color)
