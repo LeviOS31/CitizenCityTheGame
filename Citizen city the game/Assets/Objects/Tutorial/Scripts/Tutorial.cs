@@ -19,6 +19,8 @@ public class Tutorial : MonoBehaviour
     {
         Tutorialposition++;
 
+        Debug.Log("Tutorial Position: " + Tutorialposition);
+
         RectTransform targetUIElement = new RectTransform();
         bool found = false;
 
