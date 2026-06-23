@@ -17,7 +17,7 @@ public class DistributeDataFromDataSpace : MonoBehaviour
     [SerializeField] private DataCardType utilityDataCardType;
     [SerializeField] private DataCardType residentDataCardType;
     [SerializeField] private DataCardType ecologyDataCardType;
-
+    //Instantiates the data spaces that the player has access to
     public void DisplayAccessibleDataSpaces()
     {
         ClearAccessibleDataUI();
@@ -28,7 +28,7 @@ public class DistributeDataFromDataSpace : MonoBehaviour
         {
             bool hasMunicipalDataSpaceEnabled = HasMunicipalDataSpaceEnabled(reachableColor);
 
-            bool hasPeopleData = false;
+            bool hasPeopleData = true;
             bool hasTrafficData = hasMunicipalDataSpaceEnabled;
             bool hasUtilityData = hasMunicipalDataSpaceEnabled;
             bool hasResidentData = hasMunicipalDataSpaceEnabled;
@@ -46,7 +46,7 @@ public class DistributeDataFromDataSpace : MonoBehaviour
             );
         }
     }
-
+    //The ai uses this script to check which data he can get from the data space
     public void AISelectAndCollectRandomDataSpaceCards()
     {
         Player activePlayer = GameController.activePlayer;
@@ -80,7 +80,7 @@ public class DistributeDataFromDataSpace : MonoBehaviour
 
         dataSpacesController.GetSelectedDataSpaceCards();
     }
-
+    //Clears the body where the data spaces get instantiated 
     private void ClearAccessibleDataUI()
     {
         if (accessibleDataParent == null)
@@ -94,7 +94,7 @@ public class DistributeDataFromDataSpace : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
-
+    //Gets the different colors of data cards the player has access to
     private List<Color> GetReachablePlayerColors()
     {
         List<DataSpaceData> controllersDataSpaces = dataSpacesController.dataSpaces;
@@ -151,7 +151,7 @@ public class DistributeDataFromDataSpace : MonoBehaviour
 
         return new List<Color>(reachableColors);
     }
-
+    //Checks if the player has his municispality data space activated
     private bool HasMunicipalDataSpaceEnabled(Color playerColor)
     {
         foreach (DataSpaceData dataSpace in dataSpacesController.dataSpaces)
@@ -176,7 +176,7 @@ public class DistributeDataFromDataSpace : MonoBehaviour
 
         return false;
     }
-
+    //Choses which data space the ai will use
     private DataCard CreateRandomAvailableDataSpaceCard(Color regionColor)
     {
         List<DataCardType> availableCardTypes = new List<DataCardType>();

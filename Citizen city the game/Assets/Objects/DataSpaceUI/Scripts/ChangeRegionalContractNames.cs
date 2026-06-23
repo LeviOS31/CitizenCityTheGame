@@ -9,7 +9,7 @@ public class ChangeRegionalContractNames : MonoBehaviour
     [SerializeField] private GameObject dataCard2ndSet;
     [SerializeField] private GameObject player1Text;
     [SerializeField] private GameObject player2Text;
-
+    //This method is used to add the player name on the section of the regional contracts that the player has to fill in with data
     public void ChageText(List<Player> players)
     {
         Color dataColor1 = dataCard1stSet.GetComponent<Image>().color;
