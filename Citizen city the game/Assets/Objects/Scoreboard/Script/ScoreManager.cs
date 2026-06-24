@@ -120,7 +120,7 @@ public class ScoreManager : MonoBehaviour
         // Execute baseline game math updates
         foreach (var speler in spelers)
         {
-            speler.BerekenScore();
+            speler.CalculateScore();
         }
 
         // Lock in the global score ceiling maximum limit for infinite dynamic chart scaling
@@ -296,7 +296,7 @@ public class SpelerData
         GameController.Completedproject += AddScore;
     }
 
-    public void BerekenScore()
+    public void CalculateScore()
     {
         scoreAuto = aantalAuto * 10;
         scoreStroom = aantalStroom * 10;
@@ -382,6 +382,6 @@ public class SpelerData
         }
 
         // Bereken direct de nieuwe algemeneScore en multipliers
-        BerekenScore();
+        CalculateScore();
     }
 }

@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
+// This class is responsible for playing sound effects in the game.
+// It uses an AudioSource component to play the audio clip and destroys the game object after the audio has finished playing.
 public class EffectAudio : MonoBehaviour
 {
     public AudioSource Player;

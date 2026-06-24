@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+// This class manages the settings menu in the game, allowing users to switch between video, audio, and accessibility settings.
+// video settings have been removed, but the code is still present in case it is added back in the future.
 public class settings : MonoBehaviour
 {
     public GameObject VideoButton;

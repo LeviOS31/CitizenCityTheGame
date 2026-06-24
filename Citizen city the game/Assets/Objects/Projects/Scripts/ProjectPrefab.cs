@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// this class is responsible for displaying the information of a project in the UI.
 public class ProjectPrefab : MonoBehaviour
 {
     public ProjectData project;
@@ -27,7 +28,7 @@ public class ProjectPrefab : MonoBehaviour
         Assigninfo(project);
     }
 
-    // Update is called once per frame
+    // This method checks if the project is finished and updates the UI accordingly. If all required data for the project is met, it triggers the finish process and updates the tutorial if necessary.
     void Update()
     {
         if (project == null) return;
@@ -56,9 +57,9 @@ public class ProjectPrefab : MonoBehaviour
         }
     }
 
+    // This method handles the completion of the project. It updates the UI to reflect the project's completion, and invokes any necessary events.
     async Task finish()
     {
-        Debug.Log("Project " + project.Name + " is finished!");
         finished = true;
         GetComponent<Animator>().SetTrigger("complete");
         project.IsDone = true;
@@ -67,6 +68,7 @@ public class ProjectPrefab : MonoBehaviour
         ProjectController.ProjectDone?.Invoke();
     }
 
+    // This method assigns the project data to the UI elements, updating the display with the project's name, description, type, score, and required data. It also sets up button click listeners for each required data item.
     void Assigninfo(ProjectData _project)
     {
         project = _project;
@@ -85,6 +87,8 @@ public class ProjectPrefab : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
 
+
+        // This loop instantiates a prefab for each required data item in the project, sets its data, and adds a click listener to handle user interaction.
         foreach (DataRequired data in project.NeededData)
         {
             GameObject instance = Instantiate(NeededDataPrefab, transform.Find("DataPanel"));
@@ -93,9 +97,9 @@ public class ProjectPrefab : MonoBehaviour
         }
     }
 
+    // This method is called when a required data button is clicked. It invokes the onclick event with the associated data.
     void onclickbutton(DataRequired data)
     {
-        Debug.Log("Clicked on " + data.CardType);
         onclick.Invoke(data);
     }
 }

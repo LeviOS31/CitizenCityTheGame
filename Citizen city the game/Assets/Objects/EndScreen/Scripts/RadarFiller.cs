@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// This class is responsible for filling in the radar charts and associated UI elements at the end of the game. It takes in player data, calculates scores, and updates the visual representation of each player's performance.
 public class RadarFiller : MonoBehaviour
 {
 
@@ -13,12 +14,13 @@ public class RadarFiller : MonoBehaviour
     public List<TextMeshProUGUI> Score;
     public List<Image> ColorStrip;
 
+    
     public void EndGame(List<SpelerData> Players, List<Player> playerColors)
     {
         // Execute baseline game math updates
         foreach (var Player in Players)
         {
-            Player.BerekenScore();
+            Player.CalculateScore();
         }
 
         // Lock in the global score ceiling maximum limit for infinite dynamic chart scaling
@@ -35,10 +37,10 @@ public class RadarFiller : MonoBehaviour
         // Sort descending based on real-time calculated general standings
         var gesorteerdeSpelers = Players.OrderByDescending(s => s.algemeneScore).ToList();
 
-        UpdateVisueleRanglijsten(gesorteerdeSpelers, hoogsteGevondenScore, playerColors);
+        UpdateRadarChart(gesorteerdeSpelers, hoogsteGevondenScore, playerColors);
     }
 
-    private void UpdateVisueleRanglijsten(List<SpelerData> gesorteerdeLijst, float globaleMax, List<Player> players)
+    private void UpdateRadarChart(List<SpelerData> gesorteerdeLijst, float globaleMax, List<Player> players)
     {
         for (int i = 0; i < gesorteerdeLijst.Count; i++)
         {

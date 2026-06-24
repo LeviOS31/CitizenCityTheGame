@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// This class is responsible for handling the main menu buttons and their associated actions such as starting a new game, resuming a game, opening settings, and quitting the application.
+// It also manages the visibility of the settings menu and player selector UI elements.
 public class MenuButtons : MonoBehaviour
 {
     public GameObject SettingsMenu;

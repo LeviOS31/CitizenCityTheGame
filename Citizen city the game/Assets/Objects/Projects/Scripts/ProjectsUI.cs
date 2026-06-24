@@ -5,6 +5,8 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 
+
+// this script is responsible for managing the UI of the projects in the game. It handles opening and closing the project folder, navigating between projects, and passing along a click for the needed data.
 public class ProjectsUI : MonoBehaviour
 {
     public GameObject PrefabProjectPaper;
@@ -24,6 +26,7 @@ public class ProjectsUI : MonoBehaviour
         GameController.OpenWindow += TryClose;
     }
 
+    // this method reloads the UI for the projects, creating new project papers for each local and regional project, and setting up their positions and click events.
     public void ReloadProjectsUI(List<ProjectData> LocalProjects, List<ProjectData> RegionalProjects, ProjectData OpenProject)
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("ProjectPaper");
@@ -76,6 +79,8 @@ public class ProjectsUI : MonoBehaviour
         }
     }
 
+
+    // this method opens the project folder UI, triggering animations and enabling buttons for interaction. It also checks the tutorial position to advance the tutorial if necessary.
     public async void Open()
     {
         GameController.OpenWindow?.Invoke(gameObject);
@@ -110,6 +115,8 @@ public class ProjectsUI : MonoBehaviour
 
     }
 
+
+    // this method closes the project folder UI, triggering animations and disabling buttons for interaction. It also plays a closing sound.
     public async void Close()
     {
         if (!open) return;
@@ -136,6 +143,7 @@ public class ProjectsUI : MonoBehaviour
         AudioSignalHandler.PlaySound.Invoke("FolderClose");
     }
 
+    // this method navigates to the next project in the UI, triggering animations and playing a sound effect.
     public void NextProject()
     {
         CurProject.GetComponent<Animator>().SetTrigger("Next");
@@ -145,6 +153,8 @@ public class ProjectsUI : MonoBehaviour
         int curIndex = CurProject.transform.GetSiblingIndex();
         CurProject = PaperParent.GetChild(curIndex - 1).gameObject;
     }
+
+    // this method navigates to the previous project in the UI, triggering animations and playing a sound effect.
     public void PrevProject()
     {
         int curindex = CurProject.transform.GetSiblingIndex();
@@ -153,7 +163,9 @@ public class ProjectsUI : MonoBehaviour
 
         AudioSignalHandler.PlaySound.Invoke("FolderClose");
     }
-    public void GoToPersonalProject()
+
+    // this method navigates to the local project in the UI, triggering animations for all projects.
+    public void GotToLocalProject()
     {
         foreach (Transform child in PaperParent)
         {
@@ -161,7 +173,9 @@ public class ProjectsUI : MonoBehaviour
         }
         CurProject = PaperParent.GetChild(PaperParent.childCount - 1).gameObject;
     }
-    public void GoToGroupProject()
+
+    // this method navigates to the regional project in the UI, triggering animations for local projects and setting the current project to the regional project.
+    public void GoToRegionalProject()
     {
         foreach (Transform child in PaperParent)
         {
@@ -178,12 +192,13 @@ public class ProjectsUI : MonoBehaviour
         }
     }
 
+    // this method is called when a needed data checkbox is clicked in the project UI. It invokes the CheckCards event to notify other parts of the game that a card has been selected.
     public void OnNeededDataClick(DataRequired data)
     {
-        Debug.Log("sending to controller " + data.CardType);
         CheckCards?.Invoke(data);
     }
 
+    // this method attempts to close the project folder UI if the specified window is not the current game object. It is used to ensure that only one window is open at a time.
     public void TryClose(GameObject window)
     {
         if (window != gameObject)

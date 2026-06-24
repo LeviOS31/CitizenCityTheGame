@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UIElements;
 
+// This class is responsible for managing accessibility and other settings in the game, including font styles, high contrast mode, and audio mixer settings. It ensures that user preferences are applied consistently across all UI elements.
 public class Accessibility : MonoBehaviour
 {
     public TMP_FontAsset NormalFont;
@@ -18,6 +19,7 @@ public class Accessibility : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    // This method initializes the audio mixer settings based on user preferences stored in PlayerPrefs. It converts volume levels from linear scale to decibels and applies them to the corresponding mixer parameters.
     private void Start()
     {
         float masterdB = Mathf.Log10(Mathf.Max(PlayerPrefs.GetFloat("MasterVolume", 0.5f), 0.0001f)) * 20;
@@ -31,6 +33,8 @@ public class Accessibility : MonoBehaviour
         Mixer.SetFloat("EffectsVolume", effectdB);
     }
 
+
+    // This method updates the font and color settings for all TextMeshProUGUI components in the scene based on user preferences stored in PlayerPrefs. It handles high contrast mode, font selection, and font size adjustments.
     private void Update()
     {
         TextMeshProUGUI[] textcomponents = GameObject.FindObjectsByType<TextMeshProUGUI>(FindObjectsSortMode.None);
