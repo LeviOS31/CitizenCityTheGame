@@ -6,6 +6,7 @@ public enum ProjectType
     Regional
 }
 
+// This class represents a project in the game. It contains information about the project, such as its name, type, description, required data, and rewards for completion.
 [CreateAssetMenu(fileName = "NewProject", menuName = "Project/New Project")]
 public class ProjectData : ScriptableObject
 {
@@ -24,6 +25,8 @@ public class ProjectData : ScriptableObject
     public bool IsDone;
     public bool IsClaimed;
 
+    // This method is called when the script is loaded or a value is changed in the inspector. It checks if the ScoreData array exceeds a maximum limit and resizes it if necessary.
+    // it makes sure that the ScoreData array does not exceed a certain limit, preventing potential issues with data handling and ensuring that the project data remains manageable.
     private void OnValidate()
     {
         // Set your maximum limit here
@@ -38,13 +41,12 @@ public class ProjectData : ScriptableObject
         }
     }
 
+    // This method checks if the project requires a specific color in its needed data.
     public bool HasColor(Color targetColor)
     {
-        //Debug.Log("Project: " + Name);
-        //Debug.Log("ColorToCheck: " + targetColor);
+
         foreach (DataRequired requirement in NeededData)
         {
-            //Debug.Log("color: " + requirement.Color);
             if (Vector4.Distance(requirement.Color, targetColor) < 0.01)
             {
                 return true;
@@ -54,6 +56,7 @@ public class ProjectData : ScriptableObject
     }
 }
 
+// This class represents the data required for a project. It contains information about the type of data card, its color, and whether the requirement has been met.
 [System.Serializable]
 public class DataRequired
 {

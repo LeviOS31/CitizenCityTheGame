@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+// this class is responsible for controlling the audio in the game, including background music and sound effects.
 public class AudioController : MonoBehaviour
 {
     public AudioSource BackgroundAudio;
@@ -34,6 +35,7 @@ public class AudioController : MonoBehaviour
         AudioSignalHandler.PlaySound -= PlayEffect;
     }
 
+    // This method plays a sound effect based on the provided audio name.
     public void PlayEffect(string audioname)
     {
         Debug.Log(audioname);
@@ -50,6 +52,8 @@ public class AudioController : MonoBehaviour
         }
     }
 
+
+    // This method plays background music by randomly selecting an audio clip from the BackgroundAudioClips list.
     public async Task PlayBackground()
     {
         int random = Random.Range(0, BackgroundAudioClips.Count - 1);
@@ -65,6 +69,7 @@ public class AudioController : MonoBehaviour
         PlayBackground();
     }
 
+    // This method plays background music for a short duration (1 second) by randomly selecting an audio clip from the BackgroundAudioClips list.
     public async Task PlayBGForSecond()
     {
         if (BackgroundAudio.isPlaying)
@@ -83,6 +88,7 @@ public class AudioController : MonoBehaviour
         BackgroundAudio.Stop();   
     }
 
+    // This method plays a sound effect for a short duration (1 second) by randomly selecting an audio clip from the EffectAudioClips list.
     public async Task PlayEffectForSecond()
     {
         int random = Random.Range(0, EffectAudioClips.Count - 1);

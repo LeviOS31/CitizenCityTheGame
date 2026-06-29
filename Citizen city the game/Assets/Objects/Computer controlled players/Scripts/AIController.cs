@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// This class is responsible for controlling the AI players in the game.
 public class AIController : MonoBehaviour
 {
     public int AICount = 0;

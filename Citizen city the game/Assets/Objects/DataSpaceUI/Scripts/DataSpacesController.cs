@@ -20,7 +20,7 @@ public class DataSpacesController : MonoBehaviour
         consultantManagerUI = gameObject.GetComponent<ConsultantManagerUI>();
         addSelectedCards += FillSelectedDataSpaceCardsList;
     }
-
+    //This method creates all the different data spaces for the game based on the amount of players
     private void CreateAllDataSpaces()
     {
         Debug.Log($"Player count: {gameController.players.Count}");
@@ -107,7 +107,7 @@ public class DataSpacesController : MonoBehaviour
             dataSpaceId++;
         }
     }
-
+    //Gets the players index for the process of the CreateAllDataSpaces method, the index is neccesary to get the player's color for the data cards
     private int GetNextPlayerIndex(int currentPlayerIndex)
     {
         int nextPlayerIndex = currentPlayerIndex + 1;
@@ -119,7 +119,7 @@ public class DataSpacesController : MonoBehaviour
 
         return nextPlayerIndex;
     }
-
+    //Resets lists and data for the next player
     public void ReloadPlayer(Player player)
     {
         activeplayer = player;
@@ -155,7 +155,7 @@ public class DataSpacesController : MonoBehaviour
         }
         manager.ClearDataSpaceWindow();
     }
-
+    //Allows player to submit data in a data space contract
     public void SubmitData(DataSpaceData dataSpace, DataSpaceDataRequired requiredData)
     {
         if (activeplayer == null)
@@ -194,7 +194,7 @@ public class DataSpacesController : MonoBehaviour
             }
         }
     }
-
+    //When a player submits a card in a contract with method is called and removed the card from his possesion
     public DataSpaceDataRequired CheckPlayerCards(DataSpaceDataRequired dataRequired)
     {
         if (activeplayer == null)
@@ -231,7 +231,7 @@ public class DataSpacesController : MonoBehaviour
 
         return dataRequired;
     }
-
+    //This script checks if the player has submitted all the neccessary data for the regional contract and if he can also pay, he gets to invest if both players have done this then it automatically enables the data space
     public void InvestInRegionalDataSpace(DataSpaceData dataSpace)
     {
         if (activeplayer == null)
@@ -322,7 +322,7 @@ public class DataSpacesController : MonoBehaviour
         }
 
     }
-
+    //This script checks if the player has submitted all the neccessary data for the contract and if he can also pay, ih he has done both the data space gets enabled
     public bool EnableDataSpace(DataSpaceData dataSpace)
     {
         if (activeplayer == null)
@@ -375,7 +375,7 @@ public class DataSpacesController : MonoBehaviour
 
         return dataSpace.isEnabled;
     }
-
+    //Updates the inforamtion of the list of data space that this script uses
     private void UpdateDataSpaceControllerList(int id)
     {
         foreach (DataSpaceData dataSpaceData in dataSpaces)
@@ -386,7 +386,7 @@ public class DataSpacesController : MonoBehaviour
             }
         }
     }
-
+    //Adds data cards to the list that of cards that the player will get when the players click the recive data button
     private void FillSelectedDataSpaceCardsList(DataCard card)
     {
         DataCard existingCardFromSameRegion = null;
@@ -409,7 +409,7 @@ public class DataSpacesController : MonoBehaviour
 
         Debug.Log($"Selected {card.CardType} data from region color {card.Color}");
     }
-
+    //Gets the data cards from the list of cards that the player has chocen from the data spaces
     public void GetSelectedDataSpaceCards()
     {
         if (selectedDataCards.Count <= 0)
@@ -435,13 +435,13 @@ public class DataSpacesController : MonoBehaviour
 
         selectedDataCards.Clear();
     }
-
+    //Players can get data only once per round this method resets the bool
     public void ResetDataSpaceCollectionForNewTurn()
     {
         selectedDataCards.Clear();
         dataSpacesUsedThisTurn.Clear();
     }
-
+    //Checks if the player has used the data space this turn
     private bool HaveIUsedThisDataSpaceThisTurn(DataCard card)
     {
         if (dataSpacesUsedThisTurn.Count == 0)

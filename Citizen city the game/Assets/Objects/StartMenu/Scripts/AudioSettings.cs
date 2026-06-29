@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
+// This class manages the audio settings in the game, allowing users to adjust master, music, background, and effect volumes through UI sliders.
+// It saves user preferences using PlayerPrefs and applies them to the audio mixer.
 public class AudioSettings : MonoBehaviour
 {
     public Slider MasterAudio;
@@ -14,7 +16,8 @@ public class AudioSettings : MonoBehaviour
 
     bool start = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // This method initializes the audio sliders with values stored in PlayerPrefs when the game starts.
+    // It sets the sliders to the saved volume levels for master, music, background, and effects.
     void Start()
     {
         MasterAudio.value = PlayerPrefs.GetFloat("MasterVolume", 0.5f);
@@ -24,6 +27,8 @@ public class AudioSettings : MonoBehaviour
         EffectAudio.value = PlayerPrefs.GetFloat("EffectsVolume", 1f);
     }
 
+    // This method is called when the user changes any of the audio sliders.
+    // It updates the corresponding volume levels in the audio mixer and saves the new values to PlayerPrefs.
     public void change()
     {
         if (!start) return;
@@ -43,12 +48,14 @@ public class AudioSettings : MonoBehaviour
         Mixer.SetFloat("BackgroundVolume", backgrounddB);
         Mixer.SetFloat("EffectsVolume", effectdB);
     }
-
+    
+    // This method plays the background audio for a short duration to test the current volume settings.
     public void TestBG()
     {
         FindObjectsByType<AudioController>(FindObjectsSortMode.None)[0].PlayBGForSecond();
     }
 
+    // This method plays the effect audio for a short duration to test the current volume settings.
     public void TestEffect()
     {
         FindObjectsByType<AudioController>(FindObjectsSortMode.None)[0].PlayEffectForSecond();

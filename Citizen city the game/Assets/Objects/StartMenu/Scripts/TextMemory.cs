@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 
+// this class is responsible for storing the original properties of a TextMeshProUGUI component, such as its color, font, and font size.
+// It allows for resetting the text properties to their original state when needed.
 public class TextMemory : MonoBehaviour
 {
     public Color NormalColor;

@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// this class is responsible for managing the selection of AI players in the game.
+// It interacts with a UI slider and text element to allow users to choose the number of AI players, updating the display and saving the selection using PlayerPrefs.
 public class PlayerAISelection : MonoBehaviour
 {
     public Slider slider;

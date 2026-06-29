@@ -24,7 +24,7 @@ public class AccessibleDataSpaceUIItem : MonoBehaviour
     [SerializeField] private Image ecologyDataCardBackground;
 
     private Color selectedColor;
-
+    //Passes on information to SetupCard
     public void Setup(Color playerColor, bool hasPeopleData, bool hasTrafficData, bool hasUtilityData, bool hasResidentData, bool hasEcologicalData)
     {
         SetupCard(peopleDataCardObject, peopleDataCardBackground, playerColor, hasPeopleData);
@@ -37,7 +37,7 @@ public class AccessibleDataSpaceUIItem : MonoBehaviour
 
         SetupCard(ecologyDataCardObject, ecologyDataCardBackground, playerColor, hasEcologicalData);
     }
-
+    //Setup the cards of the data space prefab, setup the color and if its available
     private void SetupCard(GameObject cardObject, Image cardBackground, Color playerColor, bool isAvailable)
     {
         if (cardObject != null)
@@ -50,7 +50,7 @@ public class AccessibleDataSpaceUIItem : MonoBehaviour
             cardBackground.color = playerColor;
         }
     }
-
+    //Gets the color of the data card that the player color selected
     public void GetSelectedColor(Image image)
     {
         if (image.color == null)
@@ -61,7 +61,7 @@ public class AccessibleDataSpaceUIItem : MonoBehaviour
 
         selectedColor = image.color;
     }
-
+    //Adds the card the player selected to the list of data cards tht the player cna get from the dataspace
     public void AddSelectedDataCardInList(DataCardType dataCardType)
     {
         if (dataCardType == null)

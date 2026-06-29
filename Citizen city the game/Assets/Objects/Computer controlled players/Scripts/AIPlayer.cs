@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using System.Threading.Tasks;
 
+// This class represents an AI player in the game. It contains logic for taking turns, making decisions, and interacting with other players and game elements.
 public class AIPlayer
 {
     public Player self;
@@ -29,12 +30,12 @@ public class AIPlayer
 
     public async Task TakeTurn()
     {
-        // get card from enabeld dataspace
+        // 1)get card from enabeld dataspace
         distributeDataFromDataSpace.AISelectAndCollectRandomDataSpaceCards();
 
         Debug.Log("AIPlayer TakeTurn: " + self.name);
 
-        // 1) Observe other players' dataspace progress and try to mirror actions when beneficial
+        // 2) Observe other players' dataspace progress and try to mirror actions when beneficial
         foreach (Player other in others)
         {
             if (other == self) continue;
@@ -71,7 +72,7 @@ public class AIPlayer
         await Task.Delay(ThinkingDelay);
         Debug.Log("AIPlayer " + self.name + " is taking action on its own dataspaces.");
 
-        // 2) Try to progress own dataspaces if AI has required cards (random chance to start)
+        // 3) Try to progress own dataspaces if AI has required cards (random chance to start)
         foreach (DataSpaceData mySpace in self.DataSpaces)
         {
             bool municipaldataspace = mySpace.neededData.Count == 3;
@@ -118,7 +119,7 @@ public class AIPlayer
         await Task.Delay(ThinkingDelay);
         Debug.Log("AIPlayer " + self.name + " is considering its projects.");
 
-        // 3) Try to satisfy project requirements when possible
+        // 4) Try to satisfy project requirements when possible
         foreach (ProjectData project in self.LocalProjects)
         {
             foreach (DataRequired req in project.NeededData)
@@ -152,7 +153,7 @@ public class AIPlayer
         await Task.Delay(ThinkingDelay);
         TurnHistory.AddTurnAction?.Invoke( self.name + " is considering hiring consultants for missing data.");
 
-        // 4) Consider hiring consultants for general missing data (projects / non-municipal dataspaces)
+        // 5) Consider hiring consultants for general missing data (projects / non-municipal dataspaces)
         // collect missing data card types (that AI doesn't already have)
         HashSet<DataCardType> generalNeeded = new HashSet<DataCardType>();
 

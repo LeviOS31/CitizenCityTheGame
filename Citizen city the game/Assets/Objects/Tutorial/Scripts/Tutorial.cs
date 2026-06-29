@@ -15,6 +15,7 @@ public class Tutorial : MonoBehaviour
         AdvanceTutorial += advanceTutorial;
     }
 
+    // This method is called when the tutorial should advance to the next step.
     public void advanceTutorial()
     {
         Tutorialposition++;
@@ -24,6 +25,7 @@ public class Tutorial : MonoBehaviour
         RectTransform targetUIElement = new RectTransform();
         bool found = false;
 
+        // Search for the UI element with the matching Tutorialposition
         foreach (GameObject TutorialHelper in GameObject.FindGameObjectsWithTag("Tutorial"))
         {
             if (TutorialHelper.TryGetComponent<TutorialHelperObject>(out TutorialHelperObject helperObject))
@@ -37,6 +39,7 @@ public class Tutorial : MonoBehaviour
             }
         }
 
+        // If a matching UI element is found, highlight it and show the corresponding tutorial panel.
         if (found)
         {
             if (Tutorialposition - 1 != -1)
@@ -48,6 +51,7 @@ public class Tutorial : MonoBehaviour
             HighlightElement(targetUIElement);
         }
 
+        // If the tutorial position reaches 30, hide the main panel.
         if (Tutorialposition == 30)
         {
             MainPanel.SetActive(false);

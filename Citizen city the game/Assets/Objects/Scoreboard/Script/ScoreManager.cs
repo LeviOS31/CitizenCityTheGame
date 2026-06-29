@@ -6,7 +6,6 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-
     [Header("Data Monitoring")]
     public List<SpelerData> spelers = new List<SpelerData>();
 
@@ -22,6 +21,10 @@ public class ScoreManager : MonoBehaviour
     [Tooltip("The parent container on the left of your screen (Vertical Layout Group)")]
     public Transform hudRowsContainer;
 
+    /// <summary>
+    /// Called when the script starts. It initializes player data for singleplayer if empty,
+    /// clears old UI elements, and spawns the UI rows for both the detailed overlay and HUD.
+    /// </summary>
     private void Start()
     {
         // 1. Seed singleplayer match setup if empty
@@ -115,12 +118,17 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Automatically runs every frame. It updates all player scores, 
+    /// finds the highest score category for dynamic chart scaling, 
+    /// sorts players by their rank, and triggers the UI visual update.
+    /// </summary>
     private void Update()
     {
         // Execute baseline game math updates
         foreach (var speler in spelers)
         {
-            speler.BerekenScore();
+            speler.CalculateScore();
         }
 
         // Lock in the global score ceiling maximum limit for infinite dynamic chart scaling
@@ -140,6 +148,12 @@ public class ScoreManager : MonoBehaviour
         UpdateVisuals(gesorteerdeSpelers, hoogsteGevondenScore);
     }
 
+    /// <summary>
+    /// Refreshes the Text and Images on the screen for both the Detailed Tab Menu 
+    /// and the HUD list. It also rearranges the UI elements based on current player rankings.
+    /// </summary>
+    /// <param name="gesorteerdeLijst">The list of players sorted from highest to lowest score.</param>
+    /// <param name="globaleMax">The highest sub-score found among all players to scale the radar charts.</param>
     private void UpdateVisuals(List<SpelerData> gesorteerdeLijst, float globaleMax)
     {
         for (int i = 0; i < gesorteerdeLijst.Count; i++)
@@ -215,6 +229,10 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns a Hexadecimal color string (e.g., "FF0000" for Red) based on the provided index.
+    /// Used mainly for TextMeshPro rich text formatting tags.
+    /// </summary>
     private string GetHexForColorIndex(int index)
     {
         switch (index)
@@ -227,6 +245,10 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns a Unity Color object based on the provided index.
+    /// Used mainly for assigning colors directly to UI Image components.
+    /// </summary>
     private Color GetColorForIndex(int index)
     {
         switch (index)
@@ -239,6 +261,10 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Deletes all child GameObjects inside a specified parent UI container.
+    /// Useful for clearing out editor dummy placeholders before rendering runtime items.
+    /// </summary>
     private void ClearContainer(Transform container)
     {
         if (container == null) return;
@@ -255,7 +281,7 @@ public class SpelerData
 {
     public string spelerNaam;
     public bool isBot;
-    [Range(0, 3)] public int assignedColorIndex; // 0=Red, 1=Blue, 2=Green, 3=Yellow
+    [Range(0, 3)] public int assignedColorIndex; // 0=Blue, 1=Red, 2=Green, 3=Yellow (Note: Matched to switch statements above)
 
     [Header("Runtime Cache Layout Links")]
     [HideInInspector] public Transform detailedRowTransform;
@@ -291,12 +317,20 @@ public class SpelerData
     public int scoreHuis;
     public int algemeneScore;
 
-    public SpelerData() 
+    /// <summary>
+    /// Constructor for the player data. It automatically subscribes this instance to the 
+    /// GameController's project completion event to listen for score updates.
+    /// </summary>
+    public SpelerData()
     {
         GameController.Completedproject += AddScore;
     }
 
-    public void BerekenScore()
+    /// <summary>
+    /// Calculates the category scores and applies a variety bonus multiplier (for diversifying 
+    /// card types) and a balance bonus multiplier (for keeping score levels close to each other).
+    /// </summary>
+    public void CalculateScore()
     {
         scoreAuto = aantalAuto * 10;
         scoreStroom = aantalStroom * 10;
@@ -339,6 +373,12 @@ public class SpelerData
         algemeneScore = Mathf.RoundToInt(basisScore * totaleMultiplier);
     }
 
+    /// <summary>
+    /// Listener method invoked when a project is completed. If the project belongs to this player,
+    /// it parses the requirements of the completed project and increments the correct resource type amounts.
+    /// </summary>
+    /// <param name="player">The player instance who finished the project.</param>
+    /// <param name="completedProject">The details of the project that was just finished.</param>
     public void AddScore(Player player, ProjectData completedProject)
     {
         if (player == null || completedProject == null) return;
@@ -382,6 +422,6 @@ public class SpelerData
         }
 
         // Bereken direct de nieuwe algemeneScore en multipliers
-        BerekenScore();
+        CalculateScore();
     }
 }
