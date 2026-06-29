@@ -44,6 +44,7 @@ public class ModularRadarChart : MaskableGraphic
     [Header("Data (Managed by Score Manager)")]
     [SerializeField] private List<float> normalizedScores = new List<float>();
 
+    // Constant to rotate the chart vertices by -90 degrees, ensuring the first category points straight up.
     private const float RotationOffsetRad = -90f * Mathf.Deg2Rad;
 
     // The UNO-style identity palette
@@ -65,6 +66,10 @@ public class ModularRadarChart : MaskableGraphic
         }
     }
 
+    /// <summary>
+    /// Overrides Unity UI's texture property to generate a crisp 2x2 solid white fallback texture
+    /// if none is assigned, avoiding blurry UI elements or missing material warnings.
+    /// </summary>
     public override Texture mainTexture
     {
         get
@@ -78,6 +83,10 @@ public class ModularRadarChart : MaskableGraphic
         }
     }
 
+    /// <summary>
+    /// Receives fresh score data, maps it dynamically between 0.0 and 1.0 relative to the global max ceiling,
+    /// pushes category UI icons into place, and schedules a redrawing phase for the graphic mesh.
+    /// </summary>
     public void UpdateChartData(int assignedPlayerIndex, List<float> rawScores, float globalMaxValue)
     {
         this.playerIndex = assignedPlayerIndex;
@@ -92,9 +101,14 @@ public class ModularRadarChart : MaskableGraphic
         // Dynamically shift icon layout positions to match current math parameters
         PositionEdgeIcons();
 
+        // Tells Unity's UI Canvas system that this UI mesh needs to be redrawn this frame
         SetVerticesDirty();
     }
 
+    /// <summary>
+    /// Projects points outwards using geometry angles to align category image markers (AUT, STR, etc.)
+    /// beautifully along the perimeter tips of the radar spiderweb.
+    /// </summary>
     private void PositionEdgeIcons()
     {
         if (edgeIcons == null || edgeIcons.Length == 0) return;
@@ -116,6 +130,10 @@ public class ModularRadarChart : MaskableGraphic
         }
     }
 
+    /// <summary>
+    /// The master rendering loop executed by Unity's Canvas UI system.
+    /// It clears previous mesh buffers and structures the rendering layer priority from background to foreground elements.
+    /// </summary>
     protected override void OnPopulateMesh(VertexHelper vh)
     {
         vh.Clear();
@@ -149,6 +167,10 @@ public class ModularRadarChart : MaskableGraphic
         }
     }
 
+    /// <summary>
+    /// Builds a single central root vertex, maps surrounding perimeter vertices at full chart radius,
+    /// and binds them into a uniform dark tinted background shape.
+    /// </summary>
     private void DrawBackgroundTotalFill(VertexHelper vh, int count, float angleStep)
     {
         int baseIndex = vh.currentVertCount;
@@ -176,6 +198,10 @@ public class ModularRadarChart : MaskableGraphic
         }
     }
 
+    /// <summary>
+    /// Iterates through target level concentric rings (e.g. 4 subdivisions), stitching vector lines 
+    /// between adjacent segments, and drops radial grid lines extending from center to corner vertices.
+    /// </summary>
     private void DrawWebGrid(VertexHelper vh, int count, float angleStep)
     {
         for (int level = 1; level <= gridLevels; level++)
@@ -208,6 +234,10 @@ public class ModularRadarChart : MaskableGraphic
         }
     }
 
+    /// <summary>
+    /// Generates a core center anchor and reads unique player data to plot vertices along category axes.
+    /// Stitches them into a colorized translucent polygon matching the player's identity.
+    /// </summary>
     private void DrawScorePolygon(VertexHelper vh, int count, float angleStep)
     {
         int baseIndex = vh.currentVertCount;
@@ -237,6 +267,10 @@ public class ModularRadarChart : MaskableGraphic
         }
     }
 
+    /// <summary>
+    /// Renders thick, fully opaque solid mesh bars around the perimeter edges of the player's 
+    /// personal score shape, creating a clean outer boundary framework.
+    /// </summary>
     private void DrawScoreOutline(VertexHelper vh, int count, float angleStep)
     {
         Color outlineColor = CurrentPlayerSolidColor;
@@ -256,6 +290,10 @@ public class ModularRadarChart : MaskableGraphic
         }
     }
 
+    /// <summary>
+    /// Constructs small circular indicators (composed of 12 triangle fans each) over the 
+    /// score vertex points to give visual markers on each axis tip.
+    /// </summary>
     private void DrawScoreCircles(VertexHelper vh, int count, float angleStep)
     {
         const int segments = 12;
@@ -294,6 +332,10 @@ public class ModularRadarChart : MaskableGraphic
         }
     }
 
+    /// <summary>
+    /// Low-level UI helper that takes two flat positions, calculates perpendicular normal offsets 
+    /// based on thickness parameters, and populates 4 vertices (two triangles) forming a solid rectangle.
+    /// </summary>
     private void DrawLine(VertexHelper vh, Vector2 start, Vector2 end, Color lineColor, float width)
     {
         Vector2 direction = (end - start).normalized;
@@ -312,7 +354,10 @@ public class ModularRadarChart : MaskableGraphic
         vh.AddTriangle(baseIndex, baseIndex + 2, baseIndex + 3);
     }
 
-    // Fallback alignment engine context safety routine
+    /// <summary>
+    /// Engine callback triggered when a value is edited in the Inspector panel. 
+    /// Ensures icon transformations track layout shifts instantly while testing design tweaks.
+    /// </summary>
     protected void OnValidate()
     {
         PositionEdgeIcons();
