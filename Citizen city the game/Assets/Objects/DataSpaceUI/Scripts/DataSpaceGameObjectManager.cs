@@ -24,6 +24,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
     private Player activeplayer;
     private int currenntContractIndex;
     private List<DataSpaceData> activePlayerContracts = new List<DataSpaceData>();
+    //resets the dataspace contracts body and generates the contracts
     public void DataSpaceContractsButton()
     {
         activeplayer = GameController.activePlayer;
@@ -32,7 +33,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
         currenntContractIndex = 0;
         GenerateDataSpaceObjects(activePlayerContracts[currenntContractIndex]);
     }
-
+    //switches between the contracts that are in the list
     public void SwitchDataSpaceContract(int i)
     {
         ClearDataSpaceWindow();
@@ -57,7 +58,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
         }
         GenerateDataSpaceObjects(activePlayerContracts[currenntContractIndex]);
     }
-
+    //checks if it can generate a data space contract and if it can it tells the CreateDataSpaceWindow mehtod to do it
     public void GenerateDataSpaceObjects(DataSpaceData dataSpace)
     {
         if (dataSpace == null)
@@ -76,7 +77,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
 
         CreateDataSpaceWindow(prefabToUse, dataSpace);
     }
-
+    //Clears everything in the gamobject where the contracts are instantiated
     public void ClearDataSpaceWindow()
     {
         foreach (Transform child in dataSpaceContainer)
@@ -85,7 +86,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
         }
 
     }
-
+    //checks if the data space is regional or municipal and gives which prefab to use
     private GameObject GetPrefabForDataSpace(DataSpaceData dataSpace)
     {
         switch (dataSpace.type)
@@ -100,7 +101,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
                 return null;
         }
     }
-
+    //calls the right method to change the inforamtion of the prefab
     private void CreateDataSpaceWindow(GameObject prefab, DataSpaceData dataSpace)
     {
         GameObject dataSpaceWindow = Instantiate(prefab, dataSpaceContainer);
@@ -129,7 +130,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
 
         HandleStamps(dataSpaceWindow, dataSpace);
     }
-
+    //Changes the text of the ragional contarcts to the players names
     private void ChangePlayerTextForRegionalContracts(GameObject dataSpaceWindow)
     {
         ChangeRegionalContractNames playerTextController =
@@ -143,7 +144,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
 
         playerTextController.ChageText(gameController.players);
     }
-
+    //This method handles the stamp that will appear if the contract is complete
     private void HandleStamps(GameObject dataSpaceWindow, DataSpaceData dataSpace)
     {
         EnableStampForContracts stampController =
@@ -165,7 +166,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             stampController.EnableSignedStamp(dataSpace);
         }
     }
-
+    //Adds the enable function of dataspaceController in the municipal data space contract button
     private void SetupEnableButton(Transform container, DataSpaceData dataSpace)
     {
         Transform buttonTransform = container.Find("Button");
@@ -200,7 +201,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             }
         });
     }
-
+    //Adds the invest function of dataspaceController in the regional data space contract buttons
     private void SetupRegionalContractButtons(Transform container, DataSpaceData dataSpace)
     {
         Transform buttonTransform = container.Find("Buttons");
@@ -230,7 +231,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             });
         }
     }
-
+    //Changes the text cost to the appropriate amount of the municipal dataspace
     private void SetupCostText(Transform container, DataSpaceData dataSpace)
     {
         Transform costContainer = container.Find("CostText");
@@ -259,7 +260,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
 
         costText.text = $"Kost: {dataSpace.cost}";
     }
-
+    //Changes the texts costs to the appropriate amount of the regional dataspace
     private void SetupCostTextForRegionalContracts(Transform container, DataSpaceData dataSpace)
     {
         Transform costContainer = container.Find("Cost");
@@ -291,7 +292,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             costText.text = $"Kost: {dataSpace.cost / 2}";
         }
     }
-
+    //Makes the data cards displayed in contarcts interactible
     private void SetupCardClickAreas(Transform container, DataSpaceData dataSpace)
     {
         Transform cardHolder = container.Find("Cards");
@@ -322,7 +323,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             }
         }
     }
-
+    //Set up the right icons and colors to the data cards that are required for the contracts
     private void SetupClickableAreaVisuals(Transform clickableArea, DataSpaceDataRequired dataRequired)
     {
         Image clickableAreaImage = clickableArea.GetComponent<Image>();
@@ -354,7 +355,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
 
         iconImage.sprite = GetIconForDataCardType(dataRequired.cardType);
     }
-
+    //Set up the indication that lest the player know that they have clicked and added the data card
     private bool SetupCheckMark(Transform clickableArea, DataSpaceDataRequired dataRequired)
     {
         Transform checkMark = clickableArea.transform.Find("Check");
@@ -369,7 +370,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             return dataRequired.isMet;
         }
     }
-
+    //Adds the method that lets them invest in the data spcae contreoller in the button
     private void SetupClickableAreaEvent(Transform clickableArea, DataSpaceData dataSpace, DataSpaceDataRequired required)
     {
         Button button = clickableArea.GetComponent<Button>();
@@ -387,7 +388,7 @@ public class DataSpaceGameObjectManager : MonoBehaviour
             checkMark.gameObject.SetActive(required.isMet);
         });
     }
-
+    //Gets the right icon that the SetupClickableAreaVisuals method needs to use
     private Sprite GetIconForDataCardType(DataCardType cardType)
     {
         switch (cardType.dataType)

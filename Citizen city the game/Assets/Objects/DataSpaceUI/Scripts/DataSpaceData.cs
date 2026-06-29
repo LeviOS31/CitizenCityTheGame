@@ -9,8 +9,8 @@ public class DataSpaceData
     public List<DataSpaceDataRequired> neededData = new List<DataSpaceDataRequired>();
     public int cost;
     public bool isEnabled;    
-    public bool player1HasInvested;
-    public bool player2HasInvested;
+    public bool player1HasInvested; //used for the regional contracts
+    public bool player2HasInvested; //used for the regional contracts
     public DataSpaceData (int id, DataSpaceType type, List<DataSpaceDataRequired> neededData, int cost, bool isEnabled, bool player1HasInvested, bool player2HasInvested)
     {
         this.id = id;
